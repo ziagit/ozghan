@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ $work->title }} | Ozghan.au</title>
+    <meta name="description" content="{{ $work->description }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#f2efea;--ink:#23201c;--soft:#5b564f;--clay:#b8541f;--line:#d8d0c6;--display:'Manrope',Arial,sans-serif;--body:'Manrope',Arial,sans-serif}
+        *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body)}a{color:inherit;text-decoration:none}.container{max-width:1120px;margin:auto;padding:0 24px}
+        .site-header{border-bottom:2px solid var(--ink)}.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 24px}.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-size:21px;font-weight:800}.brand img{width:30px;height:30px;object-fit:contain}.brand small{display:block;color:var(--soft);font:400 9px var(--body);letter-spacing:.08em;line-height:1}.nav-links{display:flex;gap:24px;color:var(--soft);font-size:14px;font-weight:bold}.nav-cta,.btn{background:var(--clay);color:#fff;padding:11px 17px;border-radius:3px;font-weight:bold}.page{padding:60px 0 80px}.back{color:var(--clay);font-weight:bold;font-size:14px}.eyebrow{color:var(--clay);font:700 12px var(--body);letter-spacing:.12em;text-transform:uppercase;margin:24px 0 12px}.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:start}.hero-image,.placeholder{width:100%;aspect-ratio:4/3;object-fit:cover;background:linear-gradient(135deg,#b8541f,#3b4a54);border-radius:5px}.details{background:#fff;border:1px solid var(--line);padding:26px;border-radius:5px}.details h1{font-family:var(--display);font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;margin:0 0 20px}.details p{color:var(--soft)}.facts{border-top:1px solid var(--line);margin-top:24px}.fact{display:flex;justify-content:space-between;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}.fact strong{font-size:14px}.fact span{text-align:right;color:var(--soft)}.site-footer{background:var(--ink);color:#c9c4bb;padding:30px 0}.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}.footer-copy{font-size:13px}@media(max-width:760px){.nav-links{display:none}.nav{padding:15px 16px}.layout{grid-template-columns:1fr;gap:24px}.page{padding:36px 0 54px}.footer-inner{align-items:flex-start;flex-direction:column}}
+    </style>
+</head>
+<body>
+<header class="site-header"><nav class="nav container"><a class="brand" href="/"><img src="/logo.png" alt=""><span>Ozghan<small>BRISBANE TILING</small></span></a><div class="nav-links"><a href="/">Home</a><a href="/services">Services</a><a href="/service-area">Service area</a><a href="/our-work">Our work</a></div><a class="nav-cta" href="/quote">Get a quote</a></nav></header>
+<main class="page"><div class="container"><a class="back" href="/our-work">← Back to Our Work</a><div class="layout"><div>@if($work->image_path)<img class="hero-image" src="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" alt="{{ $work->title }}">@else<div class="placeholder" aria-hidden="true"></div>@endif</div><article class="details"><div class="eyebrow">{{ $work->category ?: 'Tiling project' }}</div><h1>{{ $work->title }}</h1><p>{{ $work->description }}</p><div class="facts"><div class="fact"><strong>When</strong><span>{{ $work->completed_at?->format('j F Y') ?: 'Date not provided' }}</span></div><div class="fact"><strong>Where</strong><span>{{ $work->location ?: 'Location not provided' }}</span></div><div class="fact"><strong>Work area</strong><span>{{ $work->area_m2 ? number_format((float) $work->area_m2, 2).' m²' : 'Area not provided' }}</span></div></div><p style="margin-top:26px"><a class="btn" href="/quote">Get a quote for a similar job</a></p></article></div></div></main>
+<footer class="site-footer"><div class="container footer-inner"><div class="brand"><img src="/logo.png" alt=""><span>Ozghan<small>BRISBANE TILING</small></span></div><div class="footer-copy">© {{ date('Y') }} Ozghan.au · Brisbane, Queensland</div></div></footer>
+</body>
+</html>
