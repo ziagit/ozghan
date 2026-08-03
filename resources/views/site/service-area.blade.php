@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Service Area | Ozghan.au Brisbane Tiling</title>
-<meta name="description" content="Ozghan currently services Brisbane, Queensland, including the CBD and surrounding suburbs.">
+<title>Brisbane Tiling Service Areas | Ozghan.au</title>
+<meta name="description" content="Find a trusted Brisbane tiler serving Brisbane CBD and surrounding suburbs, including New Farm, Paddington, West End, Toowong and Indooroopilly.">
+@include('site.partials.seo', ['seoTitle' => 'Brisbane Tiling Service Areas | Ozghan.au', 'seoDescription' => 'Find a trusted Brisbane tiler serving Brisbane CBD and surrounding suburbs, including New Farm, Paddington, West End, Toowong and Indooroopilly.'])
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -544,6 +545,8 @@ section{ padding:88px 0; }
 </head>
 <body>
 <a class="sr-only" href="#main">Skip to content</a>
+@include('site.partials.header')
+@if(false)
 <header class="site-header">
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.au home">
@@ -564,6 +567,7 @@ section{ padding:88px 0; }
     </div>
   </div>
 </header>
+@endif
 
 <main id="main">
 <header class="page-header">
@@ -633,6 +637,8 @@ section{ padding:88px 0; }
 </section>
 
 </main>
+@include('site.partials.footer')
+@if(false)
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
@@ -676,6 +682,7 @@ section{ padding:88px 0; }
     </div>
   </div>
 </footer>
+@endif
 
 <div class="modal-overlay" id="quote-modal">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title" tabindex="-1">

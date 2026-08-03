@@ -11,6 +11,7 @@ Route::view('/about', 'site.about');
 Route::view('/contact', 'site.contact');
 Route::get('/our-work', [SiteController::class, 'ourWork']);
 Route::get('/our-work/{slug}', [SiteController::class, 'workDetails']);
+Route::get('/sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
 Route::get('/service-area', [SiteController::class, 'serviceArea']);
 Route::get('/services', [SiteController::class, 'services']);
 Route::view('/quote', 'site.quote');

@@ -49,4 +49,14 @@ class SiteController extends Controller
 
         return view('site.work-details', compact('work'));
     }
+
+    public function sitemap()
+    {
+        $works = collect();
+        try { $works = Work::where('is_active', true)->get(['slug', 'updated_at']); } catch (\Throwable) { }
+
+        return response()
+            ->view('site.sitemap', compact('works'))
+            ->header('Content-Type', 'application/xml');
+    }
 }

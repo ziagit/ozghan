@@ -4,8 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Our Work | Ozghan.au Brisbane Tiling</title>
-<meta name="description" content="A selection of recent tiling jobs completed by Ozghan across Brisbane suburbs.">
+<title>Our Work | Brisbane Tiling Projects | Ozghan.au</title>
+<meta name="description" content="See completed bathroom, kitchen, floor, outdoor and commercial tiling projects by Ozghan across Brisbane suburbs.">
+@include('site.partials.seo', ['seoTitle' => 'Our Work | Brisbane Tiling Projects | Ozghan.au', 'seoDescription' => 'See completed bathroom, kitchen, floor, outdoor and commercial tiling projects by Ozghan across Brisbane suburbs.'])
+@php
+    $workSchemaItems = collect($works ?? [])->values()->map(fn ($work, $index) => [
+        '@type' => 'ListItem',
+        'position' => $index + 1,
+        'name' => $work->title,
+        'url' => url('/our-work/'.$work->slug),
+    ])->all();
+@endphp
+<script type="application/ld+json">{!! json_encode(['@context' => 'https://schema.org', '@type' => 'CollectionPage', 'name' => 'Brisbane Tiling Projects', 'url' => url('/our-work'), 'about' => ['@type' => 'Service', 'name' => 'Brisbane tiling services'], 'mainEntity' => ['@type' => 'ItemList', 'itemListElement' => $workSchemaItems]], JSON_UNESCAPED_SLASHES) !!}</script>
+<script type="application/ld+json">{!! json_encode(['@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => [['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')], ['@type' => 'ListItem', 'position' => 2, 'name' => 'Our Work', 'item' => url('/our-work')]]], JSON_UNESCAPED_SLASHES) !!}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -434,6 +445,7 @@ section{ padding:88px 0; }
 .gallery-card .caption .tag{ font-family:var(--font-mono); font-size:0.72rem; color:var(--clay-dark); text-transform:uppercase; letter-spacing:0.06em; display:block; margin-bottom:4px; }
 .gallery-card .caption h3{ font-size:1rem; margin-bottom:2px; }
 .gallery-card .caption p{ font-size:0.85rem; margin:0; }
+.gallery-card .work-meta{ display:block; margin-top:10px; color:var(--ink-soft); font-family:var(--font-mono); font-size:0.7rem; }
 
 /* palette variants so each photo-style swatch looks distinct */
 .p1{ --pattern-grad: linear-gradient(135deg, var(--clay) 0%, var(--slate) 100%); }
@@ -545,6 +557,8 @@ section{ padding:88px 0; }
 </head>
 <body>
 <a class="sr-only" href="#main">Skip to content</a>
+@include('site.partials.header')
+@if(false)
 <header class="site-header">
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.au home">
@@ -565,6 +579,7 @@ section{ padding:88px 0; }
     </div>
   </div>
 </header>
+@endif
 
 <main id="main">
 <header class="page-header">
@@ -576,7 +591,7 @@ section{ padding:88px 0; }
 
 <section class="section-tight">
   <div class="container">
-    <p style="max-width:60ch; font-size:1.05rem;">A sample of recent work by suburb and job type. Photos from your own completed jobs can be dropped in here.</p>
+    <p style="max-width:68ch; font-size:1.05rem;">Explore completed tiling projects across Brisbane, from waterproofed bathrooms and kitchen splashbacks to indoor floors, alfresco areas and commercial fit-outs. Each project shows the suburb, completion date and approximate tiled area where available.</p>
   </div>
 </section>
 
@@ -588,11 +603,11 @@ section{ padding:88px 0; }
       @foreach($works as $work)
       <a class="gallery-card" href="/our-work/{{ $work->slug }}">
         @if($work->image_path)
-        <img class="gallery-image" src="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" alt="{{ $work->title }}">
+        <img class="gallery-image" loading="lazy" src="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" alt="{{ $work->title }}">
         @else
         <div class="gallery-swatch p{{ ($loop->index % 6) + 1 }}" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
         @endif
-        <div class="caption"><span class="tag">{{ $work->category }}</span><h3>{{ $work->title }}</h3><p>{{ $work->description }}</p></div>
+        <div class="caption"><span class="tag">{{ $work->category ?: 'Brisbane tiling project' }}</span><h3>{{ $work->title }}</h3><p>{{ $work->description }}</p><small class="work-meta">{{ $work->location ?: 'Brisbane' }}{{ $work->completed_at ? ' · '.$work->completed_at->format('Y') : '' }}{{ $work->area_m2 ? ' · '.number_format((float) $work->area_m2, 2).' m²' : '' }}</small></div>
       </a>
       @endforeach
       @else
@@ -643,6 +658,8 @@ section{ padding:88px 0; }
 </section>
 
 </main>
+@include('site.partials.footer')
+@if(false)
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
@@ -686,6 +703,7 @@ section{ padding:88px 0; }
     </div>
   </div>
 </footer>
+@endif
 
 <div class="modal-overlay" id="quote-modal">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title" tabindex="-1">

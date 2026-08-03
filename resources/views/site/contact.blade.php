@@ -6,6 +6,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Request a Quote | Ozghan.au Brisbane Tiling</title>
 <meta name="description" content="Contact Ozghan for a Brisbane tiling quote or general enquiry.">
+@include('site.partials.seo', ['seoTitle' => 'Contact Ozghan.au | Brisbane Tiling', 'seoDescription' => 'Contact Ozghan for a Brisbane tiling quote or general enquiry.'])
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -544,6 +545,8 @@ section{ padding:88px 0; }
 </head>
 <body>
 <a class="sr-only" href="#main">Skip to content</a>
+@include('site.partials.header')
+@if(false)
 <header class="site-header">
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.au home">
@@ -564,6 +567,7 @@ section{ padding:88px 0; }
     </div>
   </div>
 </header>
+@endif
 
 <main id="main">
 <header class="page-header">
@@ -623,6 +627,8 @@ section{ padding:88px 0; }
 </section>
 
 </main>
+@include('site.partials.footer')
+@if(false)
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
@@ -666,6 +672,7 @@ section{ padding:88px 0; }
     </div>
   </div>
 </footer>
+@endif
 
 <div class="modal-overlay" id="quote-modal">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title" tabindex="-1">
