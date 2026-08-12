@@ -1,5 +1,9 @@
 <style>
   .site-header{position:sticky!important;top:0!important;z-index:50!important;background:var(--bg)!important;border-bottom:2px solid var(--ink)!important}
+  .site-header-home{position:absolute!important;top:0!important;left:0!important;width:100%!important;background:transparent!important;border-bottom:0!important}
+  .site-header-home .nav-links a{color:var(--white)!important}
+  .site-header-home .brand, .site-header-home .brand small{color:var(--white)!important}
+  .site-header-home .nav-toggle span, .site-header-home .nav-toggle span::before, .site-header-home .nav-toggle span::after{background:var(--white)!important}
   .site-header .nav{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:0!important;padding-top:18px!important;padding-bottom:18px!important}
   .site-header .brand{display:flex!important;align-items:center!important;gap:12px!important;font-family:var(--font-display, var(--display, Arial))!important;font-weight:800!important;font-size:1.3rem!important;letter-spacing:-.02em!important}
   .site-header .brand img{display:block!important;width:30px!important;height:30px!important;object-fit:contain!important}
@@ -12,7 +16,7 @@
   @media(max-width:860px){.site-header .nav-links{position:absolute!important;top:100%!important;left:0!important;right:0!important;background:var(--bg)!important;border-bottom:2px solid var(--ink)!important;flex-direction:column!important;align-items:flex-start!important;gap:0!important;padding:8px 24px 20px!important;display:none!important}.site-header .nav-links.open{display:flex!important}.site-header .nav-toggle{display:block!important}.site-header .nav-cta .btn{display:none!important}}
 </style>
 <a class="sr-only" href="#main">Skip to content</a>
-<header class="site-header">
+<header class="site-header @if(request()->is('/')) site-header-home @endif">
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.au home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
@@ -20,10 +24,11 @@
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/" data-nav="home" @if(request()->is('/')) aria-current="page" @endif>Home</a>
+      <a href="/services#residential-tiling" data-nav="residential">Residential</a>
+      <a href="/services#commercial-tiling" data-nav="commercial">Commercial</a>
+      <a href="/service-area" data-nav="area" @if(request()->is('service-area')) aria-current="page" @endif>Service area</a>
+      <a href="/our-work" data-nav="work" @if(request()->is('our-work*')) aria-current="page" @endif>Our work</a>
       <a href="/about" data-nav="about" @if(request()->is('about')) aria-current="page" @endif>About</a>
-      <a href="/services" data-nav="services" @if(request()->is('services')) aria-current="page" @endif>Services</a>
-      <a href="/our-work" data-nav="work" @if(request()->is('our-work*')) aria-current="page" @endif>Our Work</a>
-      <a href="/service-area" data-nav="area" @if(request()->is('service-area')) aria-current="page" @endif>Service Area</a>
       <a href="/contact" data-nav="contact" @if(request()->is('contact')) aria-current="page" @endif>Contact</a>
     </nav>
     <div class="nav-cta">

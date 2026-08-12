@@ -402,7 +402,29 @@ section{ padding:88px 0; }
    ========================================================= */
 .page-header{ background:var(--ink); color:var(--bg); padding:64px 0 48px; }
 .page-header h1{ color:var(--bg); font-size:clamp(2rem, 4vw, 2.8rem); }
+.page-header p{ max-width:60ch; margin:16px 0 0; color:#C9C4BB; font-size:1.05rem; }
 .breadcrumb{ font-family:var(--font-mono); font-size:0.78rem; color:var(--clay-tint); margin-bottom:16px; text-transform:uppercase; letter-spacing:0.08em; }
+.service-category-heading{ padding:24px 0 16px; scroll-margin-top:96px; }
+.services-page .cta-banner{ margin-top:64px; }
+.service-category-heading h2{ margin:0; }
+.service-tabs{ display:flex; gap:8px; padding:0 0 32px; }
+.service-tabs-section{ padding:24px 0 24px; }
+.service-tab{ appearance:none; border:2px solid var(--ink); background:transparent; color:var(--ink); padding:12px 24px; font:700 .95rem var(--font-display); cursor:pointer; }
+.service-tab[aria-selected="true"]{ background:var(--ink); color:var(--bg); }
+.service-tab:focus-visible{ outline:3px solid var(--clay); outline-offset:3px; }
+.service-tab-panel{ display:none; }
+.service-tab-panel.active{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:24px; width:100%; max-width:var(--container); margin:0 auto; padding:0 24px; box-sizing:border-box; }
+.service-tab-panel > .service-category-heading{ grid-column:1 / -1; }
+.service-tab-panel > .grout-rule{ display:none; }
+.service-tab-panel > section:not(.service-category-heading){ background:var(--white); border:1px solid var(--line); border-radius:10px; overflow:hidden; box-shadow:0 1px 3px rgba(35,32,28,0.05); padding:0; }
+.service-tab-panel > section:not(.service-category-heading) .container{ width:auto; max-width:none; padding:0; }
+.service-tab-panel > section:not(.service-category-heading) .two-col{ display:flex; flex-direction:column; gap:0; align-items:stretch; height:100%; }
+.service-tab-panel > section:not(.service-category-heading) .two-col > div:first-child{ padding:24px; }
+.service-tab-panel > section:not(.service-category-heading) .service-image,
+.service-tab-panel > section:not(.service-category-heading) img{ width:100%; order:-1; }
+@media (max-width:900px){ .service-tab-panel.active{ grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+@media (max-width:560px){ .service-tab-panel.active{ grid-template-columns:1fr; } }
+@media (max-width:560px){ .service-tabs{ display:grid; grid-template-columns:1fr 1fr; } .service-tab{ padding:12px 10px; } }
 
 /* =========================================================
    About page bits
@@ -575,23 +597,32 @@ section{ padding:88px 0; }
 </header>
 @endif
 
-<main id="main">
+<main id="main" class="services-page">
 <header class="page-header">
   <div class="container">
     <div class="breadcrumb">Services</div>
-    <h1>Tiling services across Brisbane</h1>
+    <h1>Residential &amp; Commercial Tiling Services</h1>
+    <p>Professional tiling for homes, businesses and commercial spaces across Brisbane, with dependable preparation, clean finishes and reliable scheduling from start to finish.</p>
   </div>
 </header>
 
-<section class="section-tight">
+<section class="service-tabs-section" aria-label="Service type">
   <div class="container">
-    <p style="max-width:60ch; font-size:1.05rem;">Nine services, one crew, one standard of finish. Select a service below to see what's included, or jump straight to a quote.</p>
+    <div class="service-tabs" role="tablist" aria-label="Choose a service type">
+      <button class="service-tab" id="residential-tab" type="button" role="tab" aria-selected="true" aria-controls="residential-panel" data-service-tab="residential">Residential</button>
+      <button class="service-tab" id="commercial-tab" type="button" role="tab" aria-selected="false" aria-controls="commercial-panel" data-service-tab="commercial">Commercial</button>
+    </div>
   </div>
 </section>
 
-<div class="grout-rule"></div>
-
 @if(isset($services) && $services->isNotEmpty())
+<div class="service-tab-panel active" id="residential-panel" data-service-panel="residential" role="tabpanel" aria-labelledby="residential-tab">
+<section class="service-category-heading" id="residential-tiling">
+  <div class="container">
+    <div class="eyebrow">Residential</div>
+    <h2>Residential Tiling</h2>
+  </div>
+</section>
 @foreach($services as $service)
 <section class="{{ $loop->even ? 'section-alt' : '' }}" id="{{ $service->slug }}">
   <div class="container two-col">
@@ -610,7 +641,34 @@ section{ padding:88px 0; }
 </section>
 <div class="grout-rule"></div>
 @endforeach
+ </div>
+<div class="service-tab-panel" id="commercial-panel" data-service-panel="commercial" role="tabpanel" aria-labelledby="commercial-tab">
+<section class="service-category-heading" id="commercial-tiling">
+  <div class="container">
+    <div class="eyebrow">Commercial</div>
+    <h2>Commercial Tiling</h2>
+  </div>
+</section>
+<section>
+  <div class="container two-col">
+    <div>
+      <div class="eyebrow eyebrow-icon"><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></svg></span>Commercial</div>
+      <h2>Commercial Tiling</h2>
+      <p>Tiling for shopfronts, offices, hospitality fit-outs and common areas, scoped and scheduled around your trading hours to keep disruption to a minimum.</p>
+      <button class="btn btn-primary" data-open-quote data-service="Commercial Tiling">Get a Quote for This</button>
+    </div>
+    <div class="service-image svc-9 rounded-media" aria-hidden="true" style="aspect-ratio:4/3;"></div>
+  </div>
+</section>
+</div>
 @else
+<div class="service-tab-panel active" id="residential-panel" data-service-panel="residential" role="tabpanel" aria-labelledby="residential-tab">
+<section class="service-category-heading" id="residential-tiling">
+  <div class="container">
+    <div class="eyebrow">Residential</div>
+    <h2>Residential Tiling</h2>
+  </div>
+</section>
 <section id="bathroom-tiling">
   <div class="container two-col">
     <div>
@@ -723,7 +781,16 @@ section{ padding:88px 0; }
 
 <div class="grout-rule"></div>
 
-<section id="commercial-tiling">
+ </div>
+<div class="service-tab-panel" id="commercial-panel" data-service-panel="commercial" role="tabpanel" aria-labelledby="commercial-tab">
+<section class="service-category-heading" id="commercial-tiling">
+  <div class="container">
+    <div class="eyebrow">Commercial</div>
+    <h2>Commercial Tiling</h2>
+  </div>
+</section>
+
+<section id="commercial-tiling-detail">
   <div class="container two-col">
     <div>
       <div class="eyebrow eyebrow-icon"><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></svg></span>Commercial</div>
@@ -734,6 +801,7 @@ section{ padding:88px 0; }
     <div class="service-image svc-9 rounded-media" aria-hidden="true" style="aspect-ratio:4/3;"></div>
   </div>
 </section>
+</div>
 
 @endif
 
@@ -930,7 +998,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initQuoteModal();
   initContactForm();
+  initServiceTabs();
 });
+
+function initServiceTabs() {
+  const tabs = document.querySelectorAll('[data-service-tab]');
+  const panels = document.querySelectorAll('[data-service-panel]');
+  if (!tabs.length || !panels.length) return;
+
+  function activate(type, updateHash = false) {
+    tabs.forEach(tab => {
+      const selected = tab.dataset.serviceTab === type;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+    });
+    panels.forEach(panel => {
+      const active = panel.dataset.servicePanel === type;
+      panel.classList.toggle('active', active);
+      panel.hidden = !active;
+    });
+    if (updateHash) history.replaceState(null, '', `#${type}-tiling`);
+  }
+
+  const initialType = window.location.hash === '#commercial-tiling' ? 'commercial' : 'residential';
+  activate(initialType);
+  if (window.location.hash === '#commercial-tiling') {
+    requestAnimationFrame(() => document.getElementById('commercial-tiling')?.scrollIntoView());
+  }
+  tabs.forEach(tab => tab.addEventListener('click', () => activate(tab.dataset.serviceTab, true)));
+}
 
 /* =========================================================
    Quote / booking modal — 4 step flow:

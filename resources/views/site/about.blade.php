@@ -590,7 +590,7 @@ section{ padding:88px 0; }
         <div><strong>Brisbane</strong><span>Based &amp; local</span></div>
       </div>
     </div>
-    <div class="service-image svc-5 rounded-media" aria-hidden="true" style="aspect-ratio:4/3;"></div>
+    <img class="service-image rounded-media" src="/images/about.avif" alt="Ozghan tiling team at work" style="width:100%; aspect-ratio:4/3; object-fit:cover;">
   </div>
 </section>
 

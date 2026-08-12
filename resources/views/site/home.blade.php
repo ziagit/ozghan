@@ -190,12 +190,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ========================================================= */
 .hero{
   position:relative;
+  height:100vh;
   background:var(--ink);
   color:var(--bg);
   overflow:hidden;
 }
+.hero::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:100vh;
+  background:
+    linear-gradient(rgba(23,21,18,0.62), rgba(23,21,18,0.62)),
+    url('/images/home-hero.jpeg') center/cover no-repeat;
+}
 .hero-inner{
   position:relative; z-index:2;
+  height:100%;
+  box-sizing:border-box;
   padding-top:110px; padding-bottom:90px;
   display:grid;
   grid-template-columns:1.1fr 0.9fr;
@@ -213,19 +225,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   aspect-ratio:1;
   border-radius:12px;
   overflow:hidden;
-  background:linear-gradient(160deg, #3A4B55 0%, #252622 72%);
-  border:1px solid rgba(255,255,255,0.14);
+  background:transparent;
+  border:0;
   box-shadow:0 30px 60px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+.hero-visual::after{
+  content:'';
+  position:absolute; inset:0;
+  z-index:0;
+  background:linear-gradient(160deg, rgba(58,75,85,0.5) 0%, rgba(37,38,34,0.5) 72%);
 }
 .hero-visual::before{
   content:'';
   position:absolute; inset:0;
+  z-index:1;
   background-image:
     repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 56px),
     repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 56px);
 }
 .hero-tile{
   position:absolute;
+  z-index:2;
   border-radius:3px;
   opacity:0;
   animation:lay-tile .6s ease forwards;
@@ -576,8 +596,8 @@ section{ padding:88px 0; }
   <div class="container hero-inner">
     <div>
       <div class="hero-eyebrow">Brisbane &middot; Licensed Tilers</div>
-      <h1>Brisbane tiling, <em>laid right</em>.</h1>
-      <p>Bathrooms, kitchens, floors and commercial fit-outs — tiled level, sealed properly, and finished on the day we promise.</p>
+      <h1>Your Trusted Tiling Professionals</h1>
+      <p>Ozghan provides professional residential and commercial tiling services for indoor and outdoor spaces, finished with precision and built to last.</p>
       <div class="hero-ctas">
         <button class="btn btn-primary" data-open-quote>Get a Quote</button>
         <a class="btn btn-ghost" href="/our-work">View Our Work</a>
@@ -685,22 +705,18 @@ section{ padding:88px 0; }
     @if(isset($homeWorks) && $homeWorks->isNotEmpty())
     <div class="work-row">
       @foreach($homeWorks as $work)
-      <a class="work-thumb svc-{{ ($loop->index % 9) + 1 }}" href="/our-work#{{ $work->slug }}" aria-label="{{ $work->title }}"><span class="work-thumb-label">{{ $work->category }} · {{ $work->title }}</span></a>
+      <a class="work-thumb svc-{{ ($loop->index % 9) + 1 }}" href="/our-work#{{ $work->slug }}" aria-label="{{ $work->title }}"></a>
       @endforeach
     </div>
     @else
     <div class="work-row">
       <a class="work-thumb svc-1" href="/our-work" aria-label="Bathroom retile, New Farm">
-        <span class="work-thumb-label">Bathroom &middot; New Farm</span>
       </a>
       <a class="work-thumb svc-2" href="/our-work" aria-label="Kitchen splashback, Paddington">
-        <span class="work-thumb-label">Kitchen &middot; Paddington</span>
       </a>
       <a class="work-thumb svc-3" href="/our-work" aria-label="Outdoor tiling, West End">
-        <span class="work-thumb-label">Outdoor &middot; West End</span>
       </a>
       <a class="work-thumb svc-7" href="/our-work" aria-label="Bathroom renovation, Toowong">
-        <span class="work-thumb-label">Renovation &middot; Toowong</span>
       </a>
     </div>
     @endif
@@ -711,11 +727,11 @@ section{ padding:88px 0; }
   <div class="container two-col">
     <div>
       <div class="eyebrow">Service Area</div>
-      <h2>Based in Brisbane, working across the city</h2>
-      <p>We currently take on jobs across greater Brisbane — from the CBD and inner suburbs out to the surrounding areas. If you're not sure we cover your address, ask when you request a quote.</p>
+      <h2>Based in Brisbane, working across the city and surrounding cities</h2>
+      <p>We provide residential and commercial tiling across Brisbane, the surrounding suburbs, and nearby cities. If you're not sure we cover your address, ask when you request a quote.</p>
       <a class="btn btn-outline" href="/service-area">See the full service area</a>
     </div>
-    <div class="service-image svc-4 rounded-media" aria-hidden="true" style="aspect-ratio:4/3;"></div>
+    <img class="service-image rounded-media" src="/images/service-area.avif" alt="Ozghan tiling services across Brisbane and surrounding cities" style="width:100%; object-fit:cover; aspect-ratio:4/3;">
   </div>
 </section>
 
