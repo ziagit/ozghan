@@ -4,15 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Brisbane Tiling Service Areas | Ozghan.au</title>
+<title>Brisbane Tiling Service Areas | Ozghan.com</title>
 <meta name="description" content="Find a trusted Brisbane tiler serving Brisbane CBD and surrounding suburbs, including New Farm, Paddington, West End, Toowong and Indooroopilly.">
-@include('site.partials.seo', ['seoTitle' => 'Brisbane Tiling Service Areas | Ozghan.au', 'seoDescription' => 'Find a trusted Brisbane tiler serving Brisbane CBD and surrounding suburbs, including New Farm, Paddington, West End, Toowong and Indooroopilly.'])
+@include('site.partials.seo', ['seoTitle' => 'Brisbane Tiling Service Areas | Ozghan.com', 'seoDescription' => 'Find a trusted Brisbane tiler serving Brisbane CBD and surrounding suburbs, including New Farm, Paddington, West End, Toowong and Indooroopilly.'])
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 /* =========================================================
-   Ozghan.au — Brisbane Tiling
+   Ozghan.com — Brisbane Tiling
    Design tokens
    ========================================================= */
 :root{
@@ -451,6 +453,8 @@ section{ padding:88px 0; }
 .suburb-list li{ font-size:0.94rem; padding:8px 0; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:10px; }
 .map-frame{ border:var(--grout) solid var(--ink); border-radius:var(--radius-md); overflow:hidden; height:420px; }
 .map-frame iframe{ width:100%; height:100%; border:0; }
+.map-frame > div{ width:100%; height:100%; }
+.map-marker{ width:18px; height:18px; border-radius:50% 50% 50% 0; background:var(--clay); border:3px solid #fff; box-shadow:0 2px 7px rgba(0,0,0,.3); transform:rotate(-45deg); }
 
 /* =========================================================
    Forms
@@ -549,7 +553,7 @@ section{ padding:88px 0; }
 @if(false)
 <header class="site-header">
   <div class="container nav">
-    <a href="/" class="brand" aria-label="Ozghan.au home">
+    <a href="/" class="brand" aria-label="Ozghan.com home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
       <span>Ozghan<small>TILING BRISBANE</small></span>
     </a>
@@ -586,14 +590,20 @@ section{ padding:88px 0; }
       <p>As we grow, our service area will expand to more of South East Queensland. If your suburb isn't listed, get in touch and ask — we may still be able to help.</p>
     </div>
     <div class="map-frame">
-      <iframe
-        title="Map of Brisbane, Queensland service area"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=152.9%2C-27.6%2C153.15%2C-27.35&layer=mapnik&marker=-27.4698%2C153.0251"
-        loading="lazy">
-      </iframe>
+      <div id="service-area-map" aria-label="Map of Brisbane, Queensland service area"></div>
     </div>
   </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const mapElement = document.getElementById('service-area-map');
+  if (!mapElement || typeof L === 'undefined') return;
+  const map = L.map(mapElement).setView([-27.4698, 153.0251], 11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+  L.marker([-27.4698, 153.0251], { icon: L.divIcon({ className: '', html: '<div class="map-marker"></div>', iconSize: [18, 18], iconAnchor: [9, 18] }) }).addTo(map);
+});
+</script>
 
 <section class="section-alt">
   <div class="container">
@@ -670,14 +680,14 @@ section{ padding:88px 0; }
       <div>
         <h4>Contact</h4>
         <ul class="contact-list">
-          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><a href="tel:+61700000000">(07) 0000 0000</a></li>
-          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><a href="mailto:contact@ozghan.au">contact@ozghan.au</a></li>
+          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><a href="tel:+61468430893">0468 430 893</a></li>
+          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><a href="mailto:contact@ozghan.com">contact@ozghan.com</a></li>
           <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span>Brisbane, QLD</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year></span> Ozghan.au — All rights reserved.</span>
+      <span>&copy; 2026 Ozghan.com — All rights reserved.</span>
       <span>ABN 00 000 000 000 &middot; Licensed &amp; insured</span>
     </div>
   </div>
@@ -794,7 +804,7 @@ section{ padding:88px 0; }
 
 <script>
 // =========================================================
-// Ozghan.au — shared behaviour
+// Ozghan.com — shared behaviour
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {

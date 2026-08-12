@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>About | Ozghan.au Brisbane Tiling</title>
+<title>About | Ozghan.com Brisbane Tiling</title>
 <meta name="description" content="Learn about Ozghan, a Brisbane tiling company focused on precision, reliability and craftsmanship.">
-@include('site.partials.seo', ['seoTitle' => 'About Ozghan.au | Brisbane Tiling', 'seoDescription' => 'Learn about Ozghan, a Brisbane tiling company focused on precision, reliability and craftsmanship.'])
+@include('site.partials.seo', ['seoTitle' => 'About Ozghan.com | Brisbane Tiling', 'seoDescription' => 'Learn about Ozghan, a Brisbane tiling company focused on precision, reliability and craftsmanship.'])
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
-   Ozghan.au — Brisbane Tiling
+   Ozghan.com — Brisbane Tiling
    Design tokens
    ========================================================= */
 :root{
@@ -549,7 +549,7 @@ section{ padding:88px 0; }
 @if(false)
 <header class="site-header">
   <div class="container nav">
-    <a href="/" class="brand" aria-label="Ozghan.au home">
+    <a href="/" class="brand" aria-label="Ozghan.com home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
       <span>Ozghan<small>TILING BRISBANE</small></span>
     </a>
@@ -664,14 +664,14 @@ section{ padding:88px 0; }
       <div>
         <h4>Contact</h4>
         <ul class="contact-list">
-          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><a href="tel:+61700000000">(07) 0000 0000</a></li>
-          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><a href="mailto:contact@ozghan.au">contact@ozghan.au</a></li>
+          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><a href="tel:+61468430893">0468 430 893</a></li>
+          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><a href="mailto:contact@ozghan.com">contact@ozghan.com</a></li>
           <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span>Brisbane, QLD</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year></span> Ozghan.au — All rights reserved.</span>
+      <span>&copy; 2026 Ozghan.com — All rights reserved.</span>
       <span>ABN 00 000 000 000 &middot; Licensed &amp; insured</span>
     </div>
   </div>
@@ -788,7 +788,7 @@ section{ padding:88px 0; }
 
 <script>
 // =========================================================
-// Ozghan.au — shared behaviour
+// Ozghan.com — shared behaviour
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,6 +1,6 @@
 <link rel="canonical" href="{{ url()->current() }}">
 <meta property="og:type" content="{{ $seoType ?? 'website' }}">
-<meta property="og:site_name" content="Ozghan.au">
+<meta property="og:site_name" content="Ozghan.com">
 <meta property="og:title" content="{{ $seoTitle }}">
 <meta property="og:description" content="{{ $seoDescription }}">
 <meta property="og:url" content="{{ url()->current() }}">
@@ -13,13 +13,13 @@
 {!! json_encode([
     '@context' => 'https://schema.org',
     '@type' => 'LocalBusiness',
-    '@id' => 'https://ozghan.au/#business',
-    'name' => 'Ozghan.au',
-    'url' => 'https://ozghan.au',
+    '@id' => 'https://ozghan.com/#business',
+    'name' => 'Ozghan.com',
+    'url' => 'https://ozghan.com',
     'logo' => asset('logo.png'),
     'image' => asset('logo.png'),
     'description' => $seoDescription,
-    'email' => 'contact@ozghan.au',
+    'email' => 'contact@ozghan.com',
     'priceRange' => '$$',
     'address' => [
         '@type' => 'PostalAddress',

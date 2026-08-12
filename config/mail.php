@@ -111,9 +111,9 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'contact@ozghan.au'),
+        'address' => env('MAIL_FROM_ADDRESS', 'contact@ozghan.com'),
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
-    'admin_address' => env('MAIL_ADMIN_ADDRESS', 'contact@ozghan.au'),
+    'admin_address' => env('MAIL_ADMIN_ADDRESS', 'contact@ozghan.com'),
 
 ];

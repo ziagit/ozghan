@@ -4,15 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Request a Quote | Ozghan.au Brisbane Tiling</title>
+<title>Request a Quote | Ozghan.com Brisbane Tiling</title>
 <meta name="description" content="Contact Ozghan for a Brisbane tiling quote or general enquiry.">
-@include('site.partials.seo', ['seoTitle' => 'Contact Ozghan.au | Brisbane Tiling', 'seoDescription' => 'Contact Ozghan for a Brisbane tiling quote or general enquiry.'])
+@include('site.partials.seo', ['seoTitle' => 'Contact Ozghan.com | Brisbane Tiling', 'seoDescription' => 'Contact Ozghan for a Brisbane tiling quote or general enquiry.'])
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 /* =========================================================
-   Ozghan.au — Brisbane Tiling
+   Ozghan.com — Brisbane Tiling
    Design tokens
    ========================================================= */
 :root{
@@ -451,6 +453,8 @@ section{ padding:88px 0; }
 .suburb-list li{ font-size:0.94rem; padding:8px 0; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:10px; }
 .map-frame{ border:var(--grout) solid var(--ink); border-radius:var(--radius-md); overflow:hidden; height:420px; }
 .map-frame iframe{ width:100%; height:100%; border:0; }
+.map-frame > div{ width:100%; height:100%; }
+.map-marker{ width:18px; height:18px; border-radius:50% 50% 50% 0; background:var(--clay); border:3px solid #fff; box-shadow:0 2px 7px rgba(0,0,0,.3); transform:rotate(-45deg); }
 
 /* =========================================================
    Forms
@@ -549,7 +553,7 @@ section{ padding:88px 0; }
 @if(false)
 <header class="site-header">
   <div class="container nav">
-    <a href="/" class="brand" aria-label="Ozghan.au home">
+    <a href="/" class="brand" aria-label="Ozghan.com home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
       <span>Ozghan<small>TILING BRISBANE</small></span>
     </a>
@@ -610,21 +614,27 @@ section{ padding:88px 0; }
     <div>
       <div class="info-card">
         <h3>Ozghan Tiling</h3>
-        <div class="row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><span class="label">Phone</span><a href="tel:+61700000000">(07) 0000 0000</a></div>
-        <div class="row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><span class="label">Email</span><a href="mailto:contact@ozghan.au">contact@ozghan.au</a></div>
+        <div class="row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><span class="label">Phone</span><a href="tel:+61468430893">0468 430 893</a></div>
+        <div class="row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><span class="label">Email</span><a href="mailto:contact@ozghan.com">contact@ozghan.com</a></div>
         <div class="row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span><span class="label">Area</span><span>Brisbane, QLD</span></div>
         <div class="row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="label">Hours</span><span>Mon&ndash;Fri, 7am&ndash;4pm</span></div>
       </div>
       <div class="map-frame" style="margin-top:24px; height:260px;">
-        <iframe
-          title="Map of Brisbane, Queensland"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=152.9%2C-27.6%2C153.15%2C-27.35&layer=mapnik&marker=-27.4698%2C153.0251"
-          loading="lazy">
-        </iframe>
+        <div id="contact-map" aria-label="Map of Brisbane, Queensland"></div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const mapElement = document.getElementById('contact-map');
+  if (!mapElement || typeof L === 'undefined') return;
+  const map = L.map(mapElement).setView([-27.4698, 153.0251], 11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+  L.marker([-27.4698, 153.0251], { icon: L.divIcon({ className: '', html: '<div class="map-marker"></div>', iconSize: [18, 18], iconAnchor: [9, 18] }) }).addTo(map);
+});
+</script>
 
 </main>
 @include('site.partials.footer')
@@ -660,14 +670,14 @@ section{ padding:88px 0; }
       <div>
         <h4>Contact</h4>
         <ul class="contact-list">
-          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><a href="tel:+61700000000">(07) 0000 0000</a></li>
-          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><a href="mailto:contact@ozghan.au">contact@ozghan.au</a></li>
+          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><a href="tel:+61468430893">0468 430 893</a></li>
+          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><a href="mailto:contact@ozghan.com">contact@ozghan.com</a></li>
           <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span>Brisbane, QLD</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year></span> Ozghan.au — All rights reserved.</span>
+      <span>&copy; 2026 Ozghan.com — All rights reserved.</span>
       <span>ABN 00 000 000 000 &middot; Licensed &amp; insured</span>
     </div>
   </div>
@@ -784,7 +794,7 @@ section{ padding:88px 0; }
 
 <script>
 // =========================================================
-// Ozghan.au — shared behaviour
+// Ozghan.com — shared behaviour
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {

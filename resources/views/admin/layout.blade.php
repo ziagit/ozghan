@@ -18,7 +18,13 @@
         .admin-menu a:hover,.admin-menu a.active{background:var(--clay);color:#fff}
         .admin-logout{margin-top:auto;padding:0 12px}
         .admin-shell{max-width:1200px;margin:0 auto;padding:40px 32px 40px 272px}
+        .admin-footer{max-width:1200px;margin:0 auto;padding:0 32px 24px 272px;display:flex;justify-content:space-between;gap:16px;color:#706960;font-size:13px}
+        .admin-footer a{text-decoration:underline;text-underline-offset:3px}
+        .admin-footer nav{display:flex;gap:16px}
         .admin-card{background:#fff;border:1px solid var(--line);border-radius:5px;padding:22px;margin-bottom:20px}
+        .work-admin-image{width:84px;height:60px;object-fit:cover;background:#eee;vertical-align:middle;margin-right:12px;display:inline-block}
+        .work-admin-details{display:flex;align-items:center;gap:12px}.work-admin-details img{flex:none}.work-admin-details small{display:block;color:#706960;margin-top:3px}
+        .admin-pagination{margin-top:18px;display:flex;justify-content:center}.admin-pagination nav{display:flex;gap:5px}.admin-pagination a,.admin-pagination span{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 9px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:13px}.admin-pagination a:hover{background:#eee}.admin-pagination span[aria-current="page"]{background:var(--ink);color:#fff}.admin-pagination svg{width:16px;height:16px}
         .admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
         .admin-stat{font-size:28px;font-weight:bold}
         .order-chart-card{overflow:hidden}.chart-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:18px}.chart-heading h2{margin:0 0 3px}.chart-heading p{margin:0;color:#706960}.chart-wrap{margin:18px -8px -8px;overflow:hidden}.chart-wrap svg{display:block;width:100%;height:auto;min-width:520px}.chart-wrap text{font-family:Arial,sans-serif}
@@ -44,6 +50,7 @@
             .admin-menu{display:grid;gap:4px}.admin-menu a{padding:11px 12px;font-size:14px}
             .admin-logout{padding:12px 0 0}.admin-logout .btn{width:100%}
             .admin-shell{width:100%;padding:70px 12px 22px}
+            .admin-footer{width:100%;padding:0 12px 18px;align-items:flex-start;flex-direction:column}
             .admin-shell h1{font-size:25px;line-height:1.15}
             .admin-card{padding:16px;margin-bottom:14px;overflow-x:auto}
             .admin-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -88,8 +95,21 @@
         @if(session('status'))
             <div class="alert">{{ session('status') }}</div>
         @endif
+        @if($errors->any())
+            <div class="alert error">
+                <strong>Could not save:</strong>
+                <ul style="margin:6px 0 0 18px">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
+            </div>
+        @endif
         @yield('content')
     </main>
+    <footer class="admin-footer">
+        <span>&copy; 2026 Ozghan.com</span>
+        <nav aria-label="Admin footer links">
+            <a href="/">View website</a>
+            <a href="{{ route('admin.login') }}">Login</a>
+        </nav>
+    </footer>
     <script>
         const adminMenuToggle = document.querySelector('.admin-menu-toggle');
         const adminMenuClose = document.querySelector('[data-admin-menu-close]');

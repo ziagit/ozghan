@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Services | Ozghan.au Brisbane Tiling</title>
+<title>Services | Ozghan.com Brisbane Tiling</title>
 <meta name="description" content="Bathroom, kitchen, floor, wall, indoor, outdoor, waterproofing, renovation and commercial tiling services in Brisbane.">
-@include('site.partials.seo', ['seoTitle' => 'Tiling Services Brisbane | Ozghan.au', 'seoDescription' => 'Bathroom, kitchen, floor, wall, indoor, outdoor, waterproofing, renovation and commercial tiling services in Brisbane.'])
+@include('site.partials.seo', ['seoTitle' => 'Tiling Services Brisbane | Ozghan.com', 'seoDescription' => 'Bathroom, kitchen, floor, wall, indoor, outdoor, waterproofing, renovation and commercial tiling services in Brisbane.'])
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
-   Ozghan.au — Brisbane Tiling
+   Ozghan.com — Brisbane Tiling
    Design tokens
    ========================================================= */
 :root{
@@ -287,7 +287,7 @@ section{ padding:88px 0; }
 .service-card{
   background:var(--white);
   border:1px solid var(--line);
-  border-radius:10px;
+  border-radius:0;
   overflow:hidden;
   display:flex; flex-direction:column;
   box-shadow:0 1px 3px rgba(35,32,28,0.05);
@@ -333,7 +333,7 @@ section{ padding:88px 0; }
   width:100%;
   aspect-ratio:4/3;
   object-fit:cover;
-  border-radius:12px;
+  border-radius:0;
   overflow:hidden;
 }
 
@@ -416,7 +416,7 @@ section{ padding:88px 0; }
 .service-tab-panel.active{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:24px; width:100%; max-width:var(--container); margin:0 auto; padding:0 24px; box-sizing:border-box; }
 .service-tab-panel > .service-category-heading{ grid-column:1 / -1; }
 .service-tab-panel > .grout-rule{ display:none; }
-.service-tab-panel > section:not(.service-category-heading){ background:var(--white); border:1px solid var(--line); border-radius:10px; overflow:hidden; box-shadow:0 1px 3px rgba(35,32,28,0.05); padding:0; }
+.service-tab-panel > section:not(.service-category-heading){ background:var(--white); border:1px solid var(--line); border-radius:0; overflow:hidden; box-shadow:0 1px 3px rgba(35,32,28,0.05); padding:0; }
 .service-tab-panel > section:not(.service-category-heading) .container{ width:auto; max-width:none; padding:0; }
 .service-tab-panel > section:not(.service-category-heading) .two-col{ display:flex; flex-direction:column; gap:0; align-items:stretch; height:100%; }
 .service-tab-panel > section:not(.service-category-heading) .two-col > div:first-child{ padding:24px; }
@@ -577,7 +577,7 @@ section{ padding:88px 0; }
 @if(false)
 <header class="site-header">
   <div class="container nav">
-    <a href="/" class="brand" aria-label="Ozghan.au home">
+    <a href="/" class="brand" aria-label="Ozghan.com home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
       <span>Ozghan<small>TILING BRISBANE</small></span>
     </a>
@@ -849,14 +849,14 @@ section{ padding:88px 0; }
       <div>
         <h4>Contact</h4>
         <ul class="contact-list">
-          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><a href="tel:+61700000000">(07) 0000 0000</a></li>
-          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><a href="mailto:contact@ozghan.au">contact@ozghan.au</a></li>
+          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><a href="tel:+61468430893">0468 430 893</a></li>
+          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><a href="mailto:contact@ozghan.com">contact@ozghan.com</a></li>
           <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span>Brisbane, QLD</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year></span> Ozghan.au — All rights reserved.</span>
+      <span>&copy; 2026 Ozghan.com — All rights reserved.</span>
       <span>ABN 00 000 000 000 &middot; Licensed &amp; insured</span>
     </div>
   </div>
@@ -973,7 +973,7 @@ section{ padding:88px 0; }
 
 <script>
 // =========================================================
-// Ozghan.au — shared behaviour
+// Ozghan.com — shared behaviour
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {

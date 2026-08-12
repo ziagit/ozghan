@@ -9,6 +9,7 @@ use App\Models\TilingService;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schema;
 
 class AdminController extends Controller
 {
@@ -72,7 +73,11 @@ class AdminController extends Controller
     {
         abort_unless(isset($this->types[$type]), 404);
         [$model, $label] = $this->types[$type];
-        return view('admin.index', ['type' => $type, 'label' => $label, 'items' => $model::orderBy('sort_order')->orderByDesc('created_at')->get()]);
+        $query = $type === 'works'
+            ? $model::orderByDesc('created_at')
+            : $model::orderBy('sort_order')->orderByDesc('created_at');
+        $items = $type === 'works' ? $query->paginate(18)->withQueryString() : $query->get();
+        return view('admin.index', compact('type', 'label', 'items'));
     }
 
     public function create(string $type)
@@ -121,18 +126,28 @@ class AdminController extends Controller
         abort_unless(isset($this->types[$type]), 404);
         [$model] = $this->types[$type];
         $rules = match ($type) {
-            'services' => ['title' => 'required|max:150', 'category' => 'nullable|max:50', 'description' => 'nullable|max:2000', 'image' => 'nullable|image|max:10240', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
+            'services' => ['title' => 'required|max:150', 'category' => 'nullable|max:50', 'description' => 'nullable|max:2000', 'image' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240'], 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
             'areas' => ['name' => 'required|max:150', 'postcode' => 'nullable|max:20', 'description' => 'nullable|max:1000', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
-            'works' => ['title' => 'required|max:150', 'category' => 'nullable|max:100', 'description' => 'nullable|max:2000', 'image' => 'nullable|image|max:10240', 'completed_at' => 'nullable|date', 'location' => 'nullable|max:150', 'area_m2' => 'nullable|numeric|min:0', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable', 'is_featured' => 'nullable'],
+            'works' => ['category' => 'required|in:Residential,Commercial', 'description' => 'nullable|max:2000', 'image' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240']],
             default => ['option_group' => 'required|max:80', 'label' => 'required|max:150', 'value' => 'required|max:150', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
         };
         $data = $request->validate($rules);
+        $existing = $id ? $model::findOrFail($id) : null;
+        if ($type === 'works') {
+            $data['slug'] = $existing?->slug ?: Str::slug($data['category'].'-'.Str::random(8));
+            $data['is_featured'] = $existing?->is_featured ?? false;
+            if (Schema::hasColumn('works', 'title')) {
+                $data['title'] = $existing?->title ?: 'Tiling work';
+            }
+            if (Schema::hasColumn('works', 'is_active')) {
+                $data['is_active'] = $existing?->is_active ?? true;
+            }
+        }
         if ($request->hasFile('image')) {
             $data['image_path'] = $request->file('image')->store($type === 'services' ? 'services' : 'works', 'public');
         }
-        $data['is_active'] = $request->boolean('is_active');
-        if ($type === 'works') $data['is_featured'] = $request->boolean('is_featured');
-        if (in_array($type, ['services', 'works'], true) && empty($data['slug'] ?? null)) $data['slug'] = Str::slug($data['title']);
+        if ($type !== 'works') $data['is_active'] = $request->boolean('is_active');
+        if ($type === 'services' && empty($data['slug'] ?? null)) $data['slug'] = Str::slug($data['title']);
         if ($id) $model::findOrFail($id)->update($data); else $model::create($data);
         return redirect("/admin/{$type}")->with('status', 'Saved successfully.');
     }

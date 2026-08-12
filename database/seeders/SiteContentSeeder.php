@@ -44,7 +44,9 @@ class SiteContentSeeder extends Seeder
             ['title' => 'Open-plan living floor', 'category' => 'Floor', 'location' => 'Indooroopilly, Brisbane', 'area_m2' => 58.00, 'completed_at' => '2026-04-02', 'description' => 'Large-format porcelain laid through kitchen, dining and living zones.'],
         ];
         foreach ($works as $order => $work) {
-            Work::updateOrCreate(['slug' => Str::slug($work['title'])], $work + ['sort_order' => $order, 'is_featured' => true, 'is_active' => true]);
+            $slug = Str::slug($work['title']);
+            unset($work['title']);
+            Work::updateOrCreate(['slug' => $slug], $work + ['is_featured' => true]);
         }
 
         foreach ([

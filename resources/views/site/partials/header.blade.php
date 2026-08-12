@@ -18,7 +18,7 @@
 <a class="sr-only" href="#main">Skip to content</a>
 <header class="site-header @if(request()->is('/')) site-header-home @endif">
   <div class="container nav">
-    <a href="/" class="brand" aria-label="Ozghan.au home">
+    <a href="/" class="brand" aria-label="Ozghan.com home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
       <span>Ozghan<small>TILING BRISBANE</small></span>
     </a>

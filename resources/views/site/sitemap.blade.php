@@ -3,7 +3,4 @@
 @foreach(['/', '/about', '/services', '/service-area', '/our-work', '/contact', '/quote'] as $path)
     <url><loc>{{ url($path) }}</loc></url>
 @endforeach
-@foreach($works as $work)
-    <url><loc>{{ url('/our-work/'.$work->slug) }}</loc>@if($work->updated_at)<lastmod>{{ $work->updated_at->toAtomString() }}</lastmod>@endif</url>
-@endforeach
 </urlset>

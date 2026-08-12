@@ -32,7 +32,6 @@ return new class extends Migration
 
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->string('slug')->unique();
             $table->string('category')->nullable();
             $table->text('description')->nullable();
@@ -40,9 +39,7 @@ return new class extends Migration
             $table->date('completed_at')->nullable();
             $table->string('location')->nullable();
             $table->decimal('area_m2', 10, 2)->nullable();
-            $table->unsignedInteger('sort_order')->default(0);
             $table->boolean('is_featured')->default(false);
-            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
 

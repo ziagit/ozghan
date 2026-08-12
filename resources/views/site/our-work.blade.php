@@ -4,15 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Our Work | Brisbane Tiling Projects | Ozghan.au</title>
+<title>Our Work | Brisbane Tiling Projects | Ozghan.com</title>
 <meta name="description" content="See completed bathroom, kitchen, floor, outdoor and commercial tiling projects by Ozghan across Brisbane suburbs.">
-@include('site.partials.seo', ['seoTitle' => 'Our Work | Brisbane Tiling Projects | Ozghan.au', 'seoDescription' => 'See completed bathroom, kitchen, floor, outdoor and commercial tiling projects by Ozghan across Brisbane suburbs.'])
+@include('site.partials.seo', ['seoTitle' => 'Our Work | Brisbane Tiling Projects | Ozghan.com', 'seoDescription' => 'See completed bathroom, kitchen, floor, outdoor and commercial tiling projects by Ozghan across Brisbane suburbs.'])
 @php
-    $workSchemaItems = collect($works ?? [])->values()->map(fn ($work, $index) => [
+    $residentialItems = $residentialWorks instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator ? $residentialWorks->getCollection() : collect($residentialWorks ?? []);
+    $commercialItems = $commercialWorks instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator ? $commercialWorks->getCollection() : collect($commercialWorks ?? []);
+    $workSchemaItems = $residentialItems->concat($commercialItems)->values()->map(fn ($work, $index) => [
         '@type' => 'ListItem',
         'position' => $index + 1,
-        'name' => $work->title,
-        'url' => url('/our-work/'.$work->slug),
+        'name' => $work->category ?: 'Tiling project',
     ])->all();
 @endphp
 <script type="application/ld+json">{!! json_encode(['@context' => 'https://schema.org', '@type' => 'CollectionPage', 'name' => 'Brisbane Tiling Projects', 'url' => url('/our-work'), 'about' => ['@type' => 'Service', 'name' => 'Brisbane tiling services'], 'mainEntity' => ['@type' => 'ItemList', 'itemListElement' => $workSchemaItems]], JSON_UNESCAPED_SLASHES) !!}</script>
@@ -22,7 +23,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
-   Ozghan.au — Brisbane Tiling
+   Ozghan.com — Brisbane Tiling
    Design tokens
    ========================================================= */
 :root{
@@ -406,7 +407,22 @@ section{ padding:88px 0; }
    ========================================================= */
 .page-header{ background:var(--ink); color:var(--bg); padding:64px 0 48px; }
 .page-header h1{ color:var(--bg); font-size:clamp(2rem, 4vw, 2.8rem); }
+.page-header p{ max-width:68ch; margin:16px 0 0; color:#C9C4BB; font-size:1.05rem; }
 .breadcrumb{ font-family:var(--font-mono); font-size:0.78rem; color:var(--clay-tint); margin-bottom:16px; text-transform:uppercase; letter-spacing:0.08em; }
+
+/* =========================================================
+   Work type tabs
+   ========================================================= */
+.work-tabs-section{ padding:24px 0 24px; }
+.work-tabs{ display:flex; gap:8px; padding:0 0 32px; }
+.work-tab{ appearance:none; border:2px solid var(--ink); background:transparent; color:var(--ink); padding:12px 24px; font:700 .95rem var(--font-display); cursor:pointer; }
+.work-tab[aria-selected="true"]{ background:var(--ink); color:var(--bg); }
+.work-tab:focus-visible{ outline:3px solid var(--clay); outline-offset:3px; }
+.work-tab-panel{ display:none; }
+.work-tab-panel.active{ display:block; }
+.work-category-heading{ padding:24px 0 16px; }
+.work-category-heading h2{ margin:0; }
+@media (max-width:560px){ .work-tabs{ display:grid; grid-template-columns:1fr 1fr; } .work-tab{ padding:12px 10px; } }
 
 /* =========================================================
    About page bits
@@ -441,11 +457,17 @@ section{ padding:88px 0; }
   background-image:repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0 2px, transparent 2px 28px);
 }
 .gallery-image{ display:block; width:100%; aspect-ratio:4/3; object-fit:cover; }
-.gallery-card .caption{ padding:18px 20px; }
-.gallery-card .caption .tag{ font-family:var(--font-mono); font-size:0.72rem; color:var(--clay-dark); text-transform:uppercase; letter-spacing:0.06em; display:block; margin-bottom:4px; }
-.gallery-card .caption h3{ font-size:1rem; margin-bottom:2px; }
-.gallery-card .caption p{ font-size:0.85rem; margin:0; }
-.gallery-card .work-meta{ display:block; margin-top:10px; color:var(--ink-soft); font-family:var(--font-mono); font-size:0.7rem; }
+.work-pagination{ margin-top:28px; }
+.work-pagination nav{ display:flex; justify-content:center; }
+.work-pagination svg{ width:18px; height:18px; }
+.work-pagination a,.work-pagination span{ display:inline-flex; align-items:center; justify-content:center; min-width:36px; height:36px; padding:0 10px; border:1px solid var(--line); background:var(--white); color:var(--ink); font-size:.85rem; }
+.work-pagination a:hover{ background:var(--clay-tint); }
+.work-pagination a.disabled{ opacity:.45; pointer-events:none; }
+.gallery-card[data-lightbox]{ cursor:zoom-in; }
+.lightbox{ width:fit-content; height:fit-content; max-width:92vw; max-height:92vh; padding:0; border:0; background:transparent; box-shadow:0 18px 60px rgba(0,0,0,.45); overflow:hidden; }
+.lightbox::backdrop{ background:rgba(35,32,28,.82); }
+.lightbox img{ display:block; width:auto; height:auto; max-width:92vw; max-height:92vh; object-fit:contain; }
+.lightbox-close{ position:absolute; top:8px; right:8px; width:36px; height:36px; border:0; background:var(--ink); color:var(--bg); font-size:1.5rem; line-height:1; cursor:pointer; }
 
 /* palette variants so each photo-style swatch looks distinct */
 .p1{ --pattern-grad: linear-gradient(135deg, var(--clay) 0%, var(--slate) 100%); }
@@ -561,7 +583,7 @@ section{ padding:88px 0; }
 @if(false)
 <header class="site-header">
   <div class="container nav">
-    <a href="/" class="brand" aria-label="Ozghan.au home">
+    <a href="/" class="brand" aria-label="Ozghan.com home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
       <span>Ozghan<small>TILING BRISBANE</small></span>
     </a>
@@ -586,66 +608,109 @@ section{ padding:88px 0; }
   <div class="container">
     <div class="breadcrumb">Our Work</div>
     <h1>Recent tiling jobs across Brisbane</h1>
+    <p>Explore completed tiling projects across Brisbane, from waterproofed bathrooms and kitchen splashbacks to indoor floors, alfresco areas and commercial fit-outs. Each project shows the suburb, completion date and approximate tiled area where available.</p>
   </div>
 </header>
 
-<section class="section-tight">
+<section class="work-tabs-section" aria-label="Work type">
   <div class="container">
-    <p style="max-width:68ch; font-size:1.05rem;">Explore completed tiling projects across Brisbane, from waterproofed bathrooms and kitchen splashbacks to indoor floors, alfresco areas and commercial fit-outs. Each project shows the suburb, completion date and approximate tiled area where available.</p>
+    <div class="work-tabs" role="tablist" aria-label="Choose a work type">
+      <button class="work-tab" id="residential-work-tab" type="button" role="tab" aria-selected="true" aria-controls="residential-work-panel" data-work-tab="residential">Residential</button>
+      <button class="work-tab" id="commercial-work-tab" type="button" role="tab" aria-selected="false" aria-controls="commercial-work-panel" data-work-tab="commercial">Commercial</button>
+    </div>
   </div>
 </section>
 
-<section class="section-tight">
-  <div class="container">
-    <div class="gallery-grid">
+<div class="work-tab-panel active" id="residential-work-panel" data-work-panel="residential" role="tabpanel" aria-labelledby="residential-work-tab">
+  <section class="work-category-heading">
+    <div class="container">
+      <div class="eyebrow">Residential</div>
+      <h2>Residential tiling projects</h2>
+    </div>
+  </section>
+  <section class="section-tight">
+    <div class="container">
+      <div class="gallery-grid">
 
-      @if(isset($works) && $works->isNotEmpty())
-      @foreach($works as $work)
-      <a class="gallery-card" href="/our-work/{{ $work->slug }}">
+      @if($residentialWorks->isNotEmpty())
+      @foreach($residentialWorks as $work)
+      <a class="gallery-card" href="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" data-lightbox>
         @if($work->image_path)
-        <img class="gallery-image" loading="lazy" src="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" alt="{{ $work->title }}">
+        <img class="gallery-image" loading="lazy" src="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" alt="{{ $work->category ?: 'Tiling project' }}">
         @else
         <div class="gallery-swatch p{{ ($loop->index % 6) + 1 }}" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
         @endif
-        <div class="caption"><span class="tag">{{ $work->category ?: 'Brisbane tiling project' }}</span><h3>{{ $work->title }}</h3><p>{{ $work->description }}</p><small class="work-meta">{{ $work->location ?: 'Brisbane' }}{{ $work->completed_at ? ' · '.$work->completed_at->format('Y') : '' }}{{ $work->area_m2 ? ' · '.number_format((float) $work->area_m2, 2).' m²' : '' }}</small></div>
       </a>
       @endforeach
       @else
 
       <div class="gallery-card">
         <div class="gallery-swatch p1" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <div class="caption"><span class="tag">Bathroom &middot; New Farm</span><h3>Ensuite retile &amp; waterproofing</h3><p>Full strip-out, new membrane, matte floor tile with contrast wall feature.</p></div>
       </div>
 
       <div class="gallery-card">
         <div class="gallery-swatch p2" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <div class="caption"><span class="tag">Kitchen &middot; Paddington</span><h3>Splashback &amp; benchtop return</h3><p>Herringbone splashback tiled around existing joinery.</p></div>
       </div>
 
       <div class="gallery-card">
         <div class="gallery-swatch p3" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <div class="caption"><span class="tag">Outdoor &middot; West End</span><h3>Alfresco &amp; pool surround</h3><p>Slip-rated pavers laid to fall around an existing pool shell.</p></div>
-      </div>
-
-      <div class="gallery-card">
-        <div class="gallery-swatch p4" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <div class="caption"><span class="tag">Commercial &middot; Fortitude Valley</span><h3>Café fit-out floor</h3><p>Full floor re-tile completed over a weekend closure.</p></div>
       </div>
 
       <div class="gallery-card">
         <div class="gallery-swatch p5" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <div class="caption"><span class="tag">Renovation &middot; Toowong</span><h3>Full bathroom renovation</h3><p>Strip-out, substrate repair, waterproofing and re-tile in eight days.</p></div>
       </div>
 
       <div class="gallery-card">
         <div class="gallery-swatch p6" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <div class="caption"><span class="tag">Floor &middot; Indooroopilly</span><h3>Open-plan living floor</h3><p>Large-format porcelain laid through kitchen, dining and living zones.</p></div>
       </div>
 
       @endif
+      </div>
+      @if($residentialWorks instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator && $residentialWorks->hasPages())
+      <div class="work-pagination"><nav aria-label="Residential work pagination"><a @if($residentialWorks->onFirstPage()) class="disabled" @else href="{{ $residentialWorks->previousPageUrl() }}" @endif>Prev</a><a @if(!$residentialWorks->hasMorePages()) class="disabled" @else href="{{ $residentialWorks->nextPageUrl() }}" @endif>Next</a></nav></div>
+      @endif
     </div>
   </div>
-</section>
+  </section>
+</div>
+
+<div class="work-tab-panel" id="commercial-work-panel" data-work-panel="commercial" role="tabpanel" aria-labelledby="commercial-work-tab">
+  <section class="work-category-heading">
+    <div class="container">
+      <div class="eyebrow">Commercial</div>
+      <h2>Commercial tiling projects</h2>
+    </div>
+  </section>
+  <section class="section-tight">
+    <div class="container">
+      <div class="gallery-grid">
+      @if($commercialWorks->isNotEmpty())
+      @foreach($commercialWorks as $work)
+      <a class="gallery-card" href="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" data-lightbox>
+        @if($work->image_path)
+        <img class="gallery-image" loading="lazy" src="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" alt="{{ $work->category ?: 'Tiling project' }}">
+        @else
+        <div class="gallery-swatch p{{ (($loop->index + 3) % 6) + 1 }}" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        @endif
+      </a>
+      @endforeach
+      @else
+      <div class="gallery-card">
+        <div class="gallery-swatch p4" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+      @endif
+      </div>
+      @if($commercialWorks instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator && $commercialWorks->hasPages())
+      <div class="work-pagination"><nav aria-label="Commercial work pagination"><a @if($commercialWorks->onFirstPage()) class="disabled" @else href="{{ $commercialWorks->previousPageUrl() }}" @endif>Prev</a><a @if(!$commercialWorks->hasMorePages()) class="disabled" @else href="{{ $commercialWorks->nextPageUrl() }}" @endif>Next</a></nav></div>
+      @endif
+    </div>
+  </section>
+</div>
+
+<dialog class="lightbox" id="work-lightbox" aria-label="Expanded project image">
+  <button class="lightbox-close" type="button" aria-label="Close image">&times;</button>
+  <img src="" alt="">
+</dialog>
 
 <section class="cta-banner">
   <div class="container cta-banner-inner">
@@ -691,14 +756,14 @@ section{ padding:88px 0; }
       <div>
         <h4>Contact</h4>
         <ul class="contact-list">
-          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><a href="tel:+61700000000">(07) 0000 0000</a></li>
-          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><a href="mailto:contact@ozghan.au">contact@ozghan.au</a></li>
+          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><a href="tel:+61468430893">0468 430 893</a></li>
+          <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><a href="mailto:contact@ozghan.com">contact@ozghan.com</a></li>
           <li><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span>Brisbane, QLD</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year></span> Ozghan.au — All rights reserved.</span>
+      <span>&copy; 2026 Ozghan.com — All rights reserved.</span>
       <span>ABN 00 000 000 000 &middot; Licensed &amp; insured</span>
     </div>
   </div>
@@ -815,7 +880,7 @@ section{ padding:88px 0; }
 
 <script>
 // =========================================================
-// Ozghan.au — shared behaviour
+// Ozghan.com — shared behaviour
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -838,9 +903,50 @@ document.addEventListener('DOMContentLoaded', () => {
     el.textContent = new Date().getFullYear();
   });
 
+  initWorkTabs();
+  initWorkLightbox();
   initQuoteModal();
   initContactForm();
 });
+
+function initWorkTabs() {
+  const tabs = document.querySelectorAll('[data-work-tab]');
+  const panels = document.querySelectorAll('[data-work-panel]');
+  if (!tabs.length || !panels.length) return;
+
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    const type = tab.dataset.workTab;
+    tabs.forEach(item => item.setAttribute('aria-selected', String(item === tab)));
+    panels.forEach(panel => panel.classList.toggle('active', panel.dataset.workPanel === type));
+  }));
+}
+
+function initWorkLightbox() {
+  const lightbox = document.getElementById('work-lightbox');
+  if (!lightbox) return;
+  const image = lightbox.querySelector('img');
+  const close = lightbox.querySelector('.lightbox-close');
+
+  document.querySelectorAll('[data-lightbox]').forEach(card => {
+    card.addEventListener('click', event => {
+      event.preventDefault();
+      const source = card.querySelector('.gallery-image');
+      if (!source) return;
+      image.src = card.href;
+      image.alt = source.alt;
+      lightbox.showModal();
+    });
+  });
+
+  close.addEventListener('click', () => lightbox.close());
+  lightbox.addEventListener('click', event => {
+    if (event.target === lightbox) lightbox.close();
+  });
+  lightbox.addEventListener('close', () => {
+    image.src = '';
+    image.alt = '';
+  });
+}
 
 /* =========================================================
    Quote / booking modal — 4 step flow:

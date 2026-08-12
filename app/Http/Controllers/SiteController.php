@@ -13,7 +13,12 @@ class SiteController extends Controller
     {
         try {
             $homeServices = TilingService::where('is_active', true)->latest()->take(4)->get();
-            $homeWorks = Work::where('is_active', true)->latest('completed_at')->latest()->take(4)->get();
+            $commercialWorks = Work::whereRaw('LOWER(category) LIKE ?', ['%commercial%'])
+                ->latest('completed_at')->latest()->take(2)->get();
+            $residentialWorks = Work::where(function ($query) {
+                $query->whereNull('category')->orWhereRaw('LOWER(category) NOT LIKE ?', ['%commercial%']);
+            })->latest('completed_at')->latest()->take(2)->get();
+            $homeWorks = $commercialWorks->concat($residentialWorks);
         } catch (\Throwable) {
             $homeServices = collect();
             $homeWorks = collect();
@@ -35,28 +40,23 @@ class SiteController extends Controller
 
     public function ourWork()
     {
-        try { $works = Work::where('is_active', true)->orderBy('sort_order')->get(); } catch (\Throwable) { $works = collect(); }
-        return view('site.our-work', compact('works'));
-    }
-
-    public function workDetails(string $slug)
-    {
         try {
-            $work = Work::where('slug', $slug)->where('is_active', true)->firstOrFail();
-        } catch (\Throwable $exception) {
-            abort($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException ? $exception->getStatusCode() : 404);
+            $residentialWorks = Work::where(function ($query) {
+                $query->whereNull('category')->orWhereRaw('LOWER(category) NOT LIKE ?', ['%commercial%']);
+            })->orderByDesc('created_at')->paginate(18, ['*'], 'residential_page')->withQueryString();
+            $commercialWorks = Work::whereRaw('LOWER(category) LIKE ?', ['%commercial%'])
+                ->orderByDesc('created_at')->paginate(18, ['*'], 'commercial_page')->withQueryString();
+        } catch (\Throwable) {
+            $residentialWorks = collect();
+            $commercialWorks = collect();
         }
-
-        return view('site.work-details', compact('work'));
+        return view('site.our-work', compact('residentialWorks', 'commercialWorks'));
     }
 
     public function sitemap()
     {
-        $works = collect();
-        try { $works = Work::where('is_active', true)->get(['slug', 'updated_at']); } catch (\Throwable) { }
-
         return response()
-            ->view('site.sitemap', compact('works'))
+            ->view('site.sitemap')
             ->header('Content-Type', 'application/xml');
     }
 }

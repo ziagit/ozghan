@@ -10,8 +10,8 @@
       </div>
       <div><h4>Site</h4><ul><li><a href="/about">About</a></li><li><a href="/services">Services</a></li><li><a href="/our-work">Our Work</a></li><li><a href="/service-area">Service Area</a></li></ul></div>
       <div><h4>Services</h4><ul><li><a href="/services#bathroom-tiling">Bathroom Tiling</a></li><li><a href="/services#floor-tiling">Floor Tiling</a></li><li><a href="/services#waterproofing">Waterproofing</a></li><li><a href="/services#commercial-tiling">Commercial Tiling</a></li></ul></div>
-      <div><h4>Contact</h4><ul class="contact-list"><li>Brisbane, QLD</li><li><a href="mailto:contact@ozghan.au">contact@ozghan.au</a></li></ul></div>
+      <div><h4>Contact</h4><ul class="contact-list"><li>Brisbane, QLD</li><li><a href="mailto:contact@ozghan.com">contact@ozghan.com</a></li><li><a href="{{ route('admin.login') }}">Login</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>&copy; <span data-year></span> Ozghan.au — All rights reserved.</span><span>ABN 00 000 000 000 &middot; Licensed &amp; insured</span></div>
+    <div class="footer-bottom"><span>&copy; 2026 Ozghan.com — All rights reserved.</span><span>ABN 00 000 000 000 &middot; Licensed &amp; insured</span></div>
   </div>
 </footer>
