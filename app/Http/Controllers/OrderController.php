@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrderReceived;
+use App\Mail\ContactMessageReceived;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -11,6 +12,26 @@ use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
+    public function contact(Request $request)
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:120'],
+            'email' => ['required', 'email', 'max:190'],
+            'phone' => ['nullable', 'string', 'max:40'],
+            'message' => ['required', 'string', 'max:5000'],
+        ]);
+
+        Mail::to(config('mail.admin_address', 'contact@ozghan.com'))
+            ->send(new ContactMessageReceived(
+                $data['name'],
+                $data['email'],
+                $data['phone'] ?? '',
+                $data['message'],
+            ));
+
+        return response()->json(['message' => 'Your message has been sent.'], 201);
+    }
+
     public function uploadPhotos(Request $request)
     {
         $data = $request->validate([
@@ -85,12 +106,14 @@ class OrderController extends Controller
         ]);
 
         try {
-            Mail::to(config('mail.admin_address'))->send(new OrderReceived($order));
+            Mail::to(config('mail.admin_address', 'contact@ozghan.com'))->queue(new OrderReceived($order));
         } catch (\Throwable $exception) {
             Log::error('Order notification email could not be sent.', [
                 'order_id' => $order->id,
                 'error' => $exception->getMessage(),
             ]);
+
+            return response()->json(['message' => 'The quotation was saved, but the notification email could not be sent.'], 500);
         }
 
         return response()->json(['message' => 'Quote request received.', 'id' => $order->id], 201);

@@ -2,32 +2,34 @@
 
 namespace App\Mail;
 
-use App\Models\Order;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderReceived extends Mailable implements ShouldQueue
+class ContactMessageReceived extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public Order $order)
-    {
+    public function __construct(
+        public string $name,
+        public string $email,
+        public string $phone,
+        public string $body,
+    ) {
     }
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New quote request #'.$this->order->id.' from '.$this->order->name,
-            replyTo: [$this->order->email],
+            subject: 'New website contact message from '.$this->name,
+            replyTo: [$this->email],
         );
     }
 
     public function content(): Content
     {
-        return new Content(view: 'emails.order-received');
+        return new Content(view: 'emails.contact-message');
     }
 }

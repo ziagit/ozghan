@@ -508,12 +508,8 @@ section{ padding:88px 0; }
 }
 .service-pick input{ width:auto; accent-color:var(--clay); }
 .service-pick label:has(input:checked){ border-color:var(--clay); background:var(--clay-tint); }
-.brand-select, #quote-commercial-type, #quote-tile-size{ appearance:none; cursor:pointer; padding-right:42px !important; background-color:var(--white) !important; background-image:linear-gradient(45deg, transparent 50%, var(--clay) 50%),linear-gradient(135deg, var(--clay) 50%, transparent 50%); background-position:calc(100% - 19px) 50%,calc(100% - 13px) 50%; background-size:6px 6px,6px 6px; background-repeat:no-repeat; }
+.brand-select, #quote-commercial-type{ appearance:none; cursor:pointer; padding-right:42px !important; background-color:var(--white) !important; background-image:linear-gradient(45deg, transparent 50%, var(--clay) 50%),linear-gradient(135deg, var(--clay) 50%, transparent 50%); background-position:calc(100% - 19px) 50%,calc(100% - 13px) 50%; background-size:6px 6px,6px 6px; background-repeat:no-repeat; }
 .brand-select:hover{ border-color:var(--clay); }
-.brand-check, label:has(#quote-materials){ display:flex !important; align-items:center; gap:10px; min-height:48px; padding:12px 14px; border:1.5px solid var(--line-strong); border-radius:var(--radius-sm); background:var(--white); cursor:pointer; transition:background .2s,border-color .2s; }
-.brand-check input, #quote-materials{ appearance:none; width:18px !important; height:18px; flex:none; margin:0; padding:0 !important; border:1.5px solid var(--line-strong); border-radius:50%; background:var(--white); position:relative; }
-.brand-check input:checked, #quote-materials:checked{ border-color:var(--clay); background:var(--clay); box-shadow:inset 0 0 0 4px var(--white); }
-.brand-check:has(input:checked), label:has(#quote-materials:checked){ border-color:var(--clay); background:var(--clay-tint); }
 .brand-select-custom{ position:relative; }
 .brand-select-native{ position:absolute !important; width:1px !important; height:1px !important; opacity:0 !important; pointer-events:none; }
 .brand-select-button{ width:100%; padding:13px 42px 13px 14px; border:1.5px solid var(--line-strong); border-radius:var(--radius-sm); background:var(--white); color:var(--ink); font:inherit; text-align:left; cursor:pointer; position:relative; }
@@ -620,7 +616,7 @@ section{ padding:88px 0; }
 <header class="page-header">
   <div class="container">
     <div class="breadcrumb">Contact</div>
-    <h1>Talk to us about your tiling job</h1>
+    <h1>Talk to us about your tiling work</h1>
   </div>
 </header>
 
@@ -732,7 +728,7 @@ section{ padding:88px 0; }
     <div class="modal-head">
       <div>
         <span id="quote-modal-title" class="eyebrow" style="margin:0;">Request a Quote</span>
-        <p>Tell us what you need, where the job is, and how to reach you. We will confirm the scope and next steps with you.</p>
+        <p>Tell us what you need, where the work is, and how to reach you. We will confirm the scope and next steps with you.</p>
       </div>
       <button class="modal-close" aria-label="Close">&times;</button>
     </div>
@@ -754,7 +750,7 @@ section{ padding:88px 0; }
 
           <div class="step" data-step="service">
             <h3>What do you need tiled?</h3>
-            <p>Pick the service closest to your job — we'll confirm the details on site.</p>
+            <p>Pick the service closest to your tiling work — we'll confirm the details on site.</p>
             <div class="service-pick">
               <label data-location="indoor"><input type="radio" name="service" value="Bathroom Tiling" required> Bathroom Tiling</label>
               <label data-location="indoor"><input type="radio" name="service" value="Kitchen Tiling"> Kitchen Tiling</label>
@@ -776,7 +772,7 @@ section{ padding:88px 0; }
           </div>
 
           <div class="step" data-step="address">
-            <h3>Where's the job?</h3>
+            <h3>Where is the tiling work?</h3>
             <p>Give us the property address so we can quote travel and scope correctly.</p>
             <div class="field">
               <label for="quote-address">Property address</label>
@@ -790,11 +786,9 @@ section{ padding:88px 0; }
           </div>
 
           <div class="step" data-step="details">
-            <h3>Tell us about the job</h3>
+            <h3>Tell us about the tiling work</h3>
             <p>These details help us prepare a more accurate quote.</p>
             <div class="field"><label for="quote-area">Estimated tile area (m²)</label><input type="number" id="quote-area" name="area" min="0" step="0.01" placeholder="e.g. 24.5"><div class="hint">An estimate is fine if you do not know the exact measurement.</div></div>
-            <div class="field"><label><input type="checkbox" id="quote-materials" name="materials"> I provide tiling materials</label></div>
-            <div class="field" id="quote-tile-size-field" hidden><label for="quote-tile-size">What size are the tiles?</label><select id="quote-tile-size" name="tile_size"><option value="">Select tile size</option><option value="Small">Small</option><option value="Medium">Medium</option><option value="Big">Big</option></select></div>
             <div class="field"><label for="quote-photos">Photos of the area <span class="hint">(optional)</span></label><input type="file" id="quote-photos" name="photos[]" accept="image/*" multiple><div class="hint">Select or take up to 5 photos. You can choose multiple images at once.</div><div class="photo-list" id="quote-photo-list" aria-live="polite"></div></div>
             <div class="modal-actions"><button type="button" class="btn btn-outline" data-back>Back</button><button type="button" class="btn btn-primary" data-next>Next</button></div>
           </div>
@@ -814,7 +808,7 @@ section{ padding:88px 0; }
               <label for="quote-phone">Phone</label>
               <input type="tel" id="quote-phone" name="phone" placeholder="04xx xxx xxx" inputmode="tel" pattern="^(?:04[0-9]{2}(?:[ ]?[0-9]{3}){2}|[+]61[ ]?4[0-9]{2}(?:[ ]?[0-9]{3}){2})$" title="Enter a valid Australian mobile number, e.g. 04xx xxx xxx or +61 4xx xxx xxx." required>
             </div>
-            <div class="field"><label for="quote-note">Anything else we should know?</label><textarea id="quote-note" name="note" rows="3" maxlength="2000" placeholder="Tell us about the job, tile type, access, or anything else..."></textarea></div>
+            <div class="field"><label for="quote-note">Anything else we should know?</label><textarea id="quote-note" name="note" rows="3" maxlength="2000" placeholder="Tell us about the tiling work, tile type, access, or anything else..."></textarea></div>
             <div class="modal-actions">
               <button type="button" class="btn btn-outline" data-back>Back</button>
               <button type="button" class="btn btn-primary" data-next>Review</button>
@@ -887,9 +881,8 @@ function initQuoteModal() {
   function setupDynamicQuoteOptions() {
     const selectOptions = {
       'quote-commercial-type': @json(($quoteOptions['commercial_property_type'] ?? [])),
-      'quote-tile-size': @json(($quoteOptions['tile_size'] ?? [])),
     };
-    overlay.querySelectorAll('#quote-commercial-type, #quote-tile-size').forEach(select => {
+    overlay.querySelectorAll('#quote-commercial-type').forEach(select => {
       const placeholder = select.id === 'quote-commercial-type' ? 'Select property type' : 'Select tile size';
       select.innerHTML = '<option value="">' + placeholder + '</option>';
       (selectOptions[select.id] || []).forEach(option => {
@@ -916,7 +909,7 @@ function initQuoteModal() {
   }
 
   function setupBrandSelects() {
-    overlay.querySelectorAll('#quote-commercial-type, #quote-tile-size').forEach(select => {
+    overlay.querySelectorAll('#quote-commercial-type').forEach(select => {
       const wrapper = document.createElement('div');
       wrapper.className = 'brand-select-custom';
       select.parentNode.insertBefore(wrapper, select);
@@ -1003,14 +996,10 @@ function initQuoteModal() {
     } catch (error) { list.textContent = 'Photo upload failed. Please try again.'; }
   });
 
-  const state = { projectType: '', projectLocation: '', commercialType: '', service: '', address: '', date: '', name: '', email: '', phone: '', area: '', note: '', photos: [], photoUploads: [], materials: false, tileSize: '' };
+  const state = { projectType: '', projectLocation: '', commercialType: '', service: '', address: '', date: '', name: '', email: '', phone: '', area: '', note: '', photos: [], photoUploads: [] };
   const commercialField = overlay.querySelector('#quote-commercial-field');
   const commercialInput = overlay.querySelector('#quote-commercial-type');
   overlay.querySelectorAll('input[name="project_type"]').forEach(input => input.addEventListener('change', () => { const isCommercial = input.value === 'Commercial' && input.checked; commercialField.hidden = !isCommercial; commercialInput.required = isCommercial; if (!isCommercial) commercialInput.value = ''; }));
-  const materialsCheckbox = overlay.querySelector('#quote-materials');
-  const tileSizeField = overlay.querySelector('#quote-tile-size-field');
-  const tileSizeInput = overlay.querySelector('#quote-tile-size');
-  if (materialsCheckbox) materialsCheckbox.addEventListener('change', () => { tileSizeField.hidden = !materialsCheckbox.checked; tileSizeInput.required = materialsCheckbox.checked; if (!materialsCheckbox.checked) tileSizeInput.value = ''; });
   let current = 0;
   initDatePicker();
 
@@ -1139,7 +1128,6 @@ function initQuoteModal() {
       <div><span>Estimated area</span><strong>${state.area ? `${state.area} m²` : '—'}</strong></div>
       <div><span>Note</span><strong>${state.note || '—'}</strong></div>
       <div><span>Photos</span><strong>${state.photos.length ? `${state.photos.length} attached` : 'None attached'}</strong></div>
-      <div><span>Materials provided</span><strong>${state.materials ? `Yes${state.tileSize ? ` — ${state.tileSize}` : ''}` : 'No'}</strong></div>
     `;
   }
 
@@ -1214,8 +1202,6 @@ function initQuoteModal() {
         if (activeStep.dataset.step === 'address') { state.address = activeStep.querySelector('#quote-address').value; state.date = activeStep.querySelector('#quote-date').value; }
         if (activeStep.dataset.step === 'details') {
           state.area = activeStep.querySelector('#quote-area').value;
-          state.materials = activeStep.querySelector('#quote-materials').checked;
-          state.tileSize = state.materials ? activeStep.querySelector('#quote-tile-size').value : '';
           state.photos = state.photoUploads.map(photo => photo.name);
           activeStep.querySelector('#quote-photo-list').setAttribute('aria-label', state.photos.length ? state.photos.join(', ') : 'No photos attached');
         }
@@ -1246,14 +1232,12 @@ function initQuoteModal() {
     payload.set('address', state.address || '');
     payload.set('date', overlay.querySelector('#quote-date').dataset.dateValue || overlay.querySelector('#quote-date').value || '');
     payload.set('area', state.area || '');
-    payload.set('tile_size', state.tileSize || '');
-    payload.set('materials', state.materials ? '1' : '0');
     payload.set('note', state.note || '');
     state.photoUploads.forEach(photo => payload.append('uploaded_photos[]', photo.path));
     fetch('/orders', { method: 'POST', headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, 'Accept': 'application/json' }, body: payload })
-      .then(response => { if (!response.ok) throw new Error('Unable to submit request'); return response.json(); })
+      .then(async response => { const result = await response.json().catch(() => ({})); if (!response.ok) throw new Error(result.message || 'Unable to submit request'); return result; })
       .then(() => { current = steps.length - 1; overlay.querySelector('#quote-form-steps').style.display = 'none'; overlay.querySelector('#quote-confirmation').style.display = 'block'; })
-      .catch(() => alert('We could not send your request. Please check your details and try again.'));
+      .catch(error => alert(error.message || 'We could not send your request. Please check your details and try again.'));
   });
 }
 

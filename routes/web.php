@@ -9,6 +9,7 @@ use App\Http\Controllers\SiteController;
 Route::get('/', [SiteController::class, 'home']);
 Route::view('/about', 'site.about');
 Route::view('/contact', 'site.contact');
+Route::post('/contact', [OrderController::class, 'contact'])->name('contact.store');
 Route::get('/our-work', [SiteController::class, 'ourWork']);
 Route::get('/sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
 Route::get('/service-area', [SiteController::class, 'serviceArea']);
