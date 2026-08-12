@@ -1,2 +1,6 @@
 *
 !.gitignore
+!services/
+!services/*.avif
+!works/
+!works/*.avif
