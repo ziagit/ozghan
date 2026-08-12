@@ -579,7 +579,7 @@ section{ padding:88px 0; }
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.com home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
-      <span>Ozghan<small>TILING BRISBANE</small></span>
+      <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/" data-nav="home">Home</a>
@@ -657,7 +657,7 @@ section{ padding:88px 0; }
       <p>Tiling for shopfronts, offices, hospitality fit-outs and common areas, scoped and scheduled around your trading hours to keep disruption to a minimum.</p>
       <button class="btn btn-primary" data-open-quote data-service="Commercial Tiling">Get a Quote for This</button>
     </div>
-    <div class="service-image svc-9 rounded-media" aria-hidden="true" style="aspect-ratio:4/3;"></div>
+    <img class="service-image rounded-media" src="/storage/services/14.avif" alt="Commercial tiling project" style="aspect-ratio:4/3; object-fit:cover;">
   </div>
 </section>
 </div>
@@ -798,7 +798,7 @@ section{ padding:88px 0; }
       <p>Tiling for shopfronts, offices, hospitality fit-outs and common areas, scoped and scheduled around your trading hours to keep disruption to a minimum.</p>
       <button class="btn btn-primary" data-open-quote data-service="Commercial Tiling">Get a Quote for This</button>
     </div>
-    <div class="service-image svc-9 rounded-media" aria-hidden="true" style="aspect-ratio:4/3;"></div>
+    <img class="service-image rounded-media" src="/storage/services/14.avif" alt="Commercial tiling project" style="aspect-ratio:4/3; object-fit:cover;">
   </div>
 </section>
 </div>
@@ -857,7 +857,7 @@ section{ padding:88px 0; }
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Ozghan.com — All rights reserved.</span>
-      <span>ABN 00 000 000 000 &middot; Licensed &amp; insured</span>
+      <span>ABN 12682122210 &middot; Licensed &amp; insured</span>
     </div>
   </div>
 </footer>

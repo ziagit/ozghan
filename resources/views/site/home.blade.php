@@ -223,9 +223,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .hero-visual{
   position:relative;
   aspect-ratio:1;
-  border-radius:12px;
+  border-radius:0;
   overflow:hidden;
-  background:transparent;
+  background:rgba(255,255,255,0.3);
   border:0;
   box-shadow:0 30px 60px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.04);
 }
@@ -233,15 +233,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   content:'';
   position:absolute; inset:0;
   z-index:0;
-  background:linear-gradient(160deg, rgba(58,75,85,0.5) 0%, rgba(37,38,34,0.5) 72%);
+  background:rgba(255,255,255,0.08);
 }
 .hero-visual::before{
   content:'';
   position:absolute; inset:0;
   z-index:1;
   background-image:
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 56px),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 56px);
+    repeating-linear-gradient(0deg, rgba(35,32,28,0.08) 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(90deg, rgba(35,32,28,0.08) 0 1px, transparent 1px 56px);
 }
 .hero-tile{
   position:absolute;
@@ -310,12 +310,15 @@ section{ padding:88px 0; }
 .service-card{
   background:var(--white);
   border:1px solid var(--line);
-  border-radius:10px;
+  border-radius:0;
   overflow:hidden;
   display:flex; flex-direction:column;
   box-shadow:0 1px 3px rgba(35,32,28,0.05);
   transition:transform .18s ease, box-shadow .18s ease;
 }
+.grid-services .service-card,
+.grid-services .service-image,
+.two-col > .rounded-media{ border-radius:0 !important; }
 .service-card:hover{ transform:translateY(-3px); box-shadow:0 12px 24px rgba(35,32,28,0.10); }
 .service-image{
   position:relative;
@@ -351,7 +354,7 @@ section{ padding:88px 0; }
   .grid-services{ grid-template-columns:1fr; }
 }
 
-.rounded-media{ border-radius:12px; overflow:hidden; }
+.rounded-media{ border-radius:0; overflow:hidden; }
 
 /* =========================================================
    Homepage "Our Work" preview row
@@ -360,7 +363,7 @@ section{ padding:88px 0; }
   display:grid; grid-template-columns:repeat(4, 1fr); gap:20px;
 }
 .work-thumb{
-  position:relative; display:block; aspect-ratio:4/3; border-radius:10px; overflow:hidden;
+  position:relative; display:block; aspect-ratio:4/3; border-radius:0; overflow:hidden;
   background:var(--img-grad, linear-gradient(135deg, var(--clay), var(--slate)));
 }
 .work-thumb img{ width:100%; height:100%; object-fit:cover; }
@@ -574,7 +577,7 @@ section{ padding:88px 0; }
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.com home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
-      <span>Ozghan<small>TILING BRISBANE</small></span>
+      <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/" data-nav="home" aria-current="page">Home</a>
@@ -783,7 +786,7 @@ section{ padding:88px 0; }
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Ozghan.com — All rights reserved.</span>
-      <span>ABN 00 000 000 000 &middot; Licensed &amp; insured</span>
+      <span>ABN 12682122210 &middot; Licensed &amp; insured</span>
     </div>
   </div>
 </footer>

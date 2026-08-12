@@ -20,7 +20,7 @@
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.com home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
-      <span>Ozghan<small>TILING BRISBANE</small></span>
+      <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/" data-nav="home" @if(request()->is('/')) aria-current="page" @endif>Home</a>

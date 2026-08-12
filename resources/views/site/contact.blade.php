@@ -555,7 +555,7 @@ section{ padding:88px 0; }
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.com home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
-      <span>Ozghan<small>TILING BRISBANE</small></span>
+      <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/" data-nav="home">Home</a>
@@ -678,7 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Ozghan.com — All rights reserved.</span>
-      <span>ABN 00 000 000 000 &middot; Licensed &amp; insured</span>
+      <span>ABN 12682122210 &middot; Licensed &amp; insured</span>
     </div>
   </div>
 </footer>

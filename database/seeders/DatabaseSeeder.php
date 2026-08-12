@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create(['name' => 'Admin', 'email' => 'admin@ozghan.com', 'password' => 'password']);
         $this->call(SiteContentSeeder::class);
+        $this->call(ServiceContentSeeder::class);
+        $this->call(WorkImagesSeeder::class);
     }
 }

@@ -13,11 +13,13 @@ class SiteController extends Controller
     {
         try {
             $homeServices = TilingService::where('is_active', true)->latest()->take(4)->get();
-            $commercialWorks = Work::whereRaw('LOWER(category) LIKE ?', ['%commercial%'])
-                ->latest('completed_at')->latest()->take(2)->get();
+            $commercialWorks = Work::whereNotNull('image_path')
+                ->whereRaw('LOWER(category) LIKE ?', ['%commercial%'])
+                ->orderByDesc('completed_at')->orderByDesc('created_at')->take(2)->get();
             $residentialWorks = Work::where(function ($query) {
                 $query->whereNull('category')->orWhereRaw('LOWER(category) NOT LIKE ?', ['%commercial%']);
-            })->latest('completed_at')->latest()->take(2)->get();
+            })->whereNotNull('image_path')
+                ->orderByDesc('completed_at')->orderByDesc('created_at')->take(2)->get();
             $homeWorks = $commercialWorks->concat($residentialWorks);
         } catch (\Throwable) {
             $homeServices = collect();
