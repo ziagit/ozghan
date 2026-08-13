@@ -12,17 +12,20 @@
   .site-header .nav-links{display:flex!important;align-items:center!important;gap:32px!important}
   .site-header .nav-links a{font-size:.92rem!important;font-weight:600!important;padding:4px 2px!important;border-bottom:2px solid transparent!important}
   .site-header .nav-cta{display:flex!important;align-items:center!important;gap:18px!important}
+  .site-header .nav-toggle{display:none!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;padding:0!important}
   .site-header .nav-cta .btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;width:auto!important;height:auto!important;min-height:52px!important;padding:14px 28px!important;border:2px solid transparent!important;border-radius:2px!important;font-family:inherit!important;font-size:.95rem!important;font-weight:700!important;line-height:1.6!important;box-sizing:border-box!important}
-  @media(max-width:860px){.site-header .nav-links{position:absolute!important;top:100%!important;left:0!important;right:0!important;background:var(--bg)!important;border-bottom:2px solid var(--ink)!important;flex-direction:column!important;align-items:flex-start!important;gap:0!important;padding:8px 24px 20px!important;display:none!important}.site-header .nav-links.open{display:flex!important}.site-header .nav-toggle{display:block!important}.site-header .nav-cta .btn{display:none!important}}
+  @media(max-width:860px){.site-header .nav-links{position:absolute!important;top:100%!important;left:0!important;right:0!important;background:#171513!important;border-bottom:3px solid var(--clay)!important;box-shadow:0 14px 28px rgba(0,0,0,.28)!important;flex-direction:column!important;align-items:flex-start!important;gap:0!important;padding:12px 24px 24px!important;display:none!important}.site-header .nav-links.open{display:flex!important}.site-header .nav-links a{width:100%!important;color:#F2EFEA!important;font-size:1.08rem!important;font-weight:700!important;line-height:1.4!important;padding:16px 4px!important;border-bottom:1px solid rgba(242,239,234,.18)!important}.site-header .nav-links a:last-child{border-bottom:0!important}.site-header .nav-links a:hover,.site-header .nav-links a[aria-current="page"]{color:#FFFFFF!important;border-color:var(--clay)!important}.site-header .nav-toggle{display:inline-flex!important}.site-header .nav-cta .btn{display:none!important}.site-header .nav-toggle[aria-expanded="true"] span{background:transparent!important}.site-header .nav-toggle[aria-expanded="true"] span::before,.site-header .nav-toggle[aria-expanded="true"] span::after{top:0!important;background:#F2EFEA!important}.site-header .nav-toggle[aria-expanded="true"] span::before{transform:rotate(45deg)!important}.site-header .nav-toggle[aria-expanded="true"] span::after{transform:rotate(-45deg)!important}}
 </style>
+@unless(request()->is('admin/login'))
 <a class="sr-only" href="#main">Skip to content</a>
+@endunless
 <header class="site-header @if(request()->is('/')) site-header-home @endif">
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.com home">
-      <img class="brand-mark brand-logo" src="/logo.png" alt="">
+      <img class="brand-mark brand-logo" src="/logo.png" alt="" width="30" height="30" decoding="async">
       <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
-    <nav class="nav-links" aria-label="Primary">
+    <nav id="primary-navigation" class="nav-links" aria-label="Primary">
       <a href="/" data-nav="home" @if(request()->is('/')) aria-current="page" @endif>Home</a>
       <a href="/services#residential-tiling" data-nav="residential">Residential</a>
       <a href="/services#commercial-tiling" data-nav="commercial">Commercial</a>
@@ -33,7 +36,7 @@
     </nav>
     <div class="nav-cta">
       <a class="btn btn-primary" href="/quote">Get a Quote</a>
-      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+      <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-controls="primary-navigation" aria-expanded="false"><span></span></button>
     </div>
   </div>
 </header>

@@ -7,6 +7,7 @@ use App\Models\QuoteOption;
 use App\Models\ServiceArea;
 use App\Models\TilingService;
 use App\Models\Work;
+use App\Models\Faq;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,7 @@ class AdminController extends Controller
         'areas' => [ServiceArea::class, 'Service areas'],
         'works' => [Work::class, 'Our work'],
         'quote-options' => [QuoteOption::class, 'Quote options'],
+        'faqs' => [Faq::class, 'FAQs'],
     ];
 
     public function dashboard()
@@ -65,7 +67,7 @@ class AdminController extends Controller
 
         return view('admin.dashboard', ['counts' => [
             'Tiling services' => TilingService::count(), 'Service areas' => ServiceArea::count(),
-            'Our work' => Work::count(), 'Quote options' => QuoteOption::count(), 'Orders' => Order::count(),
+            'Our work' => Work::count(), 'Quote options' => QuoteOption::count(), 'FAQs' => Faq::count(), 'Orders' => Order::count(),
         ], 'orderChart' => compact('orderChart', 'maxOrders', 'chartWidth', 'chartHeight', 'left', 'top', 'plotHeight', 'linePoints', 'areaPoints', 'points', 'labelIndexes')]);
     }
 
@@ -129,6 +131,7 @@ class AdminController extends Controller
             'services' => ['title' => 'required|max:150', 'category' => 'nullable|max:50', 'description' => 'nullable|max:2000', 'image' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240'], 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
             'areas' => ['name' => 'required|max:150', 'postcode' => 'nullable|max:20', 'description' => 'nullable|max:1000', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
             'works' => ['category' => 'required|in:Residential,Commercial', 'description' => 'nullable|max:2000', 'image' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240']],
+            'faqs' => ['question' => 'required|max:255', 'answer' => 'required|max:5000', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
             default => ['option_group' => 'required|max:80', 'label' => 'required|max:150', 'value' => 'required|max:150', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
         };
         $data = $request->validate($rules);

@@ -12,7 +12,7 @@
     <tbody>
       @forelse($items as $item)
       <tr>
-        @if($type !== 'works')<td><strong>{{ $item->title ?? $item->name ?? $item->label }}</strong></td>@endif
+        @if($type !== 'works')<td><strong>{{ $item->title ?? $item->name ?? $item->label ?? $item->question }}</strong></td>@endif
         <td class="{{ $type === 'works' ? '' : 'hide-mobile' }}">
           @if($type === 'works')
             <div class="work-admin-details">
@@ -20,7 +20,7 @@
               <div><strong>{{ $item->category ?: 'Tiling project' }}</strong><small>{{ $item->description ?: 'No description' }}</small></div>
             </div>
           @else
-            {{ $item->description ?? ($item->option_group ?? '') }}@if(isset($item->category))<br><small>{{ $item->category }}</small>@endif
+            {{ $item->description ?? ($item->answer ?? ($item->option_group ?? '')) }}@if(isset($item->category))<br><small>{{ $item->category }}</small>@endif
           @endif
         </td>
         @if($type !== 'works')<td class="hide-mobile">{{ $item->is_active ? 'Yes' : 'No' }}</td>@endif

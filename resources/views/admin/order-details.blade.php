@@ -1,7 +1,7 @@
 @extends('admin.layout')
 @section('content')
 <style>
-    .order-photo-grid{display:flex;flex-wrap:wrap;gap:12px}.order-photo{display:block;width:92px;height:72px;padding:0;border:1px solid #d8d0c6;border-radius:4px;background:#f2efea;overflow:hidden;cursor:pointer}.order-photo img{display:block;width:100%;height:100%;object-fit:cover}.order-photo:hover{border-color:#b8541f}
+    .order-photo-grid{display:flex;flex-wrap:wrap;gap:12px}.order-photo{display:block;width:92px;height:72px;padding:0;border:1px solid #d8d0c6;border-radius:4px;background:#f2efea;overflow:hidden;cursor:pointer}.order-photo img{display:block;width:100%;height:100%;object-fit:cover}.order-photo:hover{border-color:#4091C5}
     .photo-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(20,18,15,.82);z-index:100}.photo-modal.open{display:flex}.photo-modal img{max-width:min(100%,1000px);max-height:calc(100vh - 48px);object-fit:contain;box-shadow:0 16px 50px rgba(0,0,0,.4)}.photo-modal-close{position:absolute;top:18px;right:22px;border:0;background:transparent;color:#fff;font-size:34px;line-height:1;cursor:pointer}
 </style>
 <div class="actions"><h1 style="margin-right:auto">Order #{{ $order->id }}</h1><a class="btn btn-muted" href="{{ route('admin.orders') }}">Back to orders</a></div>

@@ -20,9 +20,9 @@
   --bg-alt:        #E8E1D6;   /* raw stone */
   --ink:           #23201C;   /* charcoal grout */
   --ink-soft:      #5B564F;
-  --clay:          #B8541F;   /* fired clay / brick terracotta */
-  --clay-dark:     #8F3F16;
-  --clay-tint:     #E7C6AC;
+  --clay:          #4091C5;   /* glazed ceramic tile blue */
+  --clay-dark:     #174B57;
+  --clay-tint:     #B9D7DC;
   --slate:         #3B4A54;   /* wet-grout blue-grey */
   --line:          rgba(35,32,28,0.14);
   --line-strong:   rgba(35,32,28,0.28);
@@ -542,7 +542,7 @@ section{ padding:88px 0; }
 .brand-select-native{ position:absolute !important; width:1px !important; height:1px !important; opacity:0 !important; pointer-events:none; }
 .brand-select-button{ width:100%; padding:13px 42px 13px 14px; border:1.5px solid var(--line-strong); border-radius:var(--radius-sm); background:var(--white); color:var(--ink); font:inherit; text-align:left; cursor:pointer; position:relative; }
 .brand-select-button::after{ content:''; position:absolute; right:16px; top:50%; width:8px; height:8px; border-right:2px solid var(--clay); border-bottom:2px solid var(--clay); transform:translateY(-65%) rotate(45deg); }
-.brand-select-custom.open .brand-select-button, .brand-select-button:focus{ border-color:var(--clay); outline:none; box-shadow:0 0 0 3px rgba(184,92,56,.14); }
+.brand-select-custom.open .brand-select-button, .brand-select-button:focus{ border-color:var(--clay); outline:none; box-shadow:0 0 0 3px rgba(37,107,122,.16); }
 .brand-select-custom.open .brand-select-button::after{ transform:translateY(-25%) rotate(225deg); }
 .brand-select-options{ display:none; position:absolute; z-index:20; inset:calc(100% + 6px) 0 auto; padding:6px; border:1.5px solid var(--clay); border-radius:var(--radius-sm); background:var(--white); box-shadow:0 12px 28px rgba(35,32,28,.14); }
 .brand-select-custom.open .brand-select-options{ display:grid; gap:3px; }
@@ -629,7 +629,7 @@ section{ padding:88px 0; }
       <button class="btn btn-primary" data-open-quote data-service="{{ $service->title }}">Get a Quote for This</button>
     </div>
     @if($service->image_path)
-    <img class="rounded-media" src="{{ \Illuminate\Support\Str::startsWith($service->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($service->image_path, '/') : (\Illuminate\Support\Str::startsWith($service->image_path, ['http://', 'https://']) ? $service->image_path : asset(ltrim($service->image_path, '/'))) }}" alt="{{ $service->title }}" style="aspect-ratio:4/3; object-fit:cover;">
+    <img class="rounded-media" loading="lazy" decoding="async" src="{{ \Illuminate\Support\Str::startsWith($service->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($service->image_path, '/') : (\Illuminate\Support\Str::startsWith($service->image_path, ['http://', 'https://']) ? $service->image_path : asset(ltrim($service->image_path, '/'))) }}" alt="{{ $service->title }} in Brisbane" style="aspect-ratio:4/3; object-fit:cover;">
     @else
     <div class="service-image svc-{{ ($loop->index % 9) + 1 }} rounded-media" aria-hidden="true" style="aspect-ratio:4/3;"></div>
     @endif
@@ -653,7 +653,7 @@ section{ padding:88px 0; }
       <p>Tiling for shopfronts, offices, hospitality fit-outs and common areas, scoped and scheduled around your trading hours to keep disruption to a minimum.</p>
       <button class="btn btn-primary" data-open-quote data-service="Commercial Tiling">Get a Quote for This</button>
     </div>
-    <img class="service-image rounded-media" src="/storage/services/14.avif" alt="Commercial tiling project" style="aspect-ratio:4/3; object-fit:cover;">
+    <img class="service-image rounded-media" loading="lazy" decoding="async" src="/storage/services/14.avif" alt="Commercial tiling project in Brisbane" style="aspect-ratio:4/3; object-fit:cover;">
   </div>
 </section>
 </div>
@@ -794,7 +794,7 @@ section{ padding:88px 0; }
       <p>Tiling for shopfronts, offices, hospitality fit-outs and common areas, scoped and scheduled around your trading hours to keep disruption to a minimum.</p>
       <button class="btn btn-primary" data-open-quote data-service="Commercial Tiling">Get a Quote for This</button>
     </div>
-    <img class="service-image rounded-media" src="/storage/services/14.avif" alt="Commercial tiling project" style="aspect-ratio:4/3; object-fit:cover;">
+    <img class="service-image rounded-media" loading="lazy" decoding="async" src="/storage/services/14.avif" alt="Commercial tiling project in Brisbane" style="aspect-ratio:4/3; object-fit:cover;">
   </div>
 </section>
 </div>

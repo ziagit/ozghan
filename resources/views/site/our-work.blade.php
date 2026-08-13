@@ -31,9 +31,9 @@
   --bg-alt:        #E8E1D6;   /* raw stone */
   --ink:           #23201C;   /* charcoal grout */
   --ink-soft:      #5B564F;
-  --clay:          #B8541F;   /* fired clay / brick terracotta */
-  --clay-dark:     #8F3F16;
-  --clay-tint:     #E7C6AC;
+  --clay:          #4091C5;   /* glazed ceramic tile blue */
+  --clay-dark:     #174B57;
+  --clay-tint:     #B9D7DC;
   --slate:         #3B4A54;   /* wet-grout blue-grey */
   --line:          rgba(35,32,28,0.14);
   --line-strong:   rgba(35,32,28,0.28);
@@ -548,7 +548,7 @@ section{ padding:88px 0; }
 .brand-select-native{ position:absolute !important; width:1px !important; height:1px !important; opacity:0 !important; pointer-events:none; }
 .brand-select-button{ width:100%; padding:13px 42px 13px 14px; border:1.5px solid var(--line-strong); border-radius:var(--radius-sm); background:var(--white); color:var(--ink); font:inherit; text-align:left; cursor:pointer; position:relative; }
 .brand-select-button::after{ content:''; position:absolute; right:16px; top:50%; width:8px; height:8px; border-right:2px solid var(--clay); border-bottom:2px solid var(--clay); transform:translateY(-65%) rotate(45deg); }
-.brand-select-custom.open .brand-select-button, .brand-select-button:focus{ border-color:var(--clay); outline:none; box-shadow:0 0 0 3px rgba(184,92,56,.14); }
+.brand-select-custom.open .brand-select-button, .brand-select-button:focus{ border-color:var(--clay); outline:none; box-shadow:0 0 0 3px rgba(37,107,122,.16); }
 .brand-select-custom.open .brand-select-button::after{ transform:translateY(-25%) rotate(225deg); }
 .brand-select-options{ display:none; position:absolute; z-index:20; inset:calc(100% + 6px) 0 auto; padding:6px; border:1.5px solid var(--clay); border-radius:var(--radius-sm); background:var(--white); box-shadow:0 12px 28px rgba(35,32,28,.14); }
 .brand-select-custom.open .brand-select-options{ display:grid; gap:3px; }
@@ -632,7 +632,7 @@ section{ padding:88px 0; }
       @foreach($residentialWorks as $work)
       <a class="gallery-card" href="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" data-lightbox>
         @if($work->image_path)
-        <img class="gallery-image" loading="lazy" src="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" alt="{{ $work->category ?: 'Tiling project' }}">
+        <img class="gallery-image" loading="lazy" decoding="async" src="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" alt="{{ $work->category ?: 'Brisbane tiling project' }}">
         @else
         <div class="gallery-swatch p{{ ($loop->index % 6) + 1 }}" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
         @endif
@@ -684,7 +684,7 @@ section{ padding:88px 0; }
       @foreach($commercialWorks as $work)
       <a class="gallery-card" href="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" data-lightbox>
         @if($work->image_path)
-        <img class="gallery-image" loading="lazy" src="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" alt="{{ $work->category ?: 'Tiling project' }}">
+        <img class="gallery-image" loading="lazy" decoding="async" src="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" alt="{{ $work->category ?: 'Brisbane tiling project' }}">
         @else
         <div class="gallery-swatch p{{ (($loop->index + 3) % 6) + 1 }}" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
         @endif

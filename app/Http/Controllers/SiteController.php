@@ -6,6 +6,7 @@ use App\Models\QuoteOption;
 use App\Models\ServiceArea;
 use App\Models\TilingService;
 use App\Models\Work;
+use App\Models\Faq;
 
 class SiteController extends Controller
 {
@@ -32,6 +33,12 @@ class SiteController extends Controller
     {
         try { $services = TilingService::where('is_active', true)->orderBy('sort_order')->get(); } catch (\Throwable) { $services = collect(); }
         return view('site.services', compact('services'));
+    }
+
+    public function faq()
+    {
+        try { $faqs = Faq::where('is_active', true)->orderBy('sort_order')->orderBy('id')->get(); } catch (\Throwable) { $faqs = collect(); }
+        return view('site.faq', compact('faqs'));
     }
 
     public function serviceArea()

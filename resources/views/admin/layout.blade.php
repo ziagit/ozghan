@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? 'Ozghan Admin' }}</title>
     <style>
-        :root{--ink:#23201c;--clay:#b8541f;--bg:#f2efea;--line:#d8d0c6}
+        :root{--ink:#23201c;--clay:#4091C5;--bg:#f2efea;--line:#d8d0c6}
         *{box-sizing:border-box}
         body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Arial,sans-serif;overflow-x:hidden}
         a{color:inherit;text-decoration:none}
@@ -84,6 +84,7 @@
             <a href="/admin/areas">Service areas</a>
             <a href="/admin/works">Our work</a>
             <a href="/admin/quote-options">Quote options</a>
+            <a href="/admin/faqs">FAQs</a>
             <a href="/admin/orders">Orders</a>
         </nav>
         <form class="admin-logout" method="post" action="{{ route('admin.logout') }}">
