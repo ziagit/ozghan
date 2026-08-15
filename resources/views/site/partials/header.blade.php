@@ -22,7 +22,7 @@
 <header class="site-header @if(request()->is('/')) site-header-home @endif">
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.com home">
-      <img class="brand-mark brand-logo" src="/logo2.png" alt="" width="30" height="30" decoding="async">
+      <img class="brand-mark brand-logo" src="/logo.png" alt="" width="30" height="30" decoding="async">
       <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
     <nav id="primary-navigation" class="nav-links" aria-label="Primary">

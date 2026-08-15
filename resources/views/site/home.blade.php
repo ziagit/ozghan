@@ -252,7 +252,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border:2px solid rgba(255,255,255,0.18);
   box-shadow:0 18px 32px rgba(0,0,0,0.48), 0 0 0 1px rgba(0,0,0,0.22);
 }
-.hero-tile-1{ width:52%; aspect-ratio:1; background:var(--clay) url('/images/tile10.avif') center/cover no-repeat; top:12%; left:10%; --rot:-6deg; animation-delay:.1s; }
+.hero-tile-1{ width:52%; aspect-ratio:1; background:var(--clay) url('/images/tile1.avif') center/cover no-repeat; top:12%; left:10%; --rot:-6deg; animation-delay:.1s; }
 .hero-tile-2{ width:40%; aspect-ratio:1; background:var(--clay-tint) url('/images/tile2.avif') center/cover no-repeat; bottom:14%; right:8%; --rot:8deg; animation-delay:.28s; }
 .hero-tile-3{ width:34%; aspect-ratio:1; background:var(--bg) url('/images/tile3.avif') center/cover no-repeat; top:44%; left:46%; --rot:-3deg; animation-delay:.46s; }
 @keyframes lay-tile{
@@ -572,7 +572,7 @@ section{ padding:88px 0; }
 <header class="site-header">
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.com home">
-      <img class="brand-mark brand-logo" src="/logo2.png" alt="">
+      <img class="brand-mark brand-logo" src="/logo.png" alt="">
       <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
@@ -748,7 +748,7 @@ section{ padding:88px 0; }
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="brand" style="color:var(--bg); margin-bottom:14px;">
-          <img class="brand-mark brand-logo" src="/logo2.png" alt="">
+          <img class="brand-mark brand-logo" src="/logo.png" alt="">
           <span>Ozghan</span>
         </div>
         <p>Brisbane tiling for bathrooms, kitchens, floors and commercial fit-outs — laid level, laid true.</p>
