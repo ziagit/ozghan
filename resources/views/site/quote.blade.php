@@ -508,6 +508,7 @@ section{ padding:88px 0; }
 }
 .service-pick input{ width:auto; accent-color:var(--clay); }
 .service-pick label:has(input:checked){ border-color:var(--clay); background:var(--clay-tint); }
+.option-error{ margin:6px 0 0; color:#b42318; font-size:0.82rem; }
 .brand-select, #quote-commercial-type{ appearance:none; cursor:pointer; padding-right:42px !important; background-color:var(--white) !important; background-image:linear-gradient(45deg, transparent 50%, var(--clay) 50%),linear-gradient(135deg, var(--clay) 50%, transparent 50%); background-position:calc(100% - 19px) 50%,calc(100% - 13px) 50%; background-size:6px 6px,6px 6px; background-repeat:no-repeat; }
 .brand-select:hover{ border-color:var(--clay); }
 .brand-select-custom{ position:relative; }
@@ -522,6 +523,9 @@ section{ padding:88px 0; }
 .brand-select-option:hover, .brand-select-option.active{ background:var(--clay-tint); color:var(--clay-dark); }
 .modal-actions{ display:flex; justify-content:space-between; gap:12px; margin-top:24px; }
 .modal-actions .btn{ padding:12px 22px; }
+.btn.is-loading{ opacity:0.75; cursor:wait; pointer-events:none; }
+.btn.is-loading::before{ content:''; display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:quote-spinner 0.7s linear infinite; }
+@keyframes quote-spinner{ to{ transform:rotate(360deg); } }
 .step-summary{ background:var(--white); border:1px solid var(--line); border-radius:var(--radius-sm); padding:16px; font-size:0.85rem; margin-bottom:20px; }
 .step-summary div{ display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--line); }
 .step-summary div:last-child{ border-bottom:none; }
@@ -742,29 +746,30 @@ section{ padding:88px 0; }
           <div class="step active" data-step="project">
             <h3>Tell us about your project</h3>
             <p>Choose the project type and where the tiling will be done.</p>
-            <div class="field"><strong>Project type</strong><div class="service-pick"><label><input type="radio" name="project_type" value="Residential" required> Residential</label><label><input type="radio" name="project_type" value="Commercial"> Commercial</label></div></div>
-            <div class="field"><strong>Location</strong><div class="service-pick"><label><input type="radio" name="project_location" value="Indoor" required> Indoor</label><label><input type="radio" name="project_location" value="Outdoor"> Outdoor</label></div></div>
+            <div class="field"><strong>Project type</strong><div class="service-pick"><label><input type="radio" name="project_type" value="Residential" required> Residential</label><label><input type="radio" name="project_type" value="Commercial"> Commercial</label></div><p class="option-error" hidden aria-live="polite">Please select an option</p></div>
+            <div class="field"><strong>Location</strong><div class="service-pick"><label><input type="radio" name="project_location" value="Indoor" required> Indoor</label><label><input type="radio" name="project_location" value="Outdoor"> Outdoor</label></div><p class="option-error" hidden aria-live="polite">Please select an option</p></div>
             <div class="field" id="quote-commercial-field" hidden><label for="quote-commercial-type">Commercial property type</label><select id="quote-commercial-type" name="commercial_type"><option value="">Select property type</option><option value="Airport">Airport</option><option value="Shopping mall">Shopping mall</option><option value="Hotel">Hotel</option><option value="Train station">Train station</option></select></div>
             <div class="modal-actions"><span></span><button type="button" class="btn btn-primary" data-next>Next</button></div>
           </div>
 
           <div class="step" data-step="service">
-            <h3>What do you need tiled?</h3>
-            <p>Pick the service closest to your tiling work — we'll confirm the details on site.</p>
+            <h3>What do you need?</h3>
+            <p>Pick the service closest to your work — we'll confirm the details on site.</p>
             <div class="service-pick">
-              <label data-location="indoor"><input type="radio" name="service" value="Bathroom Tiling" required> Bathroom Tiling</label>
-              <label data-location="indoor"><input type="radio" name="service" value="Kitchen Tiling"> Kitchen Tiling</label>
-              <label data-location="indoor"><input type="radio" name="service" value="Indoor Floor Tiling"> Indoor Floor Tiling</label>
-              <label data-location="indoor"><input type="radio" name="service" value="Indoor Wall Tiling"> Indoor Wall Tiling</label>
+              <label data-location="indoor"><input type="radio" name="service" value="Bathroom Tiling" required> Bathroom</label>
+              <label data-location="indoor"><input type="radio" name="service" value="Kitchen Tiling"> Kitchen</label>
+              <label data-location="indoor"><input type="radio" name="service" value="Indoor Floor Tiling"> Floor</label>
+              <label data-location="indoor"><input type="radio" name="service" value="Indoor Wall Tiling"> Wall</label>
               <label data-location="indoor"><input type="radio" name="service" value="Waterproofing"> Waterproofing</label>
-              <label data-location="indoor"><input type="radio" name="service" value="Indoor Renovation Tiling"> Indoor Renovation Tiling</label>
-              <label data-location="outdoor"><input type="radio" name="service" value="Patio &amp; Alfresco Tiling"> Patio &amp; Alfresco Tiling</label>
-              <label data-location="outdoor"><input type="radio" name="service" value="Pool Surround Tiling"> Pool Surround Tiling</label>
-              <label data-location="outdoor"><input type="radio" name="service" value="Outdoor Floor Tiling"> Outdoor Floor Tiling</label>
-              <label data-location="outdoor"><input type="radio" name="service" value="Outdoor Wall Tiling"> Outdoor Wall Tiling</label>
-              <label data-location="outdoor"><input type="radio" name="service" value="Driveway &amp; Path Tiling"> Driveway &amp; Path Tiling</label>
-              <label data-location="outdoor"><input type="radio" name="service" value="Outdoor Renovation Tiling"> Outdoor Renovation Tiling</label>
+              <label data-location="indoor"><input type="radio" name="service" value="Indoor Renovation Tiling"> Renovation</label>
+              <label data-location="outdoor"><input type="radio" name="service" value="Patio &amp; Alfresco Tiling"> Patio &amp; Alfresco</label>
+              <label data-location="outdoor"><input type="radio" name="service" value="Pool Surround Tiling"> Pool Surround</label>
+              <label data-location="outdoor"><input type="radio" name="service" value="Outdoor Floor Tiling"> Floor</label>
+              <label data-location="outdoor"><input type="radio" name="service" value="Outdoor Wall Tiling"> Wall</label>
+              <label data-location="outdoor"><input type="radio" name="service" value="Driveway &amp; Path Tiling"> Driveway &amp; Path</label>
+              <label data-location="outdoor"><input type="radio" name="service" value="Outdoor Renovation Tiling"> Renovation</label>
             </div>
+            <p class="option-error" hidden aria-live="polite">Please select an option</p>
             <div class="modal-actions">
               <button type="button" class="btn btn-outline" data-back>Back</button>
               <button type="button" class="btn btn-primary" data-next>Next</button>
@@ -894,6 +899,7 @@ function initQuoteModal() {
     });
 
     const services = @json($quoteServices ?? []);
+    const formatServiceLabel = title => title.replace(/^(Indoor|Outdoor)\s+/i, '').replace(/\s+Tiling$/i, '');
     const servicePick = overlay.querySelector('.step[data-step="service"] .service-pick');
     if (servicePick && services.length) {
       servicePick.innerHTML = '';
@@ -902,7 +908,7 @@ function initQuoteModal() {
         label.dataset.location = service.category || 'indoor';
         const input = document.createElement('input');
         input.type = 'radio'; input.name = 'service'; input.value = service.title; input.required = index === 0;
-        label.append(input, document.createTextNode(' ' + service.title));
+        label.append(input, document.createTextNode(' ' + formatServiceLabel(service.title)));
         servicePick.appendChild(label);
       });
     }
@@ -974,6 +980,7 @@ function initQuoteModal() {
   const steps = Array.from(overlay.querySelectorAll('.step'));
   const dots = Array.from(overlay.querySelectorAll('.modal-steps span'));
   const form = overlay.querySelector('#quote-form');
+  const submitButton = form.querySelector('button[type="submit"]');
   const photoInput = overlay.querySelector('#quote-photos');
   if (photoInput) photoInput.addEventListener('change', async () => {
     let files = Array.from(photoInput.files || []);
@@ -1188,11 +1195,17 @@ function initQuoteModal() {
       const projectType = activeStep.querySelector('input[name="project_type"]:checked');
       const projectLocation = activeStep.querySelector('input[name="project_location"]:checked');
       const commercial = projectType && projectType.value === 'Commercial';
-      if (!projectType || !projectLocation || (commercial && !commercialInput.value)) { valid = false; if (commercial) commercialInput.reportValidity(); else flash(activeStep); }
+      const projectTypeGroup = activeStep.querySelector('input[name="project_type"]').closest('.field').querySelector('.service-pick');
+      const projectLocationGroup = activeStep.querySelector('input[name="project_location"]').closest('.field').querySelector('.service-pick');
+      setOptionError(projectTypeGroup, !projectType);
+      setOptionError(projectLocationGroup, !projectLocation);
+      if (!projectType || !projectLocation || (commercial && !commercialInput.value)) { valid = false; if (commercial && !commercialInput.value) commercialInput.reportValidity(); }
       if (valid) { state.projectType = projectType.value; state.projectLocation = projectLocation.value; state.commercialType = commercial ? commercialInput.value : ''; }
     } else if (activeStep.dataset.step === 'service') {
       const checked = activeStep.querySelector('input[name="service"]:checked');
-      if (!checked) { valid = false; flash(activeStep); }
+      const serviceGroup = activeStep.querySelector('.service-pick');
+      setOptionError(serviceGroup, !checked);
+      if (!checked) { valid = false; }
       else state.service = checked.value;
     } else {
       requiredInputs.forEach(input => {
@@ -1216,14 +1229,18 @@ function initQuoteModal() {
     return valid;
   }
 
-  function flash(el) {
-    el.style.outline = '2px solid var(--clay)';
-    setTimeout(() => { el.style.outline = ''; }, 900);
+  function setOptionError(group, show) {
+    const error = group?.nextElementSibling;
+    if (error?.classList.contains('option-error')) error.hidden = !show;
   }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!validateStep(current)) return;
+    submitButton.disabled = true;
+    submitButton.classList.add('is-loading');
+    submitButton.setAttribute('aria-busy', 'true');
+    submitButton.textContent = 'Sending…';
     const payload = new FormData(form);
     payload.set('project_type', state.projectType || '');
     payload.set('project_location', state.projectLocation || '');
@@ -1237,7 +1254,8 @@ function initQuoteModal() {
     fetch('/orders', { method: 'POST', headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, 'Accept': 'application/json' }, body: payload })
       .then(async response => { const result = await response.json().catch(() => ({})); if (!response.ok) throw new Error(result.message || 'Unable to submit request'); return result; })
       .then(() => { current = steps.length - 1; overlay.querySelector('#quote-form-steps').style.display = 'none'; overlay.querySelector('#quote-confirmation').style.display = 'block'; })
-      .catch(error => alert(error.message || 'We could not send your request. Please check your details and try again.'));
+      .catch(error => alert(error.message || 'We could not send your request. Please check your details and try again.'))
+      .finally(() => { submitButton.disabled = false; submitButton.classList.remove('is-loading'); submitButton.removeAttribute('aria-busy'); submitButton.textContent = 'Send Request'; });
   });
 }
 
