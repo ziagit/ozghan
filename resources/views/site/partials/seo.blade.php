@@ -19,8 +19,8 @@
     '@id' => 'https://ozghan.com/#business',
     'name' => 'Ozghan.com',
     'url' => 'https://ozghan.com',
-    'logo' => asset('logo.png'),
-    'image' => asset('logo.png'),
+    'logo' => asset('logo2.png'),
+    'image' => asset('logo2.png'),
     'description' => $seoDescription,
     'telephone' => '+61468430893',
     'serviceType' => [

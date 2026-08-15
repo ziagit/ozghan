@@ -550,7 +550,7 @@ section{ padding:88px 0; }
 <header class="site-header">
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.com home">
-      <img class="brand-mark brand-logo" src="/logo.png" alt="">
+      <img class="brand-mark brand-logo" src="/logo2.png" alt="">
       <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
@@ -650,7 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="brand" style="color:var(--bg); margin-bottom:14px;">
-          <img class="brand-mark brand-logo" src="/logo.png" alt="">
+          <img class="brand-mark brand-logo" src="/logo2.png" alt="">
           <span>Ozghan</span>
         </div>
         <p>Brisbane tiling for bathrooms, kitchens, floors and commercial fit-outs — laid level, laid true.</p>

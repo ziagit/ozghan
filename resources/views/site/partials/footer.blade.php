@@ -9,7 +9,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="brand" style="color:var(--bg); margin-bottom:14px;">
-          <img class="brand-mark brand-logo" src="/logo.png" alt="" width="30" height="30" loading="lazy" decoding="async">
+          <img class="brand-mark brand-logo" src="/logo2.png" alt="" width="30" height="30" loading="lazy" decoding="async">
           <span>Ozghan</span>
         </div>
         <p>Brisbane tiling for bathrooms, kitchens, floors and commercial fit-outs — laid level, laid true.</p>
