@@ -202,7 +202,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height:100vh;
   background:
     linear-gradient(rgba(23,21,18,0.62), rgba(23,21,18,0.62)),
-    url('/images/home-hero.jpeg') center/cover no-repeat;
+    url('/images/home-hero.avif') center/cover no-repeat;
 }
 .hero-inner{
   position:relative; z-index:2;

@@ -401,7 +401,7 @@ section{ padding:88px 0; }
 /* =========================================================
    About page bits
    ========================================================= */
-.value-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--grout); background:var(--ink); }
+.value-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; background:transparent; }
 .value-card{ background:var(--bg); padding:32px 28px; }
 .value-card .num{ font-family:var(--font-mono); color:var(--clay); font-size:0.85rem; }
 @media (max-width:860px){ .value-grid{ grid-template-columns:1fr; } }
@@ -586,7 +586,7 @@ section{ padding:88px 0; }
         <div><strong>Brisbane</strong><span>Based &amp; local</span></div>
       </div>
     </div>
-    <img class="service-image rounded-media" loading="lazy" decoding="async" src="/images/about.avif" alt="Ozghan tiling team at work in Brisbane" style="width:100%; aspect-ratio:4/3; object-fit:cover;">
+    <img class="service-image" loading="lazy" decoding="async" src="/images/about.avif" alt="Ozghan tiling team at work in Brisbane" style="width:100%; aspect-ratio:4/3; object-fit:cover;">
   </div>
 </section>
 

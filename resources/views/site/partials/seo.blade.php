@@ -5,12 +5,12 @@
 <meta property="og:title" content="{{ $seoTitle }}">
 <meta property="og:description" content="{{ $seoDescription }}">
 <meta property="og:url" content="{{ url()->current() }}">
-<meta property="og:image" content="{{ asset('images/home-hero.jpeg') }}">
+<meta property="og:image" content="{{ asset('images/home-hero.avif') }}">
 <meta property="og:image:alt" content="Brisbane tiling services by Ozghan.com">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{{ $seoTitle }}">
 <meta name="twitter:description" content="{{ $seoDescription }}">
-<meta name="twitter:image" content="{{ asset('images/home-hero.jpeg') }}">
+<meta name="twitter:image" content="{{ asset('images/home-hero.avif') }}">
 <meta name="twitter:image:alt" content="Brisbane tiling services by Ozghan.com">
 <script type="application/ld+json">
 {!! json_encode([
