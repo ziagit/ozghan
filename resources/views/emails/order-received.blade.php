@@ -5,7 +5,7 @@
     <p>A new quotation request was submitted through the Ozghan website.</p>
     <h2>Customer</h2>
     <p><strong>{{ $order->name }}</strong><br>{{ $order->email }}<br>{{ $order->phone }}</p>
-    <h2>Project</h2>
+    <h2>Work</h2>
     <p>
         <strong>Service:</strong> {{ $order->service }}<br>
         <strong>Type:</strong> {{ $order->project_type ?: '—' }}<br>
@@ -22,5 +22,8 @@
         <h2>Photos</h2>
         <ul>@foreach($order->photos as $photo)<li>{{ url('/storage/'.$photo) }}</li>@endforeach</ul>
     @endif
+    <p style="margin-top:24px">
+        <a href="{{ route('admin.order.show', $order->id) }}" style="display:inline-block;padding:12px 18px;background:#23201c;color:#fff;text-decoration:none;border-radius:4px">View order details in admin</a>
+    </p>
 </body>
 </html>

@@ -106,7 +106,11 @@ class OrderController extends Controller
         ]);
 
         try {
-            Mail::to(config('mail.admin_address', 'contact@ozghan.com'))->queue(new OrderReceived($order));
+            // Send this notification during the request. The application uses the
+            // database queue by default, but no worker is guaranteed to be running
+            // in production; queueing here could leave the notification stranded
+            // in the jobs table even though the order was saved successfully.
+            Mail::to(config('mail.admin_address', 'contact@ozghan.com'))->send(new OrderReceived($order));
         } catch (\Throwable $exception) {
             Log::error('Order notification email could not be sent.', [
                 'order_id' => $order->id,

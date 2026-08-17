@@ -8,7 +8,7 @@
 <div class="admin-card">
     <h2>Customer</h2>
     <p><strong>{{ $order->name }}</strong><br>{{ $order->email }}<br>{{ $order->phone }}</p>
-    <h2>Project details</h2>
+    <h2>Work details</h2>
     <table class="table">
         <tr><th>Service</th><td>{{ $order->service }}</td></tr>
         <tr><th>Project type</th><td>{{ $order->project_type ?: '—' }}</td></tr>
