@@ -808,7 +808,7 @@ section{ padding:88px 0; }
 <section class="cta-banner">
   <div class="container cta-banner-inner">
     <div>
-      <h2>Not sure which service fits?</h2>
+      <h2>Not sure what your project needs?</h2>
       <p>Start a quote and tell us what you're after — we'll confirm scope on site.</p>
     </div>
     <button class="btn btn-block" style="background:var(--ink); color:var(--white); width:auto;" data-open-quote>Get a Quote</button>

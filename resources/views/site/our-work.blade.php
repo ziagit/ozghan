@@ -711,7 +711,7 @@ section{ padding:88px 0; }
 <section class="cta-banner">
   <div class="container cta-banner-inner">
     <div>
-      <h2>Want tiling work like this?</h2>
+      <h2>Want a finish like this?</h2>
       <p>Tell us the service, address and date — we'll take it from there.</p>
     </div>
     <button class="btn btn-block" style="background:var(--ink); color:var(--white); width:auto;" data-open-quote>Get a Quote</button>

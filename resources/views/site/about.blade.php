@@ -619,7 +619,7 @@ section{ padding:88px 0; }
 <section class="cta-banner">
   <div class="container cta-banner-inner">
     <div>
-      <h2>Have tiling work in mind?</h2>
+      <h2>Need a tiling team you can trust?</h2>
       <p>Get a free on-site quote — no obligation.</p>
     </div>
     <button class="btn btn-block" style="background:var(--ink); color:var(--white); width:auto;" data-open-quote>Get a Quote</button>

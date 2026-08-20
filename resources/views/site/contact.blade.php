@@ -504,6 +504,7 @@ section{ padding:88px 0; }
 .modal-body > p{ font-size:0.92rem; margin-bottom:22px; }
 .step{ display:none; }
 .step.active{ display:block; }
+.option-error{ margin:6px 0 0; color:#b42318; font-size:0.82rem; }
 .service-pick{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px; }
 @media (max-width:480px){ .service-pick{ grid-template-columns:1fr; } }
 .service-pick label{
@@ -701,7 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="modal-actions"><span></span><button type="button" class="btn btn-primary" data-next>Next</button></div>
           </div>
           <div class="step" data-step="service">
-            <h3>What do you need tiled?</h3>
+            <h3>What is type of tiling?</h3>
             <p>Pick the service closest to your tiling work — we'll confirm the details on site.</p>
             <div class="service-pick">
               <label data-location="indoor"><input type="radio" name="service" value="Bathroom Tiling" required> Bathroom Tiling</label>
@@ -724,13 +725,13 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div class="step" data-step="address">
-            <h3>Where is the tiling work?</h3>
+            <h3>Where and when is your project?</h3>
             <p>Give us the property address so we can quote travel and scope correctly.</p>
             <div class="field">
-              <label for="quote-address">Property address</label>
+              <label for="quote-address">Property address <span class="hint">(required)</span></label>
               <input type="text" id="quote-address" name="address" placeholder="Street, suburb, postcode" required>
             </div>
-            <div class="field"><label for="quote-date">Preferred date</label><input type="date" id="quote-date" name="date" required></div>
+            <div class="field"><label for="quote-date">Preferred date <span class="hint">(required)</span></label><input type="date" id="quote-date" name="date" required></div><p class="option-error" id="quote-date-error" hidden aria-live="polite">Date is required.</p>
             <div class="modal-actions">
               <button type="button" class="btn btn-outline" data-back>Back</button>
               <button type="button" class="btn btn-primary" data-next>Next</button>
@@ -738,7 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div class="step" data-step="details">
-            <h3>Tell us about the tiling work</h3><p>These details help us prepare a more accurate quote.</p>
+            <h3>Tell us about the area</h3><p>These details help us prepare a more accurate quote.</p>
             <div class="field"><label for="quote-area">Estimated tile area (m²)</label><input type="number" id="quote-area" name="area" min="0" step="0.01" placeholder="e.g. 24.5"><div class="hint">An estimate is fine if you do not know the exact measurement.</div></div>
             <div class="field"><label for="quote-photos">Photos of the area <span class="hint">(optional)</span></label><input type="file" id="quote-photos" name="photos[]" accept="image/*" multiple><div class="hint">Select or take up to 5 photos. You can choose multiple images at once.</div><div class="photo-list" id="quote-photo-list" aria-live="polite"></div></div>
             <div class="modal-actions"><button type="button" class="btn btn-outline" data-back>Back</button><button type="button" class="btn btn-primary" data-next>Next</button></div>
@@ -1036,6 +1037,13 @@ function initQuoteModal() {
       if (!checked) { valid = false; flash(activeStep); }
       else state.service = checked.value;
     } else {
+      if (activeStep.dataset.step === 'address') {
+        const dateInput = activeStep.querySelector('#quote-date');
+        const dateMissing = !dateInput.value;
+        activeStep.querySelector('#quote-date-error').hidden = !dateMissing;
+        dateInput.setCustomValidity(dateMissing ? 'Please select a preferred date.' : '');
+        if (dateMissing) valid = false;
+      }
       requiredInputs.forEach(input => {
         if (!input.checkValidity()) { valid = false; input.reportValidity(); }
       });
