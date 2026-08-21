@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAQ | Brisbane Tiling Questions | Ozghan.com</title>
+<title>FAQ | Brisbane Tiling Questions | Ozghan.com.au</title>
 <meta name="description" content="Answers to common questions about Ozghan's Brisbane tiling services, quotes, waterproofing, materials and project timelines.">
-@include('site.partials.seo', ['seoTitle' => 'FAQ | Brisbane Tiling Questions | Ozghan.com', 'seoDescription' => "Answers to common questions about Ozghan's Brisbane tiling services, quotes, waterproofing, materials and project timelines."])
+@include('site.partials.seo', ['seoTitle' => 'FAQ | Brisbane Tiling Questions | Ozghan.com.au', 'seoDescription' => "Answers to common questions about Ozghan's Brisbane tiling services, quotes, waterproofing, materials and project timelines."])
 <script type="application/ld+json">{!! json_encode(['@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $faqs->map(fn ($faq) => ['@type' => 'Question', 'name' => $faq->question, 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faq->answer]])->values()->all()], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 <script type="application/ld+json">{!! json_encode(['@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => [['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')], ['@type' => 'ListItem', 'position' => 2, 'name' => 'FAQ', 'item' => url('/faq')]]], JSON_UNESCAPED_SLASHES) !!}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">

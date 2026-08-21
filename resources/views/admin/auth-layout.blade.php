@@ -11,6 +11,6 @@
 <body class="admin-login">
     @include('site.partials.header')
     <main class="login-main">@yield('content')</main>
-    <footer class="site-footer"><div class="footer-inner"><div class="brand"><img class="brand-mark" src="/logo.png" alt=""><span>Ozghan<small>BRISBANE TILING</small></span></div><div class="footer-copy">© 2026 Ozghan.com · Brisbane, Queensland</div></div></footer>
+    <footer class="site-footer"><div class="footer-inner"><div class="brand"><img class="brand-mark" src="/logo.png" alt=""><span>Ozghan<small>BRISBANE TILING</small></span></div><div class="footer-copy">© 2026 Ozghan.com.au · Brisbane, Queensland</div></div></footer>
 </body>
 </html>

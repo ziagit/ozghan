@@ -106,7 +106,7 @@
         @yield('content')
     </main>
     <footer class="admin-footer">
-        <span>&copy; 2026 Ozghan.com</span>
+        <span>&copy; 2026 Ozghan.com.au</span>
         <nav aria-label="Admin footer links">
             <a href="/">View website</a>
             <a href="{{ route('admin.login') }}">Login</a>

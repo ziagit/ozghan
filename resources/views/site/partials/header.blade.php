@@ -21,7 +21,7 @@
 @endunless
 <header class="site-header @if(request()->is('/')) site-header-home @endif">
   <div class="container nav">
-    <a href="/" class="brand" aria-label="Ozghan.com home">
+    <a href="/" class="brand" aria-label="Ozghan.com.au home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="" width="30" height="30" decoding="async">
       <span>Ozghan<small>TILING SERVICES</small></span>
     </a>

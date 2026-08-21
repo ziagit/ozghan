@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Our Work | Brisbane Tiling Projects | Ozghan.com</title>
+<title>Our Work | Brisbane Tiling Projects | Ozghan.com.au</title>
 <meta name="description" content="See completed bathroom, kitchen, floor, outdoor and commercial tiling projects by Ozghan across Brisbane suburbs.">
-@include('site.partials.seo', ['seoTitle' => 'Our Work | Brisbane Tiling Projects | Ozghan.com', 'seoDescription' => 'See completed bathroom, kitchen, floor, outdoor and commercial tiling projects by Ozghan across Brisbane suburbs.'])
+@include('site.partials.seo', ['seoTitle' => 'Our Work | Brisbane Tiling Projects | Ozghan.com.au', 'seoDescription' => 'See completed bathroom, kitchen, floor, outdoor and commercial tiling projects by Ozghan across Brisbane suburbs.'])
 @php
     $residentialItems = $residentialWorks instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator ? $residentialWorks->getCollection() : collect($residentialWorks ?? []);
     $commercialItems = $commercialWorks instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator ? $commercialWorks->getCollection() : collect($commercialWorks ?? []);
@@ -23,7 +23,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
-   Ozghan.com — Brisbane Tiling
+   Ozghan.com.au — Brisbane Tiling
    Design tokens
    ========================================================= */
 :root{
@@ -579,7 +579,7 @@ section{ padding:88px 0; }
 @if(false)
 <header class="site-header">
   <div class="container nav">
-    <a href="/" class="brand" aria-label="Ozghan.com home">
+    <a href="/" class="brand" aria-label="Ozghan.com.au home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
       <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
@@ -759,7 +759,7 @@ section{ padding:88px 0; }
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 Ozghan.com — All rights reserved.</span>
+      <span>&copy; 2026 Ozghan.com.au — All rights reserved.</span>
       <span>ABN 12682122210 &middot; Licensed &amp; insured</span>
     </div>
   </div>
@@ -874,7 +874,7 @@ section{ padding:88px 0; }
 
 <script>
 // =========================================================
-// Ozghan.com — shared behaviour
+// Ozghan.com.au — shared behaviour
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {

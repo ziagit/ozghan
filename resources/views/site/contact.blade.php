@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Contact Ozghan | Brisbane Tiling Quote</title>
+<title>Contact Ozghan.com.au | Brisbane Tiling Quote</title>
 <meta name="description" content="Contact Ozghan for a Brisbane tiling quote or general enquiry. Call 0468 430 893 or request a callback online.">
-@include('site.partials.seo', ['seoTitle' => 'Contact Ozghan.com | Brisbane Tiling', 'seoDescription' => 'Contact Ozghan for a Brisbane tiling quote or general enquiry.'])
+@include('site.partials.seo', ['seoTitle' => 'Contact Ozghan.com.au | Brisbane Tiling', 'seoDescription' => 'Contact Ozghan for a Brisbane tiling quote or general enquiry.'])
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <style>
 /* =========================================================
-   Ozghan.com — Brisbane Tiling
+   Ozghan.com.au — Brisbane Tiling
    Design tokens
    ========================================================= */
 :root{
@@ -550,7 +550,7 @@ section{ padding:88px 0; }
 @if(false)
 <header class="site-header">
   <div class="container nav">
-    <a href="/" class="brand" aria-label="Ozghan.com home">
+    <a href="/" class="brand" aria-label="Ozghan.com.au home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
       <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
@@ -674,7 +674,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 Ozghan.com — All rights reserved.</span>
+      <span>&copy; 2026 Ozghan.com.au — All rights reserved.</span>
       <span>ABN 12682122210 &middot; Licensed &amp; insured</span>
     </div>
   </div>
@@ -789,7 +789,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <script>
 // =========================================================
-// Ozghan.com — shared behaviour
+// Ozghan.com.au — shared behaviour
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Get a Brisbane Tiling Quote | Ozghan.com</title>
+<title>Get a Brisbane Tiling Quote | Ozghan.com.au</title>
 <meta name="description" content="Request a quote from Ozghan for bathroom, kitchen, floor, outdoor or commercial tiling in Brisbane.">
-@include('site.partials.seo', ['seoTitle' => 'Get a Brisbane Tiling Quote | Ozghan.com', 'seoDescription' => 'Request a quote from Ozghan for bathroom, kitchen, floor, outdoor or commercial tiling in Brisbane.'])
+@include('site.partials.seo', ['seoTitle' => 'Get a Brisbane Tiling Quote | Ozghan.com.au', 'seoDescription' => 'Request a quote from Ozghan for bathroom, kitchen, floor, outdoor or commercial tiling in Brisbane.'])
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
-   Ozghan.com — Brisbane Tiling
+   Ozghan.com.au — Brisbane Tiling
    Design tokens
    ========================================================= */
 :root{
@@ -596,7 +596,7 @@ section{ padding:88px 0; }
 @if(false)
 <header class="site-header">
   <div class="container nav">
-    <a href="/" class="brand" aria-label="Ozghan.com home">
+    <a href="/" class="brand" aria-label="Ozghan.com.au home">
       <img class="brand-mark brand-logo" src="/logo.png" alt="">
       <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
@@ -720,7 +720,7 @@ section{ padding:88px 0; }
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 Ozghan.com — All rights reserved.</span>
+      <span>&copy; 2026 Ozghan.com.au — All rights reserved.</span>
       <span>ABN 12682122210 &middot; Licensed &amp; insured</span>
     </div>
   </div>
@@ -846,7 +846,7 @@ section{ padding:88px 0; }
 
 <script>
 // =========================================================
-// Ozghan.com — shared behaviour
+// Ozghan.com.au — shared behaviour
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {
