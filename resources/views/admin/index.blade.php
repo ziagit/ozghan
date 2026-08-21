@@ -24,7 +24,7 @@
           @endif
         </td>
         @if($type !== 'works')<td class="hide-mobile">{{ $item->is_active ? 'Yes' : 'No' }}</td>@endif
-        <td class="actions"><a class="btn btn-muted" href="{{ url('/admin/'.$type.'/'.$item->id.'/edit') }}">Edit</a><form method="post" action="{{ url('/admin/'.$type.'/'.$item->id) }}">@csrf @method('DELETE')<button class="btn danger" onclick="return confirm('Delete this item?')">Delete</button></form></td>
+        <td class="actions"><a class="btn btn-muted" href="{{ url('/admin/'.$type.'/'.$item->id.'/edit') }}">Edit</a><form method="post" action="{{ $type === 'works' ? route('admin.works.destroy', $item->id) : url('/admin/'.$type.'/'.$item->id) }}">@csrf @method('DELETE')<button type="submit" class="btn danger" onclick="return confirm('Delete this item?')">Delete</button></form></td>
       </tr>
       @empty
       <tr><td colspan="{{ $type === 'works' ? 2 : 4 }}">No records yet.</td></tr>

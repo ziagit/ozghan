@@ -23,11 +23,19 @@ Route::post('/orders/photos/remove', [OrderController::class, 'removePhoto'])->n
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminAuthController::class, 'create'])->name('admin.login');
     Route::post('/login', [AdminAuthController::class, 'store'])->name('admin.login.store');
+    Route::get('/forgot-password', [AdminAuthController::class, 'showForgotPasswordForm'])->name('admin.password.request');
+    Route::post('/forgot-password', [AdminAuthController::class, 'sendResetLinkEmail'])->name('admin.password.email');
+    Route::get('/reset-password/{token}', [AdminAuthController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [AdminAuthController::class, 'resetPassword'])->name('admin.password.update');
     Route::post('/logout', [AdminAuthController::class, 'destroy'])->middleware('auth')->name('admin.logout');
     Route::middleware('auth')->group(function () {
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
+        Route::put('/profile', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
+        Route::put('/profile/password', [AdminController::class, 'updatePassword'])->name('admin.profile.password');
         Route::get('/orders', [AdminController::class, 'orders'])->name('admin.orders');
         Route::get('/orders/{id}', [AdminController::class, 'showOrder'])->whereNumber('id')->name('admin.order.show');
+        Route::delete('/works/{id}', [AdminController::class, 'destroyWork'])->whereNumber('id')->name('admin.works.destroy');
         Route::get('/{type}', [AdminController::class, 'index'])->where('type', 'services|areas|works|quote-options|faqs')->name('admin.index');
         Route::get('/{type}/create', [AdminController::class, 'create'])->where('type', 'services|areas|works|quote-options|faqs')->name('admin.create');
         Route::post('/{type}', [AdminController::class, 'store'])->where('type', 'services|areas|works|quote-options|faqs')->name('admin.store');

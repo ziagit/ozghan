@@ -86,6 +86,7 @@
             <a href="/admin/quote-options">Quote options</a>
             <a href="/admin/faqs">FAQs</a>
             <a href="/admin/orders">Orders</a>
+            <a href="{{ route('admin.profile') }}">Profile</a>
         </nav>
         <form class="admin-logout" method="post" action="{{ route('admin.logout') }}">
             @csrf

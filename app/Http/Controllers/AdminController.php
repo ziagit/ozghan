@@ -9,6 +9,10 @@ use App\Models\TilingService;
 use App\Models\Work;
 use App\Models\Faq;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 
@@ -21,6 +25,38 @@ class AdminController extends Controller
         'quote-options' => [QuoteOption::class, 'Quote options'],
         'faqs' => [Faq::class, 'FAQs'],
     ];
+
+    public function profile()
+    {
+        return view('admin.profile', ['user' => Auth::user()]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
+        ]);
+
+        $user->update($data);
+
+        return back()->with('status', 'Profile details updated successfully.');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $data = $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', 'confirmed', 'min:8'],
+        ]);
+
+        $request->user()->forceFill([
+            'password' => Hash::make($data['password']),
+        ])->save();
+
+        return back()->with('status', 'Password updated successfully.');
+    }
 
     public function dashboard()
     {
@@ -111,6 +147,20 @@ class AdminController extends Controller
         [$model] = $this->types[$type];
         $model::findOrFail($id)->delete();
         return back()->with('status', 'Deleted successfully.');
+    }
+
+    public function destroyWork(int $id)
+    {
+        $work = Work::findOrFail($id);
+
+        if ($work->image_path && Storage::disk('public')->exists($work->image_path)) {
+            Storage::disk('public')->delete($work->image_path);
+        }
+
+        $work->delete();
+
+        return redirect()->route('admin.index', ['type' => 'works'])
+            ->with('status', 'Work deleted successfully.');
     }
 
     public function orders()
