@@ -210,7 +210,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   box-sizing:border-box;
   padding-top:110px; padding-bottom:90px;
   display:grid;
-  grid-template-columns:1.1fr 0.9fr;
+  grid-template-columns:1fr;
   gap:48px;
   align-items:center;
 }
@@ -220,49 +220,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .hero p{ color:#C9C4BB; font-size:1.05rem; max-width:46ch; }
 .hero-ctas{ display:flex; gap:16px; margin-top:32px; flex-wrap:wrap; }
 
-.hero-visual{
-  position:relative;
-  aspect-ratio:1;
-  border-radius:0;
-  overflow:hidden;
-  background:rgba(255,255,255,0.3);
-  border:0;
-  box-shadow:0 30px 60px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.04);
-}
-.hero-visual::after{
-  content:'';
-  position:absolute; inset:0;
-  z-index:0;
-  background:rgba(255,255,255,0.08);
-}
-.hero-visual::before{
-  content:'';
-  position:absolute; inset:0;
-  z-index:1;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(35,32,28,0.08) 0 1px, transparent 1px 56px),
-    repeating-linear-gradient(90deg, rgba(35,32,28,0.08) 0 1px, transparent 1px 56px);
-}
-.hero-tile{
-  position:absolute;
-  z-index:2;
-  border-radius:3px;
-  opacity:0;
-  animation:lay-tile .6s ease forwards;
-  border:2px solid rgba(255,255,255,0.18);
-  box-shadow:0 18px 32px rgba(0,0,0,0.48), 0 0 0 1px rgba(0,0,0,0.22);
-}
-.hero-tile-1{ width:52%; aspect-ratio:1; background:var(--clay) url('/images/tile1.avif') center/cover no-repeat; top:12%; left:10%; --rot:-6deg; animation-delay:.1s; }
-.hero-tile-2{ width:40%; aspect-ratio:1; background:var(--clay-tint) url('/images/tile2.avif') center/cover no-repeat; bottom:14%; right:8%; --rot:8deg; animation-delay:.28s; }
-.hero-tile-3{ width:34%; aspect-ratio:1; background:var(--bg) url('/images/tile3.avif') center/cover no-repeat; top:44%; left:46%; --rot:-3deg; animation-delay:.46s; }
-@keyframes lay-tile{
-  from{ opacity:0; transform:translateY(24px) scale(.9) rotate(0deg); }
-  to{ opacity:1; transform:translateY(0) scale(1) rotate(var(--rot,0deg)); }
-}
-
 @media (max-width:860px){
   .hero-inner{ grid-template-columns:1fr; padding-top:64px; padding-bottom:56px; }
-  .hero-visual{ max-width:320px; margin:0 auto; }
 }
 
 /* =========================================================
@@ -596,17 +555,12 @@ section{ padding:88px 0; }
   <div class="container hero-inner">
     <div>
       <div class="hero-eyebrow">Brisbane &middot; Licensed Tilers</div>
-      <h1>Your Trusted Tiling Professionals</h1>
+      <h1>Your Trusted<br>Tiling Professionals</h1>
       <p>Ozghan provides professional residential and commercial tiling services for indoor and outdoor spaces, finished with precision and built to last.</p>
       <div class="hero-ctas">
         <button class="btn btn-primary" data-open-quote>Get a Quote</button>
         <a class="btn btn-ghost" href="/our-work">View Our Work</a>
       </div>
-    </div>
-    <div class="hero-visual" aria-hidden="true">
-      <div class="hero-tile hero-tile-1"></div>
-      <div class="hero-tile hero-tile-2"></div>
-      <div class="hero-tile hero-tile-3"></div>
     </div>
   </div>
 </section>
