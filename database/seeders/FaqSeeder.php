@@ -19,7 +19,7 @@ class FaqSeeder extends Seeder
             ['question' => 'Do you install tiles supplied by the customer?', 'answer' => 'In many cases, yes. Before installation we confirm that the tiles are suitable, that there is enough material including allowance for cuts and breakages, and that the required trims and accessories are available.'],
             ['question' => 'Do you handle commercial tiling projects?', 'answer' => 'Yes. We work on commercial floors, walls, hospitality spaces, retail areas and fit-outs. Commercial enquiries can include the site conditions, access restrictions, programme and required staging.'],
             ['question' => 'What Brisbane areas do you service?', 'answer' => 'We currently service Brisbane CBD and surrounding suburbs including New Farm, Fortitude Valley, Paddington, West End, Toowong, Indooroopilly, Woolloongabba, South Brisbane and nearby areas.'],
-            ['question' => 'How do I request a tiling quote?', 'answer' => 'Use the online quote form, call 0468 430 893 or email contact@ozghan.com. Helpful details include the suburb, project type, approximate area, preferred timing and photos of the existing space.'],
+            ['question' => 'How do I request a tiling quote?', 'answer' => 'Use the online quote form, call 0468 430 893 or email info@ozghan.com.au. Helpful details include the suburb, project type, approximate area, preferred timing and photos of the existing space.'],
         ];
 
         foreach ($faqs as $sortOrder => $faq) {

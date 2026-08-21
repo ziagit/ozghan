@@ -21,7 +21,7 @@ class OrderController extends Controller
             'message' => ['required', 'string', 'max:5000'],
         ]);
 
-        Mail::to(config('mail.admin_address', 'contact@ozghan.com'))
+        Mail::to(config('mail.admin_address', 'info@ozghan.com.au'))
             ->send(new ContactMessageReceived(
                 $data['name'],
                 $data['email'],
@@ -110,7 +110,7 @@ class OrderController extends Controller
             // database queue by default, but no worker is guaranteed to be running
             // in production; queueing here could leave the notification stranded
             // in the jobs table even though the order was saved successfully.
-            Mail::to(config('mail.admin_address', 'contact@ozghan.com'))->send(new OrderReceived($order));
+            Mail::to(config('mail.admin_address', 'info@ozghan.com.au'))->send(new OrderReceived($order));
         } catch (\Throwable $exception) {
             Log::error('Order notification email could not be sent.', [
                 'order_id' => $order->id,

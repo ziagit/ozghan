@@ -27,7 +27,7 @@
         'Bathroom tiling', 'Kitchen tiling', 'Floor tiling',
         'Wall tiling', 'Outdoor tiling', 'Commercial tiling', 'Waterproofing',
     ],
-    'email' => 'contact@ozghan.com',
+    'email' => 'info@ozghan.com.au',
     'priceRange' => '$$',
     'address' => [
         '@type' => 'PostalAddress',
