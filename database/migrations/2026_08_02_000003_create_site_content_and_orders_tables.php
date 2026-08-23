@@ -13,10 +13,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('category')->nullable();
+            $table->string('service_type')->default('Residential');
             $table->text('description')->nullable();
             $table->string('image_path')->nullable();
-            $table->unsignedInteger('sort_order')->default(0);
-            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
 

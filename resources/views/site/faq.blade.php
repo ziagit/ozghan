@@ -22,7 +22,7 @@
 <body>
 @include('site.partials.header')
 <main id="main">
-  <header class="page-header">
+  <header class="page-header" style="background:#2F78A8">
     <div class="container">
       <div class="breadcrumb">Frequently asked questions</div>
       <h1>Answers before your Brisbane tiling project begins</h1>

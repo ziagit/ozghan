@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('site.*', function ($view) {
             try {
-                $services = TilingService::where('is_active', true)->orderBy('sort_order')->get();
+                $services = TilingService::latest()->get();
                 $options = QuoteOption::where('is_active', true)->orderBy('sort_order')->get()->groupBy('option_group');
             } catch (\Throwable) {
                 // Keep public pages renderable before the first database migration.

@@ -6,7 +6,7 @@
     <thead><tr>
       @if($type !== 'works')<th>Name</th>@endif
       <th class="{{ $type === 'works' ? '' : 'hide-mobile' }}">Details</th>
-      @if($type !== 'works')<th class="hide-mobile">Active</th>@endif
+      @if($type !== 'works' && $type !== 'services')<th class="hide-mobile">Active</th>@endif
       <th></th>
     </tr></thead>
     <tbody>
@@ -20,14 +20,20 @@
               <div><strong>{{ $item->category ?: 'Tiling project' }}</strong><small>{{ $item->description ?: 'No description' }}</small></div>
             </div>
           @else
-            {{ $item->description ?? ($item->answer ?? ($item->option_group ?? '')) }}@if(isset($item->category))<br><small>{{ $item->category }}</small>@endif
+            {{ $item->description ?? ($item->answer ?? ($item->option_group ?? '')) }}
+            @if(isset($item->service_type))
+              <br><small>{{ $item->service_type }}</small>
+            @endif
+            @if(isset($item->category))
+              <br><small>{{ $item->category }}</small>
+            @endif
           @endif
         </td>
-        @if($type !== 'works')<td class="hide-mobile">{{ $item->is_active ? 'Yes' : 'No' }}</td>@endif
+        @if($type !== 'works' && $type !== 'services')<td class="hide-mobile">{{ $item->is_active ? 'Yes' : 'No' }}</td>@endif
         <td class="actions"><a class="btn btn-muted" href="{{ url('/admin/'.$type.'/'.$item->id.'/edit') }}">Edit</a><form method="post" action="{{ $type === 'works' ? route('admin.works.destroy', $item->id) : url('/admin/'.$type.'/'.$item->id) }}">@csrf @method('DELETE')<button type="submit" class="btn danger" onclick="return confirm('Delete this item?')">Delete</button></form></td>
       </tr>
       @empty
-      <tr><td colspan="{{ $type === 'works' ? 2 : 4 }}">No records yet.</td></tr>
+      <tr><td colspan="{{ $type === 'works' || $type === 'services' ? 3 : 4 }}">No records yet.</td></tr>
       @endforelse
     </tbody>
   </table>

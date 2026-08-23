@@ -14,21 +14,34 @@ class SiteContentSeeder extends Seeder
     public function run(): void
     {
         $services = [
-            ['title' => 'Bathroom Tiling', 'category' => 'indoor', 'description' => 'Full wet-area tiling for bathrooms and ensuites, including certified waterproofing underneath every tile.'],
-            ['title' => 'Kitchen Tiling', 'category' => 'indoor', 'description' => 'Splashbacks, benchtop returns and kitchen floors built for daily heat, spills and wear.'],
-            ['title' => 'Indoor Floor Tiling', 'category' => 'indoor', 'description' => 'Precision floor tiling across rooms, hallways and laundries with consistent grout lines.'],
-            ['title' => 'Indoor Wall Tiling', 'category' => 'indoor', 'description' => 'Feature walls and full wall coverage, set plumb and true from the first row to the last.'],
+            ['title' => 'Bathroom', 'category' => 'indoor', 'description' => 'Full wet-area tiling for bathrooms and ensuites, including certified waterproofing underneath every tile.'],
+            ['title' => 'Kitchen', 'category' => 'indoor', 'description' => 'Splashbacks, benchtop returns and kitchen floors built for daily heat, spills and wear.'],
+            ['title' => 'Indoor Floor', 'category' => 'indoor', 'description' => 'Precision floor tiling across rooms, hallways and laundries with consistent grout lines.'],
+            ['title' => 'Indoor Wall', 'category' => 'indoor', 'description' => 'Feature walls and full wall coverage, set plumb and true from the first row to the last.'],
             ['title' => 'Waterproofing', 'category' => 'indoor', 'description' => 'Membrane waterproofing to Australian Standard AS 3740, with compliance certification.'],
-            ['title' => 'Indoor Renovation Tiling', 'category' => 'indoor', 'description' => 'Strip-outs, substrate repair and re-tiling for bathroom and kitchen renovations.'],
-            ['title' => 'Patio & Alfresco Tiling', 'category' => 'outdoor', 'description' => 'Durable outdoor surfaces for patios and alfresco areas, laid with correct falls.'],
-            ['title' => 'Pool Surround Tiling', 'category' => 'outdoor', 'description' => 'Slip-rated pool surrounds and waterline finishes designed for Australian conditions.'],
-            ['title' => 'Outdoor Floor Tiling', 'category' => 'outdoor', 'description' => 'Hardwearing outdoor floors for entries, entertaining areas and pathways.'],
-            ['title' => 'Outdoor Wall Tiling', 'category' => 'outdoor', 'description' => 'Exterior feature walls and retaining surfaces with weather-appropriate materials.'],
-            ['title' => 'Driveway & Path Tiling', 'category' => 'outdoor', 'description' => 'Practical tiled driveways, paths and entryways with durable, slip-rated finishes.'],
-            ['title' => 'Outdoor Renovation Tiling', 'category' => 'outdoor', 'description' => 'Repairs and re-tiling for ageing patios, balconies, pool areas and outdoor rooms.'],
+            ['title' => 'Indoor Renovation', 'category' => 'indoor', 'description' => 'Strip-outs, substrate repair and re-tiling for bathroom and kitchen renovations.'],
+            ['title' => 'Patio & Alfresco', 'category' => 'outdoor', 'description' => 'Durable outdoor surfaces for patios and alfresco areas, laid with correct falls.'],
+            ['title' => 'Pool Surround', 'category' => 'outdoor', 'description' => 'Slip-rated pool surrounds and waterline finishes designed for Australian conditions.'],
+            ['title' => 'Outdoor Floor', 'category' => 'outdoor', 'description' => 'Hardwearing outdoor floors for entries, entertaining areas and pathways.'],
+            ['title' => 'Outdoor Wall', 'category' => 'outdoor', 'description' => 'Exterior feature walls and retaining surfaces with weather-appropriate materials.'],
+            ['title' => 'Driveway & Path', 'category' => 'outdoor', 'description' => 'Practical tiled driveways, paths and entryways with durable, slip-rated finishes.'],
+            ['title' => 'Outdoor Renovation', 'category' => 'outdoor', 'description' => 'Repairs and re-tiling for ageing patios, balconies, pool areas and outdoor rooms.'],
         ];
-        foreach ($services as $order => $service) {
-            TilingService::updateOrCreate(['slug' => Str::slug($service['title'])], $service + ['sort_order' => $order]);
+        foreach ($services as $service) {
+            TilingService::updateOrCreate(['slug' => Str::slug($service['title'])], $service + ['service_type' => 'Residential']);
+        }
+        TilingService::updateOrCreate(['slug' => 'commercial-floor'], [
+            'title' => 'Floor', 'category' => 'indoor', 'service_type' => 'Commercial',
+            'description' => 'Hardwearing floor finishes for retail, office and hospitality spaces.', 'image_path' => 'services/14.avif',
+        ]);
+        foreach ([
+            ['slug' => 'commercial-wall', 'title' => 'Wall', 'description' => 'Clean, durable wall finishes for commercial interiors and high-traffic areas.'],
+            ['slug' => 'retail-hospitality-fit-out', 'title' => 'Retail & Hospitality Fit-out', 'description' => 'Coordinated tiling for retail stores, cafés, restaurants and hospitality fit-outs.'],
+            ['slug' => 'commercial-waterproofing', 'title' => 'Waterproofing', 'description' => 'Compliant waterproofing preparation for commercial wet areas and amenities.'],
+        ] as $service) {
+            TilingService::updateOrCreate(['slug' => $service['slug']], $service + [
+                'category' => 'indoor', 'service_type' => 'Commercial', 'image_path' => 'services/14.avif',
+            ]);
         }
 
         foreach (['Brisbane CBD', 'New Farm', 'Fortitude Valley', 'Paddington', 'West End', 'Toowong', 'Indooroopilly', 'Woolloongabba', 'South Brisbane', 'Auchenflower', 'Milton', 'Kangaroo Point'] as $order => $name) {

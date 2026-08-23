@@ -1,5 +1,5 @@
 <style>
-  .site-header{position:sticky!important;top:0!important;z-index:50!important;background:var(--bg)!important;border-bottom:2px solid var(--ink)!important}
+  .site-header{position:sticky!important;top:0!important;z-index:50!important;background:var(--bg)!important;border-bottom:2px solid #2F78A8!important}
   .site-header-home{position:absolute!important;top:0!important;left:0!important;width:100%!important;background:transparent!important;border-bottom:0!important}
   .site-header-home .nav-links a{color:var(--white)!important}
   .site-header-home .brand, .site-header-home .brand small{color:var(--white)!important}

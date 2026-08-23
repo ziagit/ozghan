@@ -394,7 +394,7 @@ section{ padding:88px 0; }
 /* =========================================================
    Page header (interior pages)
    ========================================================= */
-.page-header{ background:var(--ink); color:var(--bg); padding:64px 0 48px; }
+.page-header{ background:#2F78A8; color:var(--bg); padding:64px 0 48px; }
 .page-header h1{ color:var(--bg); font-size:clamp(2rem, 4vw, 2.8rem); }
 .breadcrumb{ font-family:var(--font-mono); font-size:0.78rem; color:var(--clay-tint); margin-bottom:16px; text-transform:uppercase; letter-spacing:0.08em; }
 

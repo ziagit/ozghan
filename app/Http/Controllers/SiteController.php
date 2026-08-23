@@ -13,7 +13,7 @@ class SiteController extends Controller
     public function home()
     {
         try {
-            $homeServices = TilingService::where('is_active', true)->latest()->take(4)->get();
+            $homeServices = TilingService::latest()->take(4)->get();
             $commercialWorks = Work::whereNotNull('image_path')
                 ->whereRaw('LOWER(category) LIKE ?', ['%commercial%'])
                 ->orderByDesc('completed_at')->orderByDesc('created_at')->take(2)->get();
@@ -31,8 +31,16 @@ class SiteController extends Controller
 
     public function services()
     {
-        try { $services = TilingService::where('is_active', true)->orderBy('sort_order')->get(); } catch (\Throwable) { $services = collect(); }
-        return view('site.services', compact('services'));
+        try {
+            $services = TilingService::latest()->get();
+            $residentialServices = $services->where('service_type', 'Residential')->values();
+            $commercialServices = $services->where('service_type', 'Commercial')->values();
+        } catch (\Throwable) {
+            $services = collect();
+            $residentialServices = collect();
+            $commercialServices = collect();
+        }
+        return view('site.services', compact('services', 'residentialServices', 'commercialServices'));
     }
 
     public function faq()

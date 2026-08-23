@@ -396,7 +396,7 @@ section{ padding:88px 0; }
 /* =========================================================
    Page header (interior pages)
    ========================================================= */
-.page-header{ background:var(--ink); color:var(--bg); padding:64px 0 48px; }
+.page-header{ background:#2F78A8; color:var(--bg); padding:64px 0 48px; }
 .page-header h1{ color:var(--bg); font-size:clamp(2rem, 4vw, 2.8rem); }
 .breadcrumb{ font-family:var(--font-mono); font-size:0.78rem; color:var(--clay-tint); margin-bottom:16px; text-transform:uppercase; letter-spacing:0.08em; }
 
@@ -614,7 +614,7 @@ section{ padding:88px 0; }
         <div class="row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.3 6.7 15 15 15l1-4-5-2-1.5 1.5A11 11 0 0 1 7.5 9.5L9 8 7 3 4 5z"/></svg></span><span class="label">Phone</span><a href="tel:+61468430893">0468 430 893</a></div>
         <div class="row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M4.5 6.5l7.5 6 7.5-6"/></svg></span><span class="label">Email</span><a href="mailto:info@ozghan.com.au">info@ozghan.com.au</a></div>
         <div class="row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span><span class="label">Area</span><span>Brisbane, QLD</span></div>
-        <div class="row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="label">Hours</span><span>Mon&ndash;Fri, 7am&ndash;4pm</span></div>
+        <div class="row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="label">Hours</span><span>Mon&ndash;Fri, 8am&ndash;5pm</span></div>
       </div>
       <div class="map-frame" style="margin-top:24px; height:260px;">
         <div id="contact-map" aria-label="Map of Brisbane, Queensland"></div>

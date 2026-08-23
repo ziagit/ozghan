@@ -111,7 +111,7 @@ class AdminController extends Controller
     {
         abort_unless(isset($this->types[$type]), 404);
         [$model, $label] = $this->types[$type];
-        $query = $type === 'works'
+        $query = $type === 'works' || $type === 'services'
             ? $model::orderByDesc('created_at')
             : $model::orderBy('sort_order')->orderByDesc('created_at');
         $items = $type === 'works' ? $query->paginate(18)->withQueryString() : $query->get();
@@ -178,7 +178,7 @@ class AdminController extends Controller
         abort_unless(isset($this->types[$type]), 404);
         [$model] = $this->types[$type];
         $rules = match ($type) {
-            'services' => ['title' => 'required|max:150', 'category' => 'nullable|max:50', 'description' => 'nullable|max:2000', 'image' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240'], 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
+            'services' => ['title' => 'required|max:150', 'service_type' => 'required|in:Residential,Commercial', 'category' => 'nullable|max:50', 'description' => 'nullable|max:2000', 'image' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240']],
             'areas' => ['name' => 'required|max:150', 'postcode' => 'nullable|max:20', 'description' => 'nullable|max:1000', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
             'works' => ['category' => 'required|in:Residential,Commercial', 'description' => 'nullable|max:2000', 'image' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240']],
             'faqs' => ['question' => 'required|max:255', 'answer' => 'required|max:5000', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
@@ -199,8 +199,18 @@ class AdminController extends Controller
         if ($request->hasFile('image')) {
             $data['image_path'] = $request->file('image')->store($type === 'services' ? 'services' : 'works', 'public');
         }
-        if ($type !== 'works') $data['is_active'] = $request->boolean('is_active');
-        if ($type === 'services' && empty($data['slug'] ?? null)) $data['slug'] = Str::slug($data['title']);
+        if ($type !== 'works' && $type !== 'services') $data['is_active'] = $request->boolean('is_active');
+        if ($type === 'services') {
+            $slug = $existing && $existing->title === $data['title']
+                ? $existing->slug
+                : Str::slug($data['title']);
+            $baseSlug = $slug;
+            $suffix = 2;
+            while ($model::where('slug', $slug)->when($id, fn ($query) => $query->where('id', '!=', $id))->exists()) {
+                $slug = $baseSlug.'-'.$suffix++;
+            }
+            $data['slug'] = $slug;
+        }
         if ($id) $model::findOrFail($id)->update($data); else $model::create($data);
         return redirect("/admin/{$type}")->with('status', 'Saved successfully.');
     }

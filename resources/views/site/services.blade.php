@@ -400,7 +400,7 @@ section{ padding:88px 0; }
 /* =========================================================
    Page header (interior pages)
    ========================================================= */
-.page-header{ background:var(--ink); color:var(--bg); padding:64px 0 48px; }
+.page-header{ background:#2F78A8; color:var(--bg); padding:64px 0 48px; }
 .page-header h1{ color:var(--bg); font-size:clamp(2rem, 4vw, 2.8rem); }
 .page-header p{ max-width:60ch; margin:16px 0 0; color:#C9C4BB; font-size:1.05rem; }
 .breadcrumb{ font-family:var(--font-mono); font-size:0.78rem; color:var(--clay-tint); margin-bottom:16px; text-transform:uppercase; letter-spacing:0.08em; }
@@ -615,7 +615,7 @@ section{ padding:88px 0; }
   </div>
 </section>
 
-@if(isset($services) && $services->isNotEmpty())
+@if(isset($residentialServices) && isset($commercialServices))
 <div class="service-tab-panel active" id="residential-panel" data-service-panel="residential" role="tabpanel" aria-labelledby="residential-tab">
 <section class="service-category-heading" id="residential-tiling">
   <div class="container">
@@ -623,7 +623,7 @@ section{ padding:88px 0; }
     <h2>Residential Tiling</h2>
   </div>
 </section>
-@foreach($services as $service)
+@foreach($residentialServices as $service)
 <section class="{{ $loop->even ? 'section-alt' : '' }}" id="{{ $service->slug }}">
   <div class="container two-col">
     <div>
@@ -649,17 +649,24 @@ section{ padding:88px 0; }
     <h2>Commercial Tiling</h2>
   </div>
 </section>
-<section>
+@foreach($commercialServices as $service)
+<section class="{{ $loop->even ? 'section-alt' : '' }}" id="{{ $service->slug }}">
   <div class="container two-col">
     <div>
-      <div class="eyebrow eyebrow-icon"><span class="icon-inline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></svg></span>Commercial</div>
-      <h2>Commercial Tiling</h2>
-      <p>Tiling for shopfronts, offices, hospitality fit-outs and common areas, scoped and scheduled around your trading hours to keep disruption to a minimum.</p>
-      <button class="btn btn-primary" data-open-quote data-service="Commercial Tiling">Get a Quote for This</button>
+      <div class="eyebrow">{{ $service->category ?: 'Commercial' }}</div>
+      <h2>{{ $service->title }}</h2>
+      <p>{{ $service->description }}</p>
+      <button class="btn btn-primary" data-open-quote data-service="{{ $service->title }}">Get a Quote for This</button>
     </div>
-    <img class="service-image rounded-media" loading="lazy" decoding="async" src="/storage/services/14.avif" alt="Commercial tiling project in Brisbane" style="aspect-ratio:4/3; object-fit:cover;">
+    @if($service->image_path)
+    <img class="rounded-media" loading="lazy" decoding="async" src="{{ \Illuminate\Support\Str::startsWith($service->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($service->image_path, '/') : (\Illuminate\Support\Str::startsWith($service->image_path, ['http://', 'https://']) ? $service->image_path : asset(ltrim($service->image_path, '/'))) }}" alt="{{ $service->title }} in Brisbane" style="aspect-ratio:4/3; object-fit:cover;">
+    @else
+    <div class="service-image svc-{{ ($loop->index % 9) + 1 }} rounded-media" aria-hidden="true" style="aspect-ratio:4/3;"></div>
+    @endif
   </div>
 </section>
+<div class="grout-rule"></div>
+@endforeach
 </div>
 @else
 <div class="service-tab-panel active" id="residential-panel" data-service-panel="residential" role="tabpanel" aria-labelledby="residential-tab">
@@ -1060,6 +1067,7 @@ function initQuoteModal() {
       services.forEach((service, index) => {
         const label = document.createElement('label');
         label.dataset.location = service.category || 'indoor';
+        label.dataset.serviceType = service.service_type || 'Residential';
         const input = document.createElement('input');
         input.type = 'radio'; input.name = 'service'; input.value = service.title; input.required = index === 0;
         label.append(input, document.createTextNode(' ' + formatServiceLabel(service.title)));
@@ -1149,9 +1157,11 @@ function initQuoteModal() {
   overlay.querySelectorAll('input[name="project_type"]').forEach(input => input.addEventListener('change', () => { const isCommercial = input.value === 'Commercial' && input.checked; commercialField.hidden = !isCommercial; commercialInput.required = isCommercial; if (!isCommercial) commercialInput.value = ''; }));
   let current = 0;
 
-  function filterServiceOptions(location) {
+  function filterServiceOptions(projectType, location) {
     overlay.querySelectorAll('.service-pick label[data-location]').forEach(label => {
-      const visible = !location || label.dataset.location === location.toLowerCase();
+      const matchesType = !projectType || label.dataset.serviceType === projectType;
+      const matchesLocation = !location || label.dataset.location === location.toLowerCase();
+      const visible = matchesType && matchesLocation;
       label.hidden = !visible;
       label.style.display = visible ? '' : 'none';
       if (!visible) { const input = label.querySelector('input'); if (input) input.checked = false; }
@@ -1159,7 +1169,7 @@ function initQuoteModal() {
   }
 
   function render() {
-    filterServiceOptions(state.projectLocation);
+    filterServiceOptions(state.projectType, state.projectLocation);
     steps.forEach((s, i) => s.classList.toggle('active', i === current));
     dots.forEach((d, i) => {
       d.classList.toggle('active', i === current);
