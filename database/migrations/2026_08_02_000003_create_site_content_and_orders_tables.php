@@ -24,8 +24,16 @@ return new class extends Migration
             $table->string('name');
             $table->string('postcode')->nullable();
             $table->text('description')->nullable();
+            $table->string('image_path')->nullable();
             $table->unsignedInteger('sort_order')->default(0);
             $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+
+        Schema::create('content_settings', function (Blueprint $table) {
+            $table->id();
+            $table->string('key')->unique();
+            $table->text('value')->nullable();
             $table->timestamps();
         });
 
@@ -80,6 +88,7 @@ return new class extends Migration
         Schema::dropIfExists('quote_options');
         Schema::dropIfExists('works');
         Schema::dropIfExists('service_areas');
+        Schema::dropIfExists('content_settings');
         Schema::dropIfExists('tiling_services');
     }
 };

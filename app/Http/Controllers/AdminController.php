@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\ContentSetting;
 use App\Models\QuoteOption;
 use App\Models\ServiceArea;
 use App\Models\TilingService;
@@ -29,6 +30,28 @@ class AdminController extends Controller
     public function profile()
     {
         return view('admin.profile', ['user' => Auth::user()]);
+    }
+
+    public function content()
+    {
+        $homeServiceAreaImage = ContentSetting::where('key', 'home_service_area_image')->value('value');
+
+        return view('admin.content', compact('homeServiceAreaImage'));
+    }
+
+    public function updateContent(Request $request)
+    {
+        $data = $request->validate([
+            'home_service_area_image' => ['required', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240'],
+        ]);
+
+        $path = $request->file('home_service_area_image')->store('content', 'public');
+        ContentSetting::updateOrCreate(
+            ['key' => 'home_service_area_image'],
+            ['value' => $path]
+        );
+
+        return back()->with('status', 'Content updated successfully.');
     }
 
     public function updateProfile(Request $request)
@@ -179,7 +202,7 @@ class AdminController extends Controller
         [$model] = $this->types[$type];
         $rules = match ($type) {
             'services' => ['title' => 'required|max:150', 'service_type' => 'required|in:Residential,Commercial', 'category' => 'nullable|max:50', 'description' => 'nullable|max:2000', 'image' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240']],
-            'areas' => ['name' => 'required|max:150', 'postcode' => 'nullable|max:20', 'description' => 'nullable|max:1000', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
+            'areas' => ['name' => 'required|max:150', 'postcode' => 'nullable|max:20', 'description' => 'nullable|max:1000', 'image' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240'], 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
             'works' => ['category' => 'required|in:Residential,Commercial', 'description' => 'nullable|max:2000', 'image' => ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240']],
             'faqs' => ['question' => 'required|max:255', 'answer' => 'required|max:5000', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
             default => ['option_group' => 'required|max:80', 'label' => 'required|max:150', 'value' => 'required|max:150', 'sort_order' => 'integer|min:0', 'is_active' => 'nullable'],
@@ -197,7 +220,8 @@ class AdminController extends Controller
             }
         }
         if ($request->hasFile('image')) {
-            $data['image_path'] = $request->file('image')->store($type === 'services' ? 'services' : 'works', 'public');
+            $directory = $type === 'services' ? 'services' : ($type === 'areas' ? 'areas' : 'works');
+            $data['image_path'] = $request->file('image')->store($directory, 'public');
         }
         if ($type !== 'works' && $type !== 'services') $data['is_active'] = $request->boolean('is_active');
         if ($type === 'services') {

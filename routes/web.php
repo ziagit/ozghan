@@ -30,6 +30,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/logout', [AdminAuthController::class, 'destroy'])->middleware('auth')->name('admin.logout');
     Route::middleware('auth')->group(function () {
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/content', [AdminController::class, 'content'])->name('admin.content');
+        Route::post('/content', [AdminController::class, 'updateContent'])->name('admin.content.update');
         Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
         Route::put('/profile', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
         Route::put('/profile/password', [AdminController::class, 'updatePassword'])->name('admin.profile.password');

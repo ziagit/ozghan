@@ -20,6 +20,7 @@
               <div><strong>{{ $item->category ?: 'Tiling project' }}</strong><small>{{ $item->description ?: 'No description' }}</small></div>
             </div>
           @else
+            @if($type === 'areas' && $item->image_path)<img class="work-admin-image" src="/storage/{{ ltrim($item->image_path, '/') }}" alt="{{ $item->name }} service area image">@endif
             {{ $item->description ?? ($item->answer ?? ($item->option_group ?? '')) }}
             @if(isset($item->service_type))
               <br><small>{{ $item->service_type }}</small>

@@ -26,7 +26,7 @@
     <div class="container">
       <div class="breadcrumb">Frequently asked questions</div>
       <h1>Answers before your Brisbane tiling project begins</h1>
-      <p>Find practical answers about our services, quoting process, preparation, waterproofing and project timelines.</p>
+      <p style="color:var(--bg)">Find practical answers about our services, quoting process, preparation, waterproofing and project timelines.</p>
     </div>
   </header>
   <section class="faq-section" aria-labelledby="faq-heading">

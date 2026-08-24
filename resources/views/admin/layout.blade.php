@@ -80,6 +80,7 @@
         <div class="admin-brand">Ozghan Admin<small>CONTENT MANAGEMENT</small></div>
         <nav class="admin-menu" aria-label="Admin navigation">
             <a href="/admin">Dashboard</a>
+            <a href="{{ route('admin.content') }}">Content</a>
             <a href="/admin/services">Services</a>
             <a href="/admin/areas">Service areas</a>
             <a href="/admin/works">Our work</a>

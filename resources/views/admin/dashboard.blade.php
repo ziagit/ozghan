@@ -29,5 +29,5 @@
     </div>
 </div>
 
-<div class="admin-card"><h2>Getting started</h2><p>Use the navigation to update public services, service areas, completed work, quote choices, or review submitted orders.</p></div>
+<div class="admin-card"><h2>Getting started</h2><p>Use the navigation to update public services, service areas, completed work, quote choices, or review submitted orders.</p><p><a class="btn btn-muted" href="{{ route('admin.content') }}">Manage page content</a></p></div>
 @endsection

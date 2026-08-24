@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\QuoteOption;
+use App\Models\ContentSetting;
 use App\Models\ServiceArea;
 use App\Models\TilingService;
 use App\Models\Work;
@@ -14,6 +15,14 @@ class SiteController extends Controller
     {
         try {
             $homeServices = TilingService::latest()->take(4)->get();
+            $homeServiceAreaImage = ContentSetting::where('key', 'home_service_area_image')->value('value');
+            if (!$homeServiceAreaImage) {
+                $homeServiceAreaImage = ServiceArea::where('is_active', true)
+                    ->whereNotNull('image_path')
+                    ->orderBy('sort_order')
+                    ->orderBy('id')
+                    ->value('image_path');
+            }
             $commercialWorks = Work::whereNotNull('image_path')
                 ->whereRaw('LOWER(category) LIKE ?', ['%commercial%'])
                 ->orderByDesc('completed_at')->orderByDesc('created_at')->take(2)->get();
@@ -25,8 +34,9 @@ class SiteController extends Controller
         } catch (\Throwable) {
             $homeServices = collect();
             $homeWorks = collect();
+            $homeServiceAreaImage = null;
         }
-        return view('site.home', compact('homeServices', 'homeWorks'));
+        return view('site.home', compact('homeServices', 'homeWorks', 'homeServiceAreaImage'));
     }
 
     public function services()

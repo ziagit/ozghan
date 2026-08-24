@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServiceArea extends Model
 {
-    protected $fillable = ['name', 'postcode', 'description', 'sort_order', 'is_active'];
+    protected $fillable = ['name', 'postcode', 'description', 'image_path', 'sort_order', 'is_active'];
 }

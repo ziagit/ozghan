@@ -586,7 +586,7 @@ section{ padding:88px 0; }
         <div><strong>Brisbane</strong><span>Based &amp; local</span></div>
       </div>
     </div>
-    <img class="service-image" loading="lazy" decoding="async" src="/images/about.avif" alt="Ozghan tiling team at work in Brisbane" style="width:100%; aspect-ratio:4/3; object-fit:cover;">
+    <img class="service-image" loading="lazy" decoding="async" src="/images/about-us.avif" alt="Ozghan tiling team at work in Brisbane" style="width:100%; aspect-ratio:1/1; object-fit:cover;">
   </div>
 </section>
 

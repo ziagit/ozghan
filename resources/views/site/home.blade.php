@@ -314,6 +314,8 @@ section{ padding:88px 0; }
 }
 
 .rounded-media{ border-radius:0; overflow:hidden; }
+.service-area-image{ width:100%; aspect-ratio:4/3; overflow:hidden; border-radius:0; }
+.service-area-image img{ display:block; width:100%; height:100%; object-fit:cover; }
 
 /* =========================================================
    Homepage "Our Work" preview row
@@ -322,7 +324,7 @@ section{ padding:88px 0; }
   display:grid; grid-template-columns:repeat(4, 1fr); gap:20px;
 }
 .work-thumb{
-  position:relative; display:block; aspect-ratio:4/3; border-radius:0; overflow:hidden;
+  position:relative; display:block; aspect-ratio:4/3; border-radius:0; overflow:hidden; cursor:zoom-in;
   background:var(--img-grad, linear-gradient(135deg, var(--clay), var(--slate)));
 }
 .work-thumb img{ width:100%; height:100%; object-fit:cover; }
@@ -338,6 +340,10 @@ section{ padding:88px 0; }
   padding:6px 10px; border-radius:4px;
 }
 .work-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:32px; }
+.home-lightbox{ width:fit-content; height:fit-content; max-width:92vw; max-height:92vh; padding:0; border:0; background:transparent; box-shadow:0 18px 60px rgba(0,0,0,.45); overflow:hidden; }
+.home-lightbox::backdrop{ background:rgba(35,32,28,.82); }
+.home-lightbox img{ display:block; width:auto; height:auto; max-width:92vw; max-height:92vh; object-fit:contain; }
+.home-lightbox-close{ position:absolute; top:8px; right:8px; width:36px; height:36px; border:0; background:var(--ink); color:var(--bg); font-size:1.5rem; line-height:1; cursor:pointer; }
 .work-head .section-head{ margin-bottom:0; }
 @media (max-width:860px){ .work-row{ grid-template-columns:1fr 1fr; } }
 @media (max-width:560px){ .work-row{ grid-template-columns:1fr; } }
@@ -604,7 +610,7 @@ section{ padding:88px 0; }
       @foreach($homeServices as $service)
       <div class="service-card">
       @if($service->image_path)<img class="service-image" loading="lazy" decoding="async" src="{{ \Illuminate\Support\Str::startsWith($service->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($service->image_path, '/') : (\Illuminate\Support\Str::startsWith($service->image_path, ['http://', 'https://']) ? $service->image_path : asset(ltrim($service->image_path, '/'))) }}" alt="{{ $service->title }}">@else<div class="service-image svc-{{ ($loop->index % 9) + 1 }}" aria-hidden="true"></div>@endif
-        <div class="service-body"><h3>{{ $service->title }}</h3><p>{{ $service->description }}</p><a class="card-link" href="/services#{{ $service->slug }}">View service &rarr;</a></div>
+        <div class="service-body"><h3>{{ $service->title }}</h3><p>{{ $service->description }}</p><a class="card-link" href="/quote">Get a quote &rarr;</a></div>
       </div>
       @endforeach
     </div>
@@ -615,7 +621,7 @@ section{ padding:88px 0; }
         <div class="service-body">
           <h3>Bathroom Tiling</h3>
           <p>Full wet-area tiling for bathrooms and ensuites, waterproofed underneath every tile.</p>
-          <a class="card-link" href="/services#bathroom-tiling">View service &rarr;</a>
+          <a class="card-link" href="/quote">Get a quote &rarr;</a>
         </div>
       </div>
       <div class="service-card">
@@ -623,7 +629,7 @@ section{ padding:88px 0; }
         <div class="service-body">
           <h3>Kitchen Tiling</h3>
           <p>Splashbacks and floors tiled to handle daily kitchen wear without losing their finish.</p>
-          <a class="card-link" href="/services#kitchen-tiling">View service &rarr;</a>
+          <a class="card-link" href="/quote">Get a quote &rarr;</a>
         </div>
       </div>
       <div class="service-card">
@@ -631,7 +637,7 @@ section{ padding:88px 0; }
         <div class="service-body">
           <h3>Floor Tiling</h3>
           <p>Precision floor tiling across any room, matched for pattern and fall.</p>
-          <a class="card-link" href="/services#floor-tiling">View service &rarr;</a>
+          <a class="card-link" href="/quote">Get a quote &rarr;</a>
         </div>
       </div>
       <div class="service-card">
@@ -639,7 +645,7 @@ section{ padding:88px 0; }
         <div class="service-body">
           <h3>Waterproofing</h3>
           <p>Membrane waterproofing to Australian Standard, done before a tile goes down.</p>
-          <a class="card-link" href="/services#waterproofing">View service &rarr;</a>
+          <a class="card-link" href="/quote">Get a quote &rarr;</a>
         </div>
       </div>
     </div>
@@ -659,7 +665,7 @@ section{ padding:88px 0; }
     @if(isset($homeWorks) && $homeWorks->isNotEmpty())
     <div class="work-row">
       @foreach($homeWorks as $work)
-      <a class="work-thumb svc-{{ ($loop->index % 9) + 1 }}" href="/our-work" aria-label="{{ $work->category ?: 'Tiling project' }}">
+      <a class="work-thumb svc-{{ ($loop->index % 9) + 1 }}" href="/our-work" data-home-lightbox aria-label="{{ $work->category ?: 'Tiling project' }}">
         @if($work->image_path)
         <img loading="lazy" decoding="async" src="{{ \Illuminate\Support\Str::startsWith($work->image_path, ['services/', 'works/']) ? '/storage/'.ltrim($work->image_path, '/') : (\Illuminate\Support\Str::startsWith($work->image_path, ['http://', 'https://']) ? $work->image_path : asset(ltrim($work->image_path, '/'))) }}" alt="{{ $work->category ?: 'Brisbane tiling project' }}">
         @endif
@@ -672,6 +678,11 @@ section{ padding:88px 0; }
   </div>
 </section>
 
+<dialog class="home-lightbox" id="home-work-lightbox" aria-label="Expanded project image">
+  <button class="home-lightbox-close" type="button" aria-label="Close image">&times;</button>
+  <img alt="">
+</dialog>
+
 <section>
   <div class="container two-col">
     <div>
@@ -680,7 +691,13 @@ section{ padding:88px 0; }
       <p>We provide residential and commercial tiling across Brisbane, the surrounding suburbs, and nearby cities. If you're not sure we cover your address, ask when you request a quote.</p>
       <a class="btn btn-outline" href="/service-area">See the full service area</a>
     </div>
-    <img class="service-image rounded-media" loading="lazy" decoding="async" src="/images/service-area.avif" alt="Ozghan tiling services across Brisbane and surrounding cities" style="width:100%; object-fit:cover; aspect-ratio:4/3;">
+    <div class="service-area-image">
+      @if($homeServiceAreaImage)
+      <img loading="lazy" decoding="async" src="{{ \Illuminate\Support\Str::startsWith($homeServiceAreaImage, ['services/', 'works/', 'areas/', 'content/']) ? '/storage/'.ltrim($homeServiceAreaImage, '/') : (\Illuminate\Support\Str::startsWith($homeServiceAreaImage, ['http://', 'https://']) ? $homeServiceAreaImage : asset(ltrim($homeServiceAreaImage, '/'))) }}" alt="Ozghan tiling services across Brisbane and surrounding cities">
+      @else
+      <img loading="lazy" decoding="async" src="/images/service-area.avif" alt="Ozghan tiling services across Brisbane and surrounding cities">
+      @endif
+    </div>
   </div>
 </section>
 
@@ -875,12 +892,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initQuoteModal();
   initContactForm();
+  initHomeWorkLightbox();
 });
 
 /* =========================================================
    Quote / booking modal — 4 step flow:
    1. service  2. address  3. date  4. email + phone -> confirm
    ========================================================= */
+function initHomeWorkLightbox() {
+  const lightbox = document.getElementById('home-work-lightbox');
+  if (!lightbox) return;
+  const image = lightbox.querySelector('img');
+  const close = lightbox.querySelector('.home-lightbox-close');
+
+  document.querySelectorAll('[data-home-lightbox]').forEach(card => {
+    card.addEventListener('click', event => {
+      const source = card.querySelector('img');
+      if (!source) return;
+      event.preventDefault();
+      image.src = source.src;
+      image.alt = source.alt;
+      lightbox.showModal();
+    });
+  });
+
+  close.addEventListener('click', () => lightbox.close());
+  lightbox.addEventListener('click', event => {
+    if (event.target === lightbox) lightbox.close();
+  });
+  lightbox.addEventListener('close', () => { image.removeAttribute('src'); });
+}
+
 function initQuoteModal() {
   const overlay = document.getElementById('quote-modal');
   if (!overlay) return;

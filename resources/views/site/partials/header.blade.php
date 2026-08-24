@@ -27,11 +27,10 @@
     </a>
     <nav id="primary-navigation" class="nav-links" aria-label="Primary">
       <a href="/" data-nav="home" @if(request()->is('/')) aria-current="page" @endif>Home</a>
-      <a href="/services#residential-tiling" data-nav="residential">Residential</a>
-      <a href="/services#commercial-tiling" data-nav="commercial">Commercial</a>
-      <a href="/service-area" data-nav="area" @if(request()->is('service-area')) aria-current="page" @endif>Service area</a>
+      <a href="/about" data-nav="about" @if(request()->is('about')) aria-current="page" @endif>About us</a>
       <a href="/our-work" data-nav="work" @if(request()->is('our-work*')) aria-current="page" @endif>Our work</a>
-      <a href="/about" data-nav="about" @if(request()->is('about')) aria-current="page" @endif>About</a>
+      <a href="/services" data-nav="services" @if(request()->is('services')) aria-current="page" @endif>Services</a>
+      <a href="/service-area" data-nav="area" @if(request()->is('service-area')) aria-current="page" @endif>Service area</a>
       <a href="/contact" data-nav="contact" @if(request()->is('contact')) aria-current="page" @endif>Contact</a>
     </nav>
     <div class="nav-cta">
