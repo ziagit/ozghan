@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
     <title>{{ $title ?? 'Ozghan Admin' }}</title>
     <style>
         :root{--ink:#23201c;--clay:#4091C5;--bg:#f2efea;--line:#d8d0c6}

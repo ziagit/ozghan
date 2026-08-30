@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
     <title>@yield('title', 'Ozghan Admin')</title>
     <style>
         :root{--ink:#23201c;--clay:#4091C5;--bg:#f2efea;--muted:#5b564f;--line:#d8d0c6;--white:#fff;--font-display:'Manrope',Arial,sans-serif;--font-body:'Manrope',Arial,sans-serif}

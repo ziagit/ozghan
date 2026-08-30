@@ -10,14 +10,19 @@ use Illuminate\Support\Str;
 
 class AdminAuthController extends Controller
 {
+    private function noIndex($view)
+    {
+        return response($view)->header('X-Robots-Tag', 'noindex, nofollow');
+    }
+
     public function create()
     {
-        return view('admin.login');
+        return $this->noIndex(view('admin.login'));
     }
 
     public function showForgotPasswordForm()
     {
-        return view('admin.forgot-password');
+        return $this->noIndex(view('admin.forgot-password'));
     }
 
     public function sendResetLinkEmail(Request $request)
@@ -32,10 +37,10 @@ class AdminAuthController extends Controller
 
     public function showResetForm(Request $request, string $token)
     {
-        return view('admin.reset-password', [
+        return $this->noIndex(view('admin.reset-password', [
             'token' => $token,
             'email' => $request->string('email')->toString(),
-        ]);
+        ]));
     }
 
     public function resetPassword(Request $request)

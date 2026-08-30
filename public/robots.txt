@@ -1,3 +1,6 @@
 User-agent: *
 Disallow: /admin
+# Allow crawlers to reach the login page so its noindex directive is honoured.
+Allow: /admin/login
+
 Sitemap: https://ozghan.com.au/sitemap.xml
