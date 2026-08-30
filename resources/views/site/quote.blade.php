@@ -783,7 +783,7 @@ section{ padding:88px 0; }
               <label for="quote-address">Property address <span class="hint">(required)</span></label>
               <input type="text" id="quote-address" name="address" placeholder="Street, suburb, postcode" required>
             </div>
-            <div class="field date-picker" id="date-picker"><label for="quote-date">Preferred date <span class="hint">(required)</span></label><input type="text" id="quote-date" name="date" placeholder="Select a date" autocomplete="off" readonly required aria-haspopup="dialog" aria-expanded="false"><div class="calendar-popover" id="calendar-popover" role="dialog" aria-label="Choose a preferred date"><div class="calendar-toolbar"><button type="button" class="calendar-nav" id="calendar-prev" aria-label="Previous month">&lsaquo;</button><strong id="calendar-label"></strong><button type="button" class="calendar-nav" id="calendar-next" aria-label="Next month">&rsaquo;</button></div><div class="calendar-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="calendar-grid" id="calendar-grid"></div></div></div><p class="option-error" id="quote-date-error" hidden aria-live="polite">Date is required.</p>
+            <div class="field date-picker" id="date-picker"><label for="quote-date">Preferred start date <span class="hint">(required)</span></label><input type="text" id="quote-date" name="date" placeholder="Select a date" autocomplete="off" readonly required aria-haspopup="dialog" aria-expanded="false" aria-describedby="quote-date-hint"><div class="calendar-popover" id="calendar-popover" role="dialog" aria-label="Choose a preferred start date"><div class="calendar-toolbar"><button type="button" class="calendar-nav" id="calendar-prev" aria-label="Previous month">&lsaquo;</button><strong id="calendar-label"></strong><button type="button" class="calendar-nav" id="calendar-next" aria-label="Next month">&rsaquo;</button></div><div class="calendar-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="calendar-grid" id="calendar-grid"></div></div><div class="hint" id="quote-date-hint">The date you'd like us to start the work. We'll confirm the schedule with you.</div></div><p class="option-error" id="quote-date-error" hidden aria-live="polite">Date is required.</p>
             <div class="modal-actions">
               <button type="button" class="btn btn-outline" data-back>Back</button>
               <button type="button" class="btn btn-primary" data-next>Next</button>
@@ -903,12 +903,22 @@ function initQuoteModal() {
     const servicePick = overlay.querySelector('.step[data-step="service"] .service-pick');
     if (servicePick && services.length) {
       servicePick.innerHTML = '';
-      services.forEach((service, index) => {
+      // Collapse services that resolve to the same visible label within the same
+      // project type + location (e.g. residential "Indoor Floor" vs commercial "Floor").
+      const seen = new Set();
+      services.forEach(service => {
+        const location = (service.category || 'indoor').toLowerCase();
+        const serviceType = (service.service_type || '').toLowerCase();
+        const text = formatServiceLabel(service.title);
+        const key = serviceType + '|' + location + '|' + text.toLowerCase();
+        if (seen.has(key)) return;
+        seen.add(key);
         const label = document.createElement('label');
-        label.dataset.location = service.category || 'indoor';
+        label.dataset.location = location;
+        if (serviceType) label.dataset.serviceType = serviceType;
         const input = document.createElement('input');
-        input.type = 'radio'; input.name = 'service'; input.value = service.title; input.required = index === 0;
-        label.append(input, document.createTextNode(' ' + formatServiceLabel(service.title)));
+        input.type = 'radio'; input.name = 'service'; input.value = service.title; input.required = seen.size === 1;
+        label.append(input, document.createTextNode(' ' + text));
         servicePick.appendChild(label);
       });
     }
@@ -1101,9 +1111,18 @@ function initQuoteModal() {
     renderCalendar();
   }
 
-  function filterServiceOptions(location) {
-    overlay.querySelectorAll('.service-pick label[data-location]').forEach(label => {
-      const visible = !location || label.dataset.location === location.toLowerCase();
+  function filterServiceOptions(location, projectType) {
+    const labels = Array.from(overlay.querySelectorAll('.service-pick label[data-location]'));
+    const matches = (label, useType) => {
+      const matchesLocation = !location || label.dataset.location === location.toLowerCase();
+      const matchesType = !useType || !projectType || !label.dataset.serviceType || label.dataset.serviceType === projectType.toLowerCase();
+      return matchesLocation && matchesType;
+    };
+    // Fall back to location-only filtering if no service matches the project type
+    // (e.g. a commercial + outdoor combination with no commercial outdoor services).
+    const useType = labels.some(label => matches(label, true));
+    labels.forEach(label => {
+      const visible = matches(label, useType);
       label.hidden = !visible;
       label.style.display = visible ? '' : 'none';
       if (!visible) { const input = label.querySelector('input'); if (input) input.checked = false; }
@@ -1111,7 +1130,7 @@ function initQuoteModal() {
   }
 
   function render() {
-    filterServiceOptions(state.projectLocation);
+    filterServiceOptions(state.projectLocation, state.projectType);
     steps.forEach((s, i) => s.classList.toggle('active', i === current));
     dots.forEach((d, i) => {
       d.classList.toggle('active', i === current);
@@ -1128,7 +1147,7 @@ function initQuoteModal() {
       <div><span>Project</span><strong>${state.projectType || '—'}${state.projectLocation ? ` — ${state.projectLocation}` : ''}</strong></div>
       <div><span>Commercial property</span><strong>${state.commercialType || '—'}</strong></div>
       <div><span>Address</span><strong>${state.address || '—'}</strong></div>
-      <div><span>Preferred date</span><strong>${state.date || '—'}</strong></div>
+      <div><span>Preferred start date</span><strong>${state.date || '—'}</strong></div>
       <div><span>Name</span><strong>${state.name || '—'}</strong></div>
       <div><span>Email</span><strong>${state.email || '—'}</strong></div>
       <div><span>Phone</span><strong>${state.phone || '—'}</strong></div>

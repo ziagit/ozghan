@@ -12,7 +12,7 @@
         <strong>Location:</strong> {{ $order->project_location ?: '—' }}<br>
         <strong>Commercial property:</strong> {{ $order->commercial_property_type ?: '—' }}<br>
         <strong>Address:</strong> {{ $order->address }}<br>
-        <strong>Preferred date:</strong> {{ $order->preferred_date?->format('d M Y') ?: '—' }}<br>
+        <strong>Preferred start date:</strong> {{ $order->preferred_date?->format('d M Y') ?: '—' }}<br>
         <strong>Estimated area:</strong> {{ $order->estimated_area ? $order->estimated_area.' m²' : '—' }}<br>
         <strong>Submitted:</strong> {{ $order->created_at?->format('d M Y, g:i a') ?: '—' }}
     </p>

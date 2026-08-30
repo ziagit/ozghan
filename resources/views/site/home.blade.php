@@ -202,7 +202,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height:100vh;
   background:
     linear-gradient(rgba(23,21,18,0.62), rgba(23,21,18,0.62)),
-    url('/images/ozghan.webp') center/cover no-repeat;
+    var(--hero-image, url('/images/ozghan.webp')) center/cover no-repeat;
 }
 .hero-inner{
   position:relative; z-index:2;
@@ -333,6 +333,9 @@ section{ padding:88px 0; }
   position:absolute; inset:0;
   background-image:repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0 2px, transparent 2px 28px);
 }
+/* Hide the placeholder hatch texture once a real photo is loaded. */
+.work-thumb:has(img)::after,
+.service-image:has(img)::after{ content:none; }
 .work-thumb-label{
   position:absolute; left:12px; bottom:12px; z-index:1;
   background:rgba(23,21,18,0.72); color:var(--bg);
@@ -557,7 +560,7 @@ section{ padding:88px 0; }
 @endif
 
 <main id="main">
-<section class="hero">
+<section class="hero"@if(!empty($homeHeroImage)) style="--hero-image:url('{{ $homeHeroImage }}')"@endif>
   <div class="container hero-inner">
     <div>
       <div class="hero-eyebrow">Brisbane &middot; Licensed Tilers</div>

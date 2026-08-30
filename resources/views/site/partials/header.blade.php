@@ -22,13 +22,13 @@
 <header class="site-header @if(request()->is('/')) site-header-home @endif">
   <div class="container nav">
     <a href="/" class="brand" aria-label="Ozghan.com.au home">
-      <img class="brand-mark brand-logo" src="/logo.png" alt="" width="30" height="30" decoding="async">
+      <img class="brand-mark brand-logo" src="{{ $siteLogoUrl ?? '/logo.png' }}" alt="" width="30" height="30" decoding="async">
       <span>Ozghan<small>TILING SERVICES</small></span>
     </a>
     <nav id="primary-navigation" class="nav-links" aria-label="Primary">
       <a href="/" data-nav="home" @if(request()->is('/')) aria-current="page" @endif>Home</a>
       <a href="/about" data-nav="about" @if(request()->is('about')) aria-current="page" @endif>About us</a>
-      <a href="/our-work" data-nav="work" @if(request()->is('our-work*')) aria-current="page" @endif>Our work</a>
+      <a href="/our-work" data-nav="work" @if(request()->is('our-work*')) aria-current="page" @endif>Our Latest Projects</a>
       <a href="/services" data-nav="services" @if(request()->is('services')) aria-current="page" @endif>Services</a>
       <a href="/service-area" data-nav="area" @if(request()->is('service-area')) aria-current="page" @endif>Service area</a>
       <a href="/contact" data-nav="contact" @if(request()->is('contact')) aria-current="page" @endif>Contact</a>

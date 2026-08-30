@@ -32,24 +32,34 @@ class AdminController extends Controller
         return view('admin.profile', ['user' => Auth::user()]);
     }
 
+    private const CONTENT_IMAGE_KEYS = [
+        'home_hero_image',
+        'home_service_area_image',
+        'about_image',
+        'site_logo',
+    ];
+
     public function content()
     {
-        $homeServiceAreaImage = ContentSetting::where('key', 'home_service_area_image')->value('value');
+        $content = ContentSetting::whereIn('key', self::CONTENT_IMAGE_KEYS)->pluck('value', 'key');
 
-        return view('admin.content', compact('homeServiceAreaImage'));
+        return view('admin.content', compact('content'));
     }
 
     public function updateContent(Request $request)
     {
-        $data = $request->validate([
-            'home_service_area_image' => ['required', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240'],
-        ]);
+        $rules = [];
+        foreach (self::CONTENT_IMAGE_KEYS as $key) {
+            $rules[$key] = ['nullable', 'file', 'mimetypes:image/jpeg,image/png,image/gif,image/webp,image/avif', 'max:10240'];
+        }
+        $request->validate($rules);
 
-        $path = $request->file('home_service_area_image')->store('content', 'public');
-        ContentSetting::updateOrCreate(
-            ['key' => 'home_service_area_image'],
-            ['value' => $path]
-        );
+        foreach (self::CONTENT_IMAGE_KEYS as $key) {
+            if ($request->hasFile($key)) {
+                $path = $request->file($key)->store('content', 'public');
+                ContentSetting::updateOrCreate(['key' => $key], ['value' => $path]);
+            }
+        }
 
         return back()->with('status', 'Content updated successfully.');
     }

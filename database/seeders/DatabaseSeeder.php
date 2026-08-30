@@ -28,5 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ServiceContentSeeder::class);
         $this->call(WorkImagesSeeder::class);
         $this->call(FaqSeeder::class);
+        $this->call(ContentSettingSeeder::class);
     }
 }

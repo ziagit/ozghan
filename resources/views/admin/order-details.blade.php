@@ -15,7 +15,7 @@
         <tr><th>Indoor/outdoor</th><td>{{ $order->project_location ?: '—' }}</td></tr>
         <tr><th>Commercial property</th><td>{{ $order->commercial_property_type ?: '—' }}</td></tr>
         <tr><th>Address</th><td>{{ $order->address }}</td></tr>
-        <tr><th>Preferred date</th><td>{{ optional($order->preferred_date)->format('d M Y') ?: '—' }}</td></tr>
+        <tr><th>Preferred start date</th><td>{{ optional($order->preferred_date)->format('d M Y') ?: '—' }}</td></tr>
         <tr><th>Estimated area</th><td>{{ $order->estimated_area ? $order->estimated_area.' m²' : '—' }}</td></tr>
         <tr><th>Provides materials</th><td>{{ $order->materials_provided ? 'Yes' : 'No' }}</td></tr>
         <tr><th>Tile size</th><td>{{ $order->tile_size ?: '—' }}</td></tr>

@@ -15,6 +15,10 @@ class SiteController extends Controller
     {
         try {
             $homeServices = TilingService::latest()->take(4)->get();
+            $homeHeroImage = ContentSetting::resolveUrl(
+                ContentSetting::where('key', 'home_hero_image')->value('value'),
+                asset('images/ozghan.webp')
+            );
             $homeServiceAreaImage = ContentSetting::where('key', 'home_service_area_image')->value('value');
             if (!$homeServiceAreaImage) {
                 $homeServiceAreaImage = ServiceArea::where('is_active', true)
@@ -34,9 +38,10 @@ class SiteController extends Controller
         } catch (\Throwable) {
             $homeServices = collect();
             $homeWorks = collect();
+            $homeHeroImage = asset('images/ozghan.webp');
             $homeServiceAreaImage = null;
         }
-        return view('site.home', compact('homeServices', 'homeWorks', 'homeServiceAreaImage'));
+        return view('site.home', compact('homeServices', 'homeWorks', 'homeHeroImage', 'homeServiceAreaImage'));
     }
 
     public function services()
